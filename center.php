@@ -116,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <span class="material-icons-sharp">apartment</span>
                         <h3>Center</h3>
                     </a>
-                    <a href="#" class="btn-evacuees">
+                    <a href="evacuees.php" class="btn-evacuees">
                         <span class="material-icons-sharp">group</span>
                         <h3>Evacuees</h3>
                     </a>
