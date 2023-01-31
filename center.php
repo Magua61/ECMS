@@ -25,7 +25,7 @@ $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 $Evacuee_ID = 1;
 if (!$Evacuee_ID) {
-  header('Location: index.php');
+  header('Location: center.php');
   exit;
 }
 
@@ -373,7 +373,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </div>
                           </div>
                 
-                        
+                          <div class="recent-updates">
+                <h2>Room Manager</h2>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Room_ID</th>
+                        <th scope="col">R_Name</th>
+                        <th scope="col">Classification</th>
+                        <th scope="col">R_Total_Capacity</th>
+                        <th scope="col">R_Current_Capacity</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    foreach ($center2 as $i => $evacuee2) :
+                    ?>
+                        <tr>
+                        <td scope="row"><?php echo $evacuee2['Room_ID'] ?></td>
+                        <td><?php echo $evacuee2['R_Name'] ?></td>
+                        <td><?php echo $evacuee2['Classification'] ?></td>
+                        <td><?php echo $evacuee2['R_Total_Capacity'] ?></td>
+                        <td><?php echo $evacuee2['R_Current_Capacity'] ?></td>
+
+                        <td>
+                            <!-- Edit button -->
+                            <a href="evacuee_update.php?Room_ID=<?php echo $evacuee2['Room_ID'] ?>" id="sub" class="btn btn-primary">Edit</a>
+
+                            
+                            <!-- Delete button -->
+                            <form style="display:inline-block" method="post" action="evacuee_delete.php">
+                            <input type="hidden" name="Room_ID" value="<?php echo $evacuee2['Room_ID'] ?>">
+                            <button type="submit">Delete</button>
+                            
+                            </form>
+                        </td>
+
+                        </tr>
+                    <?php
+                    endforeach;
+                    ?>
+
+                    </tbody>
+                </table>
+                <a href="#">Show All</a>
+            </div>           
             </div>
 
             
