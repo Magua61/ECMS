@@ -16,13 +16,14 @@ require_once "database.php";
 //     die("Connection failed: " . mysqli_connect_error());
 // }
 
-$sql = "SELECT * FROM evacuation_center";
+$sql = "CALL viewEvacuationCenter";
+// $sql = "CALL evacuation_center";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
 
-$sql2 = "SELECT * FROM room";
-$result2 = mysqli_query($conn, $sql2);
-$row2 = mysqli_fetch_assoc($result2);
+// $sql2 = "SELECT * FROM room";
+// $result2 = mysqli_query($conn, $sql2);
+// $row2 = mysqli_fetch_assoc($result2);
 
 
 
@@ -34,7 +35,9 @@ if (!$Evacuee_ID) {
 
 // you can use exec() but not good, only to make changes on database schema
 // to select
-$statement = $pdo->prepare('SELECT * FROM evacuation_center LIMIT 1; SELECT * FROM room');
+// $statement = $pdo->prepare('SELECT * FROM evacuation_center LIMIT 1; SELECT * FROM room');
+$statement = $pdo->prepare('CALL viewEvacuationCenter');
+
 $statement->execute();
 $center = $statement->fetchAll(PDO::FETCH_ASSOC);
 $statement = $pdo->prepare('SELECT * FROM room');
@@ -196,9 +199,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                         <div class="evac-capacity">
                             <span class= "material-icons-sharp">group</span>
-                            <!-- <h2><?php //echo $row['C_Current_Capacity'];?></h2> -->
+                            <h2><?php echo $row['C_Current_Capacity'];?></h2>
                             <h3 class="text-muted">/</h3>
-                            <h3 class="text-muted"><?php //echo $row['C_Total_Capacity'];?></h3>
+                            <h3 class="text-muted"><?php echo $row['C_Total_Capacity'];?></h3>
                         </div>
                     </div>
                 </div>

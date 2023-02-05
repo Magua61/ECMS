@@ -6,9 +6,17 @@ require_once "database.php";
 
 // you can use exec() but not good, only to make changes on database schema
 // to select                CALL addEvacuee(:First_Name, :Middle_Name, :Last_Name, :Sex, :Birthday, :Contact_No, :Household_ID);
-$statement = $pdo->prepare("
-                            CALL ViewEvacuee();
-            ");
+// $statement = $pdo->prepare("CALL ViewEvacuee();");
+
+// search function
+$search = $_GET['search'] ?? '';
+if ($search) {
+  $statement = $pdo->prepare('SELECT * FROM evacuee WHERE First_Name LIKE :First_Name');
+  $statement->bindValue(':First_Name', "%$search%");
+} else{
+  $statement = $pdo->prepare('CALL ViewEvacuee()');
+}
+
 $statement->execute();
 $evacuee = $statement->fetchAll(PDO::FETCH_ASSOC);
 
@@ -194,6 +202,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <div class="recent-updates">
                 <h2>Evacuees' Information</h2>
+                    <form>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" 
+                                placeholder="Search for Evacuee First Name" 
+                                name="search" value="<?php echo $search ?>">
+                        <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit">Search</button>
+                        </div>
+                    </div>
+                    </form>
                 <table class="table">
                     <thead>
                     <tr>
