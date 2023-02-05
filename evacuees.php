@@ -1,8 +1,8 @@
 <?php
 
 // <!-- create connection to database -->
-$pdo = new PDO('mysql:host=localhost;port=3306;dbname=db_evac_management_sys', 'root', '');
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+/** @var $pdo \PDO */
+require_once "database.php";
 
 // you can use exec() but not good, only to make changes on database schema
 // to select

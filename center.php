@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "db_evac_management_sys";
+$dbname = "db_evac_management_syss";
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 // Check connection
@@ -20,8 +20,8 @@ $result2 = mysqli_query($conn, $sql2);
 $row2 = mysqli_fetch_assoc($result2);
 
 // <!-- create connection to database -->
-$pdo = new PDO('mysql:host=localhost;port=3306;dbname=db_evac_management_sys', 'root', '');
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+/** @var $pdo \PDO */
+require_once "database.php";
 
 $Evacuee_ID = 1;
 if (!$Evacuee_ID) {
