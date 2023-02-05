@@ -9,6 +9,12 @@ $sql = "CALL viewEvacuationCenter";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
 
+$statement = $pdo->prepare('SELECT * FROM recent ORDER BY Recent_ID DESC LIMIT 5');
+$statement->execute();
+$recently = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+
+
 ?>
 <!DOCTYPE html>
 <head>
@@ -136,58 +142,30 @@ $row = mysqli_fetch_assoc($result);
 
                 <div class="recent-updates">
                     <h2>Recent Updates</h2>
-                    <table>
+                    <table class="table">
                         <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Address</th>
-                                <th>Age</th>
-                                <th>Sex</th>
-                                <th>Room</th>
-                                <th>Status</th>
-                            </tr>
+                        <tr>
+                            <th scope="col">Recent ID</th>
+                            <th scope="col">Transact ID</th>
+                            <th scope="col">Transact Type</th>
+                        </tr>
                         </thead>
                         <tbody>
+                        <?php
+                        foreach ($recently as $i => $r2) :
+                        ?>
                             <tr>
-                                <td>Samson, Anne Marie</td>
-                                <td>San Roque</td>
-                                <td>23</td>
-                                <td>Female</td>
-                                <td>Room 16</td>
-                                <td>Evacuated</td>
+                            <td><?php echo $r2['Recent_ID'] ?></td>
+                            <td><?php echo $r2['Transact_ID'] ?></td>
+                            <td><?php echo $r2['Transact_Type'] ?></td>
+
+                            
+
                             </tr>
-                            <tr>
-                                <td>Lee, John Mike</td>
-                                <td>Village East</td>
-                                <td>27</td>
-                                <td>Male</td>
-                                <td>Room 10</td>
-                                <td>Evacuated</td>
-                            </tr>
-                            <tr>
-                                <td>Collins, Adon</td>
-                                <td>San Fidel</td>
-                                <td>17</td>
-                                <td>Male</td>
-                                <td>Room 7</td>
-                                <td>Departed</td>
-                            </tr>
-                            <tr>
-                                <td>Santos, Desirie</td>
-                                <td>Santolan</td>
-                                <td>37</td>
-                                <td>Female</td>
-                                <td>Room 21</td>
-                                <td>Evacuated</td>
-                            </tr>
-                            <tr>
-                                <td>Santiago, Janna</td>
-                                <td>Pinagbuhatan</td>
-                                <td>25</td>
-                                <td>Female</td>
-                                <td>Room 15</td>
-                                <td>Evacuated</td>
-                            </tr>
+                        <?php
+                        endforeach;
+                        ?>
+
                         </tbody>
                     </table>
                     <a href="#">Show All</a>
