@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
 
                 <div class ="sidebar">
-                    <a href="index.html" class="btn-dashboard">
+                    <a href="index.php" class="btn-dashboard">
                         <span class="material-icons-sharp">grid_view</span>
                         <h3>Dashboard</h3>
                     </a>
@@ -120,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <span class="material-icons-sharp">group</span>
                         <h3>Evacuees</h3>
                     </a>
-                    <a href="#" class="btn-inventory">
+                    <a href="inventory.php" class="btn-inventory">
                         <span class="material-icons-sharp">inventory</span>
                         <h3>Inventory</h3>
                     </a>

@@ -1,78 +1,3 @@
-<?php
-
-// <!-- create connection to database -->
-/** @var $pdo \PDO */
-require_once "database.php";
-
-// you can use exec() but not good, only to make changes on database schema
-// to select
-$statement = $pdo->prepare('SELECT * FROM evacuee ORDER BY Evacuee_ID ASC');
-$statement->execute();
-$evacuee = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-// if FirstName is empty, throw error because it is required
-$errors = [];
-
-// solution when FirstName, etc is empty
-$First_Name = '';
-$Middle_Name = '';
-$Last_Name = '';
-$Sex = '';
-$Birthday = '';
-$Contact_No = '';
-$Household_ID = '';
-
-// show request method
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $First_Name = $_POST['First_Name'];
-  $Middle_Name = $_POST['Middle_Name'];
-  $Last_Name = $_POST['Last_Name'];
-  $Sex = $_POST['Sex'];
-  $Birthday = $_POST['Birthday'];
-  $Contact_No = $_POST['Contact_No'];
-  $Household_ID = $_POST['Household_ID'];
-
-
-  // if FirstName is empty, throw error because it is required
-  if (!$First_Name) {
-    $errors[] = 'Please enter your First Name';
-  }
-  if (!$Last_Name) {
-    $errors[] = 'Please enter your Last Name';
-  }
-  if (!$Sex) {
-    $errors[] = 'Please enter your Gender';
-  }
-  if (!$Contact_No) {
-    $errors[] = 'Please enter your Contact No';
-  }
-
-  // Only Submit to sql when it is not empty
-  if (empty($errors)) {
-
-    // double quotations are used so I can use variables in strings
-    // exec() instead of prepare() should be avoided because it is unsafe
-    // I created named parameters
-    $statement = $pdo->prepare("CALL addEvacuee(:First_Name, :Middle_Name, :Last_Name, :Sex, :Birthday, :Contact_No, :Household_ID);
-                                SELECT Household_ID FROM dagdaghh ORDER BY Household_ID ASC
-                  ");
-
-    $statement->bindValue(':First_Name', $First_Name);
-    $statement->bindValue(':Middle_Name', $Middle_Name);
-    $statement->bindValue(':Last_Name', $Last_Name);
-    $statement->bindValue(':Sex', $Sex);
-    $statement->bindValue(':Birthday', $Birthday);
-    $statement->bindValue(':Contact_No', $Contact_No);
-    $statement->bindValue(':Household_ID', $Household_ID);
-    $statement->execute();
-
-    // redirect user after creating
-    header('Location: evacuees.php');
-  }
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -106,15 +31,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <span class="material-icons-sharp">apartment</span>
                     <h3>Center</h3>
                 </a>
-                <a href="#" class="btn-evacuees active">
+                <a href="evacuees.php" class="btn-evacuees">
                     <span class="material-icons-sharp">group</span>
                     <h3>Evacuees</h3>
                 </a>
-                <a href="inventory.php" class="btn-inventory">
+                <a href="#" class="btn-inventory active">
                     <span class="material-icons-sharp">inventory</span>
                     <h3>Inventory</h3>
                 </a>
-                <a href="#" class="btn-settings">
+                <a href="inventory.php" class="btn-settings">
                     <span class="material-icons-sharp">settings</span>
                     <h3>Settings</h3>
                 </a>
@@ -128,116 +53,129 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <!===================== END OF ASIDE =======================!>
 
         <main>
-
-            <h1>Evacuee Manager</h1>
-            <div class="add-evacuees">
-                <h2>---Add Evacuees</h2>
-                <form action="evacuees.php" method="post" enctype="multipart/form-data">
-                <div class="add-evacuees-form">
-                    <div class="add-evacuees-row-1">
-                        <div class="firstname">
-                        <input type="text" name="First_Name" class="text-box" placeholder="Enter First Name" value="<?php echo $First_Name ?>">
-                        <h3 class="text-muted">First Name</h3>
-                        </div>
-
-                        <div class="middlename">
-                        <input type="text" name="Middle_Name" class="text-box" placeholder="Enter Middle Name" value="<?php echo $Middle_Name ?>">
-                        <h3 class="text-muted">Middle Name</h3>
-                        </div>
-
-                        <div class="lastname">
-                        <input type="text" name="Last_Name" class="text-box" placeholder="Enter Last Name" value="<?php echo $Last_Name ?>">
-                        <h3 class="text-muted">Last Name</h3>
-                        </div>
-                    </div>
-                    <div class="add-evacuees-row-2">
-                        <div>
-                        <input type="date" name="Birthday" class="text-box" value="<?php echo $Birthday ?>">
-                        <h3 class="text-muted">Birthday</h3>
-                        </div>
-                        
-                        <div>
-                        <select name="Sex" value="<?php echo $Sex ?>">
-                            <option value="M">Male</option>
-                            <option value="F">Female</option>
-                        </select>
-                        <h3 class="text-muted">Sex</h3>
-                        </div>
-                        <div>
-                        <input type="text" name="Contact_No" class="text-box" placeholder="Enter Contact" value="<?php echo $Contact_No ?>">
-                        <h3 class="text-muted">Contact No</h3>
-                        </div>
-                        <div class="household-field">
-                        <select name="Household_ID" value="<?php echo $Household_ID ?>"><br>
-                            <option value="HHOLD-0001">HHOLD-0001</option>
-                            <option value="HHOLD-0002">HHOLD-0002</option>
-                            <option value="HHOLD-0003">HHOLD-0004</option>
-                            <option value="HHOLD-0004">HHOLD-0005</option>
-                            <option value="HHOLD-0005">HHOLD-0006</option>
-                            <option value="HHOLD-0006">HHOLD-0006</option>
-                            <option value="HHOLD-0007">HHOLD-0007</option>
-                            <option value="HHOLD-0008">HHOLD-0008</option>
-                            <option value="HHOLD-0009">HHOLD-0009</option>
-                        </select>
-                        <h3 class="text-muted">Household ID</h3>
-                        </div>
-                    </div>
-                    <div class="add-evacuees-row-3">
-                        
-                        <button type="submit" id="sub" class="btn btn-primary">Submit</button>
-                        <a href="evacuees.php">Clear</a>
-                    </div>
-                </form>
-                </div>
+            <h1>Dashboard</h1>
+            <div class="date">
+                <script>
+                date = new Date().toLocaleDateString();
+                document.write(date);
+                </script>
             </div>
+            <div class="insights">
+                <!====================== CAPACITY ====================!>
+                <div class="cap">
+                    <span class= "material-icons-sharp">night_shelter</span>
+                    <div class="middle">
+                        <div class="left">
+                             <h3>Total Capacity</h3>
+                            <h1>854</h1>
+                        </div>
+                         <div class="progress">
+                             <svg>
+                                 <circle cx='40' cy="50" r="36"/>
+                            </svg>
+                             <div class="number">
+                                <p>81%</p>
+                             </div>
+                        </div>
+                    </div>
+                    <small class="text-muted">Last 24 Hours</small>
+                </div>
+                <!====================== EVACUEES ====================!>
+
+                <div class="evacuees">
+                    <span class= "material-icons-sharp">family_restroom</span>
+                    <div class="middle">
+                        <div class="left">
+                             <h3>Number of Families</h3>
+                            <h1>32</h1>
+                        </div>
+                         <div class="progress">
+                             <svg>
+                                 <circle cx='40' cy="50" r="36"/>
+                            </svg>
+                             <div class="number">
+                                <p>81%</p>
+                             </div>
+                        </div>
+                    </div>
+                    <small class="text-muted">Last 24 Hours</small>
+                </div>
+                <!====================== RELIEF ====================!>
+                <div class="inventory">
+                    <span class= "material-icons-sharp">food_bank</span>
+                    <div class="middle">
+                        <div class="left">
+                             <h3>Relief Packs</h3>
+                            <h1>1,523</h1>
+                        </div>
+                         <div class="progress">
+                             <svg>
+                                 <circle cx='40' cy="50" r="36"/>
+                            </svg>
+                             <div class="number">
+                                <p>65%</p>
+                             </div>
+                        </div>
+                    </div>
+                    <small class="text-muted">Last 24 Hours</small>
+                </div>
+                <!====================== CAPACITY ====================!>
+            </div>
+
             <div class="recent-updates">
-                <h2>Evacuees' Information</h2>
-                <table class="table">
+                <h2>Recent Updates</h2>
+                <table>
                     <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Full Name</th>
-                        <th scope="col">Sex</th>
-                        <th scope="col">Age</th>
-                        <th scope="col">Birthday</th>
-                        <th scope="col">Contact_No</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Household_ID</th>
-                        <th scope="col">Action</th>
-                    </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Age</th>
+                            <th>Sex</th>
+                            <th>Room</th>
+                            <th>Status</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <?php
-                    foreach ($evacuee as $i => $evacuee2) :
-                    ?>
                         <tr>
-                        <td scope="row"><?php echo $evacuee2['Evacuee_ID'] ?></td>
-                        <td><?php echo $evacuee2['Last_Name']; echo ", "; echo $evacuee2['First_Name']; echo " "; echo $evacuee2['Middle_Name']?></td>
-                        <td><?php echo $evacuee2['Sex'] ?></td>
-                        <td><?php echo $evacuee2['Age'] ?></td>
-                        <td><?php echo $evacuee2['Birthday'] ?></td>
-                        <td><?php echo $evacuee2['Contact_No'] ?></td>
-                        <td><?php echo $evacuee2['Evacuation_Status'] ?></td>
-                        <td><?php echo $evacuee2['Household_ID'] ?></td>
-
-                        <td>
-                            <!-- Edit button -->
-                            <a href="evacuee_update.php?Evacuee_ID=<?php echo $evacuee2['Evacuee_ID'] ?>" id="sub" class="btn btn-primary">Edit</a>
-
-                            
-                            <!-- Delete button -->
-                            <form style="display:inline-block" method="post" action="evacuee_delete.php">
-                            <input type="hidden" name="Evacuee_ID" value="<?php echo $evacuee2['Evacuee_ID'] ?>">
-                            <button type="submit">Delete</button>
-                            
-                            </form>
-                        </td>
-
+                            <td>Samson, Anne Marie</td>
+                            <td>San Roque</td>
+                            <td>23</td>
+                            <td>Female</td>
+                            <td>Room 16</td>
+                            <td>Evacuated</td>
                         </tr>
-                    <?php
-                    endforeach;
-                    ?>
-
+                        <tr>
+                            <td>Lee, John Mike</td>
+                            <td>Village East</td>
+                            <td>27</td>
+                            <td>Male</td>
+                            <td>Room 10</td>
+                            <td>Evacuated</td>
+                        </tr>
+                        <tr>
+                            <td>Collins, Adon</td>
+                            <td>San Fidel</td>
+                            <td>17</td>
+                            <td>Male</td>
+                            <td>Room 7</td>
+                            <td>Departed</td>
+                        </tr>
+                        <tr>
+                            <td>Santos, Desirie</td>
+                            <td>Santolan</td>
+                            <td>37</td>
+                            <td>Female</td>
+                            <td>Room 21</td>
+                            <td>Evacuated</td>
+                        </tr>
+                        <tr>
+                            <td>Santiago, Janna</td>
+                            <td>Pinagbuhatan</td>
+                            <td>25</td>
+                            <td>Female</td>
+                            <td>Room 15</td>
+                            <td>Evacuated</td>
+                        </tr>
                     </tbody>
                 </table>
                 <a href="#">Show All</a>
