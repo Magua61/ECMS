@@ -5,8 +5,10 @@
 require_once "database.php";
 
 // you can use exec() but not good, only to make changes on database schema
-// to select
-$statement = $pdo->prepare('SELECT * FROM evacuee ORDER BY Evacuee_ID ASC');
+// to select                CALL addEvacuee(:First_Name, :Middle_Name, :Last_Name, :Sex, :Birthday, :Contact_No, :Household_ID);
+$statement = $pdo->prepare("
+                            CALL ViewEvacuee();
+            ");
 $statement->execute();
 $evacuee = $statement->fetchAll(PDO::FETCH_ASSOC);
 
@@ -54,9 +56,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // exec() instead of prepare() should be avoided because it is unsafe
     // I created named parameters
     $statement = $pdo->prepare("CALL addEvacuee(:First_Name, :Middle_Name, :Last_Name, :Sex, :Birthday, :Contact_No, :Household_ID);
-                                SELECT Household_ID FROM dagdaghh ORDER BY Household_ID ASC
+                                
                   ");
-
+                //   SELECT Household_ID FROM dagdaghh ORDER BY Household_ID ASC
     $statement->bindValue(':First_Name', $First_Name);
     $statement->bindValue(':Middle_Name', $Middle_Name);
     $statement->bindValue(':Last_Name', $Last_Name);
