@@ -9,6 +9,14 @@ $sql = "CALL viewEvacuationCenter";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
 
+// Household Count
+$sql2 = "SELECT * from household";
+if ($result2 = mysqli_query($conn2, $sql2)) {
+    // Return the number of rows in result set
+    $rowcount = mysqli_num_rows( $result2 );
+ }
+
+// Recent
 $statement = $pdo->prepare('SELECT * FROM recent ORDER BY Recent_ID DESC LIMIT 5');
 $statement->execute();
 $recently = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -105,7 +113,7 @@ $recently = $statement->fetchAll(PDO::FETCH_ASSOC);
                         <div class="middle">
                             <div class="left">
                                  <h3>Number of Families</h3>
-                                <h1>32</h1>
+                                <h1><?php echo $rowcount; ?></h1>
                             </div>
                              <div class="progress">
                                  <svg>
