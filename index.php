@@ -1,3 +1,12 @@
+<?php 
+
+// <!-- create connection to database -->
+/** @var $pdo \PDO */
+require_once "database.php";
+
+
+
+?>
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">

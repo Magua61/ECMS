@@ -1,15 +1,20 @@
 <?php
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "db_evac_management_syss";
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
+// <!-- create connection to database -->
+/** @var $pdo \PDO */
+/** @var $conn \PDO */
+require_once "database.php";
+
+// $servername = "localhost";
+// $username = "root";
+// $password = "";
+// $dbname = "db_evac_management_syss";
+// // Create connection
+// $conn = mysqli_connect($servername, $username, $password, $dbname);
+// // Check connection
+// if (!$conn) {
+//     die("Connection failed: " . mysqli_connect_error());
+// }
 
 $sql = "SELECT * FROM evacuation_center";
 $result = mysqli_query($conn, $sql);
@@ -19,9 +24,7 @@ $sql2 = "SELECT * FROM room";
 $result2 = mysqli_query($conn, $sql2);
 $row2 = mysqli_fetch_assoc($result2);
 
-// <!-- create connection to database -->
-/** @var $pdo \PDO */
-require_once "database.php";
+
 
 $Evacuee_ID = 1;
 if (!$Evacuee_ID) {
@@ -44,7 +47,7 @@ $errors = [];
 // solution when Name etch is empty
 $C_Name = $row['C_Name'];
 $C_Address = $row['C_Address'];
-$C_Total_Capacity = $row['C_Total_Capacity'];
+// $C_Total_Capacity = $row['C_Total_Capacity'];
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -53,7 +56,7 @@ $C_Total_Capacity = $row['C_Total_Capacity'];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $C_Name = $_POST['C_Name'];
   $C_Address = $_POST['C_Address'];
-  $C_Total_Capacity = $_POST['C_Total_Capacity'];
+//   $C_Total_Capacity = $_POST['C_Total_Capacity'];
 
   // if Name is empty, throw error because it is required
   if (!$C_Name) {
@@ -62,24 +65,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if (!$C_Address) {
     $errors[] = 'Please Enter Address';
   }
-  if (!$C_Total_Capacity) {
-    $errors[] = 'Please Enter Total Capacity';
-  }
+//   if (!$C_Total_Capacity) {
+//     $errors[] = 'Please Enter Total Capacity';
+//   }
 
   // Only Submit to sql when it is not empty
   if (empty($errors)) {
-
+                                // C_Total_Capacity = :C_Total_Capacity
     $statement = $pdo->prepare("
                                 UPDATE evacuation_center SET C_Name = :C_Name, 
-                                C_Address = :C_Address, 
-                                C_Total_Capacity = :C_Total_Capacity WHERE Center_ID = 1");
+                                C_Address = :C_Address WHERE Center_ID = 'EC-0001'");
     $statement->bindValue(':C_Name', $C_Name);
     $statement->bindValue(':C_Address', $C_Address);
-    $statement->bindValue(':C_Total_Capacity', $C_Total_Capacity);
+    // $statement->bindValue(':C_Total_Capacity', $C_Total_Capacity);
     $statement->execute();
 
     // redirect user after creating
-    header('Location: index.php');
+    header('Location: center.php');
   }
 }
 
@@ -173,10 +175,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         <input type="text" name="C_Address" class="text-box" value="<?php echo $C_Address ?>">
                                     
                                     
-                                        <h3>Total Capacity</h3>
+                                        <!-- <h3>Total Capacity</h3>
                                         <!-- In case cpNumber is not indicated, reshow the Name -->
-                                        <input type="number" name="C_Total_Capacity" class="text-box" value="<?php echo $C_Total_Capacity ?>">
-                                        <br><br><br>
+                                        <!-- <input type="number" name="C_Total_Capacity" class="text-box" value="<?php //echo $C_Total_Capacity ?>"> -->
+                                        <br><br><br> -->
                                     
 
                                     <a href="index.php" id="back" class="btn btn-sm btn-danger">Back</a>   
@@ -194,9 +196,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                         <div class="evac-capacity">
                             <span class= "material-icons-sharp">group</span>
-                            <h2><?php echo $row['C_Current_Capacity'];?></h2>
+                            <!-- <h2><?php //echo $row['C_Current_Capacity'];?></h2> -->
                             <h3 class="text-muted">/</h3>
-                            <h3 class="text-muted"><?php echo $row['C_Total_Capacity'];?></h3>
+                            <h3 class="text-muted"><?php //echo $row['C_Total_Capacity'];?></h3>
                         </div>
                     </div>
                 </div>
@@ -380,9 +382,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <tr>
                         <th scope="col">Room_ID</th>
                         <th scope="col">R_Name</th>
-                        <th scope="col">Classification</th>
+                        <th scope="col">Area_ID</th>
                         <th scope="col">R_Total_Capacity</th>
-                        <th scope="col">R_Current_Capacity</th>
+                        <!-- <th scope="col">R_Current_Capacity</th> -->
                         <th scope="col">Action</th>
                     </tr>
                     </thead>
@@ -393,9 +395,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <tr>
                         <td scope="row"><?php echo $evacuee2['Room_ID'] ?></td>
                         <td><?php echo $evacuee2['R_Name'] ?></td>
-                        <td><?php echo $evacuee2['Classification'] ?></td>
+                        <td><?php echo $evacuee2['Area_ID'] ?></td>
                         <td><?php echo $evacuee2['R_Total_Capacity'] ?></td>
-                        <td><?php echo $evacuee2['R_Current_Capacity'] ?></td>
+                        <!-- <td><?php //echo $evacuee2['R_Current_Capacity'] ?></td> -->
 
                         <td>
                             <!-- Edit button -->
