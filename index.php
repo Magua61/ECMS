@@ -4,7 +4,10 @@
 /** @var $pdo \PDO */
 require_once "database.php";
 
-
+// Evacuation center
+$sql = "CALL viewEvacuationCenter";
+$result = mysqli_query($conn, $sql);
+$row = mysqli_fetch_assoc($result);
 
 ?>
 <!DOCTYPE html>
@@ -76,7 +79,7 @@ require_once "database.php";
                         <div class="middle">
                             <div class="left">
                                  <h3>Total Capacity</h3>
-                                <h1>854</h1>
+                                <h1><?php echo $row['C_Current_Capacity'];?></h1>
                             </div>
                              <div class="progress">
                                  <svg>

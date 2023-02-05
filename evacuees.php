@@ -209,6 +209,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 name="search" value="<?php echo $search ?>">
                         <div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="submit">Search</button>
+                        <button class="btn btn-outline-secondary" type="submit" style="float: right;">View By Household</button>
                         </div>
                     </div>
                     </form>
