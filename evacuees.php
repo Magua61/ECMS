@@ -11,7 +11,7 @@ require_once "database.php";
 // search function
 $search = $_GET['search'] ?? '';
 if ($search) {
-  $statement = $pdo->prepare('SELECT * FROM evacuee WHERE First_Name LIKE :First_Name');
+  $statement = $pdo->prepare('call searchEvacuee(:First_Name)');
   $statement->bindValue(':First_Name', "%$search%");
 } else{
   $statement = $pdo->prepare('CALL ViewEvacuee()');
@@ -205,7 +205,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <form>
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" 
-                                placeholder="Search for Evacuee First Name" 
+                                placeholder="Search for Evacuee Full Name" 
                                 name="search" value="<?php echo $search ?>">
                         <div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="submit">Search</button>
