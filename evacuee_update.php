@@ -65,7 +65,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Only Submit to sql when it is not empty
   if (empty($errors)) {
 
-    $statement = $pdo->prepare("CALL updateEvacuee(:First_Name, :Middle_Name, :Last_Name, :Sex, :Birthday, :Contact_No, :Household_ID, :Evacuation_Status, :Evacuee_ID);");
+    $statement = $pdo->prepare("CALL updateEvacuee(:Evacuee_ID, :First_Name, :Middle_Name, :Last_Name, :Sex, :Birthday, :Contact_No, :Household_ID, :Evacuation_Status);");
+    $statement->bindValue(':Evacuee_ID', $Evacuee_ID);
     $statement->bindValue(':First_Name', $First_Name);
     $statement->bindValue(':Middle_Name', $Middle_Name);
     $statement->bindValue(':Last_Name', $Last_Name);
@@ -74,7 +75,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $statement->bindValue(':Contact_No', $Contact_No);
     $statement->bindValue(':Household_ID', $Household_ID);
     $statement->bindValue(':Evacuation_Status', $Evacuation_Status);
-    $statement->bindValue(':Evacuee_ID', $Evacuee_ID);
     $statement->execute();
 
     // redirect user after creating
