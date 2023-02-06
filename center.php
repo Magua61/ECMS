@@ -230,13 +230,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <h4 class="room-detail">Details</h4>
                         </div>
                     </div>
-                    <?php endforeach;?>
-                    <div class="room-card-add">
-                        <span class= "material-icons-sharp">add</span>
-                        <h3>Add a Room</h3>
-                    </div>
-                </div>
-                <div class="modal" id="modal-room-info">
+                    <div class="modal" id="modal-room-info">
                             <div class="modal-header">
                                 
                               <div class="title"><span class= "material-icons-sharp">edit</span>
@@ -265,7 +259,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <!-- modal-body -->
                             </div>
                           <!-- modal -->
-                          </div>
+                    </div>
+                <?php endforeach;?>
+                    <div class="room-card-add">
+                        <span class= "material-icons-sharp">add</span>
+                        <h3>Add a Room</h3>
+                    </div>
+                </div>
+                
                 
                           <div class="recent-updates">
                 <h2>Room Manager</h2>
