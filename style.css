@@ -1078,9 +1078,9 @@ main .add-evacuees .add-evacuees-form .add-evacuees-row-3 .txt-address .text-box
     width:30rem;
 }
 
-main .add-evacuees .add-evacuees-form .add-evacuees-row-3 .household-field .txt-household {
-    width:20rem;
-    height: 3rem;
+.recent-announcements .add-evacuees-form .txt-household {
+    width:12rem;
+    height: 2rem;
     font-family: poppins, sans-serif;
     font-size: 1rem;
     background: var(--color-light);
@@ -1088,4 +1088,86 @@ main .add-evacuees .add-evacuees-form .add-evacuees-row-3 .household-field .txt-
     margin-top: 1rem;
     padding: 0.5rem 1.6rem;
     color: var(--color-dark);
+    text-align: center;
+}
+.recent-announcements .add-evacuees-form{
+    text-align: center;
+}
+.recent-announcements .add-evacuees-form .add-evacuees-row{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    gap:1rem;
+}
+
+.recent-announcements .add-evacuees-form .text-box{
+    width:10rem;
+    height: 2rem;
+    font-family: poppins, sans-serif;
+    font-size: 1rem;
+    display: inline-block;
+    background: var(--color-light);
+    border-radius: var(--border-radius-1);
+
+    padding: 0.5rem 1.6rem;
+    color: var(--color-dark);
+}
+.recent-announcements .add-evacuees-form .add-evacuees-row .text-box{
+    width:6rem;
+    height: 2rem;
+    font-family: poppins, sans-serif;
+    font-size: 1rem;
+    display: inline-block;
+    background: var(--color-light);
+    border-radius: var(--border-radius-1);
+
+    padding: 0.5rem 1.6rem;
+    color: var(--color-dark);
+}
+
+
+
+.recent-announcements .add-items-form {
+    align-items: center;
+    text-align: center;
+}
+.recent-announcements .add-items-form .add-items-row-3{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap:1rem;
+}
+
+.recent-announcements .add-items-form .text-box{
+    width:10rem;
+    height: 2rem;
+    font-family: poppins, sans-serif;
+    font-size: 1rem;
+    display: inline-block;
+    background: var(--color-light);
+    border-radius: var(--border-radius-1);
+
+    padding: 0.5rem 1.6rem;
+    color: var(--color-dark);
+}
+
+
+
+.recent-announcements .relief-packing-form .txt-item {
+    width:12rem;
+    height: 2rem;
+    font-family: poppins, sans-serif;
+    font-size: 1rem;
+    background: var(--color-light);
+    border-radius: var(--border-radius-1);
+    margin-top: 1rem;
+    padding: 0.5rem 1.6rem;
+    color: var(--color-dark);
+    text-align: center;
+}
+
+.recent-announcements .relief-packing-form{
+    align-items: center;
+    text-align: center;
 }
