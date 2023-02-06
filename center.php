@@ -209,11 +209,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
              <div class="rooms">
                 <h2>Room Manager</h2>
                 <div class="room-manager">
+                <?php foreach ($center2 as $i => $r2) :?>
                     <div class="room-card">
                         <div class="room-head">
                             <div class="room-head-name">
-                            <h3 id="room-name" >Room 1</h3>
-                            <h4 id="room-id" class="text-muted">#123456</h4>
+                            <h3 id="room-name" ><?php echo $r2['R_Name'] ?></h3>
+                            <h4 id="room-id" class="text-muted"><?php echo $r2['Room_ID'] ?></h4>
                             </div>
                             <button data-modal-target="#modal-room-info" class="edit-btn edit-123456">
                             <span class= "material-icons-sharp">edit</span>
@@ -224,131 +225,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <span class= "material-icons-sharp">group</span>
                             <h3>27</h3>
                             <h4 class="text-muted">/</h4>
-                            <h4 class="text-muted">35</h4>
+                            <h4 class="text-muted"><?php echo $r2['R_Total_Capacity'] ?></h4>
                             </div>
                             <h4 class="room-detail">Details</h4>
                         </div>
                     </div>
-                    <div class="room-card">
-                        <div class="room-head">
-                            <div class="room-head-name">
-                            <h3 id="room-name" >Room 2</h3>
-                            <h4 id="room-id" class="text-muted">#123456</h4>
-                            </div>
-                            <button data-modal-target="#modal-room-info" class="edit-btn edit-123456">
-                            <span class= "material-icons-sharp">edit</span>
-                            </button>
-                        </div>
-                        <div class="room-body">
-                            <div class="room-capacity">
-                            <span class= "material-icons-sharp">group</span>
-                            <h3>27</h3>
-                            <h4 class="text-muted">/</h4>
-                            <h4 class="text-muted">35</h4>
-                        </div>
-                        <h4 class="room-detail">Details</h4>
-                        </div>
-                    </div>
-                    <div class="room-card">
-                        <div class="room-head">
-                            <div class="room-head-name">
-                            <h3 id="room-name" >Room 3</h3>
-                            <h4 id="room-id" class="text-muted">#123456</h4>
-                            </div>
-                            <button data-modal-target="#modal-room-info" class="edit-btn edit-123456">
-                            <span class= "material-icons-sharp">edit</span>
-                            </button>
-                        </div>
-                        <div class="room-body">
-                            <div class="room-capacity">
-                            <span class= "material-icons-sharp">group</span>
-                            <h3>27</h3>
-                            <h4 class="text-muted">/</h4>
-                            <h4 class="text-muted">35</h4>
-                        </div>
-                        <h4 class="room-detail">Details</h4>
-                        </div>
-                    </div>
-                    <div class="room-card">
-                        <div class="room-head">
-                            <div class="room-head-name">
-                            <h3 id="room-name" >Room 4</h3>
-                            <h4 id="room-id" class="text-muted">#123456</h4>
-                            </div>
-                            <button data-modal-target="#modal-room-info" class="edit-btn edit-123456">
-                            <span class= "material-icons-sharp">edit</span>
-                            </button>
-                        </div>
-                        <div class="room-body">
-                            <div class="room-capacity">
-                            <span class= "material-icons-sharp">group</span>
-                            <h3>27</h3>
-                            <h4 class="text-muted">/</h4>
-                            <h4 class="text-muted">35</h4>
-                        </div>
-                        <h4 class="room-detail">Details</h4>
-                        </div>
-                    </div>
-                    <div class="room-card">
-                        <div class="room-head">
-                            <div class="room-head-name">
-                            <h3 id="room-name" >Room 5</h3>
-                            <h4 id="room-id" class="text-muted">#123456</h4>
-                            </div>
-                            <button data-modal-target="#modal-room-info" class="edit-btn edit-123456">
-                            <span class= "material-icons-sharp">edit</span>
-                            </button>
-                        </div>
-                        <div class="room-body">
-                            <div class="room-capacity">
-                            <span class= "material-icons-sharp">group</span>
-                            <h3>27</h3>
-                            <h4 class="text-muted">/</h4>
-                            <h4 class="text-muted">35</h4>
-                        </div>
-                        <h4 class="room-detail">Details</h4>
-                        </div>
-                    </div>
-                    <div class="room-card">
-                        <div class="room-head">
-                            <div class="room-head-name">
-                            <h3 id="room-name" >Room 6</h3>
-                            <h4 id="room-id" class="text-muted">#123456</h4>
-                            </div>
-                            <button data-modal-target="#modal-room-info" class="edit-btn edit-123456">
-                            <span class= "material-icons-sharp">edit</span>
-                            </button>
-                        </div>
-                        <div class="room-body">
-                            <div class="room-capacity">
-                            <span class= "material-icons-sharp">group</span>
-                            <h3>27</h3>
-                            <h4 class="text-muted">/</h4>
-                            <h4 class="text-muted">35</h4>
-                        </div>
-                        <h4 class="room-detail">Details</h4>
-                        </div>
-                    </div>
-                    <div class="room-card">
-                        <div class="room-head">
-                            <div class="room-head-name">
-                            <h3 id="room-name" >Room 7</h3>
-                            <h4 id="room-id" class="text-muted">#123456</h4>
-                            </div>
-                            <button data-modal-target="#modal-room-info" class="edit-btn edit-123456">
-                            <span class= "material-icons-sharp">edit</span>
-                            </button>
-                        </div>
-                        <div class="room-body">
-                            <div class="room-capacity">
-                            <span class= "material-icons-sharp">group</span>
-                            <h3>27</h3>
-                            <h4 class="text-muted">/</h4>
-                            <h4 class="text-muted">35</h4>
-                        </div>
-                        <h4 class="room-detail">Details</h4>
-                        </div>
-                    </div>
+                    <?php endforeach;?>
                     <div class="room-card-add">
                         <span class= "material-icons-sharp">add</span>
                         <h3>Add a Room</h3>
@@ -359,8 +241,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 
                               <div class="title"><span class= "material-icons-sharp">edit</span>
                                 <h2>Edit Room</h2>
-                                <h3 class="text-muted" id="room-id-edit">number</h3></div>
+                                <h3 class="text-muted" id="room-id-edit">number</h3>
+                              <!-- title -->
+                              </div>
                               <button data-close-button class="close-button"><span class="material-icons-sharp">close</span></button>
+                            <!-- modal-header -->
                             </div>
                             <div class="modal-body">
                                 <div class="modal-body-input">
@@ -370,12 +255,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <input type="text" name="address" placeholder="Enter Address" class="text-box">
                                 <h3>Total Capacity</h3>
                                 <input type="number" name="capacity" placeholder="Enter Capacity" class="text-box">
+                                <!-- modal-body-input -->
                                 </div>
                                 <div class="modal-buttons">
                                     <button class="submit">Submit</button>
                                     <button class="cancel">Cancel</button>
+                                <!-- modal buttons -->
                                 </div>
+                            <!-- modal-body -->
                             </div>
+                          <!-- modal -->
                           </div>
                 
                           <div class="recent-updates">
