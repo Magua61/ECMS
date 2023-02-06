@@ -195,7 +195,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="add-evacuees-row-3">
                         <div class="household-field">
                             <select name="Household_ID" value="<?php echo $Evacuation_Status ?>"><br>
-                                <option value="EVACUATED">EVACUATED</option>
+                                <option value="Evacuated">Evacuated</option>
                                 <option value="DEPARTED">DEPARTED</option>
                                 <option value="DIED">DIED</option>
                             </select>

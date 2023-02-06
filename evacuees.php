@@ -14,7 +14,7 @@ if ($search) {
   $statement = $pdo->prepare('call searchEvacuee(:First_Name)');
   $statement->bindValue(':First_Name', "%$search%");
 } else{
-  $statement = $pdo->prepare('CALL ViewEvacuee()');
+  $statement = $pdo->prepare('CALL viewEvacueeJoinHousehold');
 }
 
 $statement->execute();
@@ -220,8 +220,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <th scope="col">Full Name</th>
                         <th scope="col">Sex</th>
                         <th scope="col">Age</th>
-                        <th scope="col">Birthday</th>
-                        <th scope="col">Contact_No</th>
+                        <!-- <th scope="col">Contact_No</th> -->
                         <th scope="col">Status</th>
                         <th scope="col">Household_ID</th>
                         <th scope="col">Action</th>
@@ -233,11 +232,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ?>
                         <tr>
                         <td scope="row"><?php echo $evacuee2['Evacuee_ID'] ?></td>
-                        <td><?php echo $evacuee2['Last_Name']; echo ", "; echo $evacuee2['First_Name']; echo " "; echo $evacuee2['Middle_Name']?></td>
+                        <td><?php echo $evacuee2['Full_Name'];?></td>
                         <td><?php echo $evacuee2['Sex'] ?></td>
                         <td><?php echo $evacuee2['Age'] ?></td>
-                        <td><?php echo $evacuee2['Birthday'] ?></td>
-                        <td><?php echo $evacuee2['Contact_No'] ?></td>
+                        <!-- <td><?php echo $evacuee2['Contact_No'] ?></td> -->
                         <td><?php echo $evacuee2['Evacuation_Status'] ?></td>
                         <td><?php echo $evacuee2['Household_ID'] ?></td>
 
