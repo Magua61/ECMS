@@ -27,11 +27,12 @@ $row = mysqli_fetch_assoc($result);
 
 
 
-$Evacuee_ID = 1;
-if (!$Evacuee_ID) {
-  header('Location: center.php');
-  exit;
-}
+// $Evacuee_ID = 1;
+// if (!$Evacuee_ID) {
+//   header('Location: center.php');
+//   exit;
+// }
+
 
 // you can use exec() but not good, only to make changes on database schema
 // to select
@@ -209,12 +210,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
              <div class="rooms">
                 <h2>Room Manager</h2>
                 <div class="room-manager">
-                <?php foreach ($center2 as $i => $r2) :?>
+                <?php foreach ($center2 as $i => $croom) :?>
                     <div class="room-card">
                         <div class="room-head">
                             <div class="room-head-name">
-                            <h3 id="room-name" ><?php echo $r2['R_Name'] ?></h3>
-                            <h4 id="room-id" class="text-muted"><?php echo $r2['Room_ID'] ?></h4>
+                            <h3 id="room-name" ><?php echo $croom['R_Name'] ?></h3>
+                            <h4 id="room-id" class="text-muted"><?php echo $croom['Room_ID'] ?></h4>
                             </div>
                             <button data-modal-target="#modal-room-info" class="edit-btn edit-123456">
                             <span class= "material-icons-sharp">edit</span>
@@ -225,7 +226,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <span class= "material-icons-sharp">group</span>
                             <h3>27</h3>
                             <h4 class="text-muted">/</h4>
-                            <h4 class="text-muted"><?php echo $r2['R_Total_Capacity'] ?></h4>
+                            <h4 class="text-muted"><?php echo $croom['R_Total_Capacity'] ?></h4>
                             </div>
                             <h4 class="room-detail">Details</h4>
                         </div>
@@ -235,7 +236,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 
                               <div class="title"><span class= "material-icons-sharp">edit</span>
                                 <h2>Edit Room</h2>
-                                <h3 class="text-muted" id="room-id-edit">number</h3>
+                                <h3 class="text-muted" id="room-id-edit"><?php echo $croom['Room_ID']?></h3>
                               <!-- title -->
                               </div>
                               <button data-close-button class="close-button"><span class="material-icons-sharp">close</span></button>
@@ -244,7 +245,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <div class="modal-body">
                                 <div class="modal-body-input">
                                 <h3>Room Name</h3>
-                                <input type="text" name="name" placeholder="Enter Name" class="text-box">
+                                <input type="text" name="name" placeholder="<?php echo $croom['Room_ID']?>" class="text-box">
                                 <h3>Location</h3>
                                 <input type="text" name="address" placeholder="Enter Address" class="text-box">
                                 <h3>Total Capacity</h3>
@@ -294,11 +295,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <td>
                             <!-- Edit button -->
-                            <a href="evacuee_update.php?Room_ID=<?php echo $evacuee2['Room_ID'] ?>" id="sub" class="btn btn-primary">Edit</a>
+                            <a href="room_update.php?Room_ID=<?php echo $evacuee2['Room_ID'] ?>" id="sub" class="btn btn-primary">Edit</a>
 
                             
                             <!-- Delete button -->
-                            <form style="display:inline-block" method="post" action="evacuee_delete.php">
+                            <form style="display:inline-block" method="post" action="room_delete.php">
                             <input type="hidden" name="Room_ID" value="<?php echo $evacuee2['Room_ID'] ?>">
                             <button type="submit">Delete</button>
                             

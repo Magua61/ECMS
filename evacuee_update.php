@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   // Only Submit to sql when it is not empty
   if (empty($errors)) {
-
+    // CALL updateEvacuee('EVAC-0021', 'Hello', 'Hello', 'Hello', 'M', '2005-12-25', '09999999999', 'HHOLD-0005', 'Evacuated');
     $statement = $pdo->prepare("CALL updateEvacuee(:Evacuee_ID, :First_Name, :Middle_Name, :Last_Name, :Sex, :Birthday, :Contact_No, :Household_ID, :Evacuation_Status);");
     $statement->bindValue(':Evacuee_ID', $Evacuee_ID);
     $statement->bindValue(':First_Name', $First_Name);
