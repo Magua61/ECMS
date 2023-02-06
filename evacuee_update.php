@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $statement->execute();
 
     // redirect user after creating
-    header('Location: index.php');
+    header('Location: evacuees.php');
   }
 }
 ?>
