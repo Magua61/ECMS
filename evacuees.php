@@ -36,6 +36,7 @@ $household = $statement2->fetchAll(PDO::FETCH_ASSOC);
 // if FirstName is empty, throw error because it is required
 $errors = [];
 
+// Create Evacuee
 // solution when FirstName, etc is empty
 $First_Name = '';
 $Middle_Name = '';
@@ -94,6 +95,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 }
 
+// Create Household
+// if FirstName is empty, throw error because it is required
+$errors2 = [];
+// solution when FirstName, etc is empty
+$Address = '';
+$Family_Head = '';
+$Room_ID = '';
+$Date_Evacuated = '';
+
+// show request method
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $Address = $_POST['Address'];
+  $Family_Head = $_POST['Family_Head'];
+  $Room_ID = $_POST['Room_ID'];
+  $Date_Evacuated = $_POST['Date_Evacuated'];
+  
+
+  // if FirstName is empty, throw error because it is required
+  if (!$Address) {
+    $errors[] = 'Please enter Address';
+  }
+  if (!$Date_Evacuated) {
+    $errors[] = 'Please enter Date_Evacuated';
+  }
+  if (!$Room_ID) {
+    $errors[] = 'Please enter Room_ID';
+  }
+
+
+  // Only Submit to sql when it is not empty
+  if (empty($errors2)) {
+
+    // double quotations are used so I can use variables in strings
+    // exec() instead of prepare() should be avoided because it is unsafe
+    // I created named parameters
+    // CALL addHousehold('Dolores', NULL, 'RM-002', '2023-02-14');
+    $statement2 = $pdo->prepare("CALL addEvacuee(:Address, :Family_Head, :Room_ID, :Date_Evacuated);
+                  ");
+
+    $statement2->bindValue(':Address', $Address);
+    $statement2->bindValue(':Family_Head', $Family_Head);
+    $statement2->bindValue(':Room_ID', $Room_ID);
+    $statement2->bindValue(':Date_Evacuated', $Date_Evacuated);
+    $statement2->execute();
+
+    // redirect user after creating
+    header('Location: evacuees.php');
+  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -256,11 +306,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <td>
                             <!-- Edit button -->
-                            <a href="evacuee_update.php?Household_ID=<?php echo $hh['Household_ID'] ?>" id="sub" class="btn btn-primary">Edit</a>
+                            <a href="household_update.php?Household_ID=<?php echo $hh['Household_ID'] ?>" id="sub" class="btn btn-primary">Edit</a>
 
                             
                             <!-- Delete button -->
-                            <form style="display:inline-block" method="post" action="evacuee_delete.php">
+                            <form style="display:inline-block" method="post" action="household_delete.php">
                             <input type="hidden" name="Household_ID" value="<?php echo $hh['Household_ID'] ?>">
                             <button type="submit">Delete</button>
                             
@@ -434,24 +484,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <! ------------------ End of Add Evacuees ---------------- !>
             <! ---------------- End of Announcements ---------------- !>
             <div class="recent-announcements">
+            <!-- CALL addHousehold('Dolores', NULL, 'RM-002', '2023-02-14'); -->
+            <form action="" method="post" enctype="multipart/form-data">
                 <h2>Add Household</h2>
                 <div class="announcements">
                     <div class="add-evacuees-form">
-                            <div class="roomid">
-                            <input type="text" name="name" class="text-box" placeholder="Room ID">
-                            <h3 class="text-muted">Room ID</h3>
+                            <div class="Address">
+                                <input type="text" name="Address" class="text-box" placeholder="Enter Address" value="<?php echo $Address ?>">
+                                <h3 class="text-muted">Address</h3>
                             </div>
 
-                        <div class="add-evacuees-row-2">
-                            <div class="household-head-field"> 
-                            <input type="text" name="name" class="text-box" placeholder="Family Head">
+                            <div class="Family_Head">
+                                <input type="text" name="Family_Head" class="text-box" placeholder="Enter Family_Head" value="<?php echo $Family_Head ?>">
+                                <h3 class="text-muted">Family Head</h3>
                             </div>
-                            <button data-modal-target="#modal-create-head">Create</button>
-                        </div>
-                        <button>Submit</button>
-                        <button>Clear</button>
+
+                            <div class="Area_ID-field">
+                                <select name="Room_ID" value="<?php echo $Room_ID ?>" ><br>
+                                    <option value="RM-001">RM-001</option>
+                                    <option value="RM-002">RM-002</option>
+                                    <option value="RM-003">RM-003</option>
+                                    <option value="RM-004">RM-004</option>
+                                    <option value="RM-005">RM-005</option>
+                                    <option value="RM-006">RM-006</option>
+                                    <option value="RM-007">RM-007</option>
+                                    <option value="RM-008">RM-008</option>
+                                    <option value="RM-009">RM-009</option>
+                                </select>
+                                <h3 class="text-muted">Room ID</h3>
+                            </div>
+
+                            <div>
+                                <input type="date" name="Date_Evacuated" class="text-box" value="<?php echo $Date_Evacuated ?>">
+                                <h3 class="text-muted">Date Evacuated</h3>
+                            </div>
+
+                        <button type="submit" id="sub" class="btn btn-primary">Submit</button>
+                        <a href="evacuees.php">Clear</a>
                     </div>
-                    
+            </form>
                 </div> 
                 <div class="modal" id="modal-create-head">
                     <div class="modal-header">
