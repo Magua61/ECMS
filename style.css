@@ -398,9 +398,9 @@ main .evaccenter-body .evac-capacity span{
     color: var(--color-dark);
     font-size: 1.5rem;
 }
-main .text-box {
-    min-width: 6rem;
-    height: 3rem;
+ .text-box {
+    min-width: 4rem;
+    height: 2rem;
     font-family: poppins, sans-serif;
     font-size: 1rem;
     display: inline-block;
@@ -409,6 +409,7 @@ main .text-box {
     margin-top: 1rem;
     padding: 0.5rem 1.6rem;
     color: var(--color-dark);
+    text-align: center;
  }
 /* ===================Recent Updates========================= */
 main .recent-updates {
@@ -946,7 +947,7 @@ main .rooms .room-manager .room-card .room-body .room-capacity{
 
 }
 
-/*---------------------------------------*/
+/*-------------------MODAL FORM CSS--------------------*/
 .modal {
   position: fixed;
   top: 50%;
@@ -1038,6 +1039,7 @@ main .rooms .room-manager .room-card .room-body .room-capacity{
   pointer-events: all;
 }
 
+/*-------------------ADD EVACUEES--------------------*/
 main .add-evacuees .add-evacuees-form{
     background-color: var(--color-white);
     padding: var(--padding-1);
@@ -1048,33 +1050,13 @@ main .add-evacuees .add-evacuees-form{
     align-items: center;
     text-align: center;
 }
-main .add-evacuees .add-evacuees-form .add-evacuees-row-1{
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    gap:4rem;
-    text-align: center;
-}
-main .add-evacuees .add-evacuees-form .add-evacuees-row-1 .text-box{
-    width:25rem;
-}
-main .add-evacuees .add-evacuees-form .add-evacuees-row-2{
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    gap:4rem;
-    text-align: center;
-}
 
-
-main .add-evacuees .add-evacuees-form .add-evacuees-row-3{
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    gap:4rem;
-    text-align: center;
+ .add-evacuees-form .text-box{
+    width:15rem;
+    margin:0;
+    padding:0;
 }
-main .add-evacuees .add-evacuees-form .add-evacuees-row-3 .txt-address .text-box {
+.add-evacuees .add-evacuees-form .add-evacuees-row-3 .txt-address .text-box {
     width:30rem;
 }
 
@@ -1085,7 +1067,6 @@ main .add-evacuees .add-evacuees-form .add-evacuees-row-3 .txt-address .text-box
     font-size: 1rem;
     background: var(--color-light);
     border-radius: var(--border-radius-1);
-    margin-top: 1rem;
     padding: 0.5rem 1.6rem;
     color: var(--color-dark);
     text-align: center;
@@ -1093,7 +1074,16 @@ main .add-evacuees .add-evacuees-form .add-evacuees-row-3 .txt-address .text-box
 .recent-announcements .add-evacuees-form{
     text-align: center;
 }
+.recent-announcements .add-evacuees-form div{
+    margin-bottom:.5rem;
+}
 .recent-announcements .add-evacuees-form .add-evacuees-row{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    gap:1rem;
+}
+.recent-announcements .add-evacuees-form .add-evacuees-row-2{
     display:flex;
     justify-content: center;
     align-items: center;
@@ -1126,7 +1116,7 @@ main .add-evacuees .add-evacuees-form .add-evacuees-row-3 .txt-address .text-box
 }
 
 
-
+/*-------------------ADD ITEMS--------------------*/
 .recent-announcements .add-items-form {
     align-items: center;
     text-align: center;
@@ -1153,7 +1143,7 @@ main .add-evacuees .add-evacuees-form .add-evacuees-row-3 .txt-address .text-box
 }
 
 
-
+/*-------------------RELIEF PACKING--------------------*/
 .recent-announcements .relief-packing-form .txt-item {
     width:12rem;
     height: 2rem;
@@ -1170,4 +1160,61 @@ main .add-evacuees .add-evacuees-form .add-evacuees-row-3 .txt-address .text-box
 .recent-announcements .relief-packing-form{
     align-items: center;
     text-align: center;
+    justify-content: center;
 }
+.recent-announcements .relief-packing-form div{
+    align-items: center;
+    text-align: center;
+}
+.recent-announcements .relief-packing-form .relief-packing-row-1{
+    display:flex;
+    gap:.5rem;
+    justify-content: center;
+}
+.recent-announcements .relief-packing-form .relief-packing-row-1 .item-field .txt-item{
+    width: 10rem;
+    padding:.5rem;
+}
+.recent-announcements .relief-packing-form .relief-packing-row-1 .itemqty .text-box{
+    text-align: center;
+    width:3rem;
+    padding:.5rem;
+}
+.recent-announcements .relief-packing-form .relief-item-table{
+    border: 2px solid var(--color-dark);
+    border-radius: var(--border-radius-2);
+
+    height:13rem;
+    overflow: auto;
+}
+
+.recent-announcements .relief-packing-form .relief-item-table table thead{
+    background-color: var(--color-white);
+}
+.recent-announcements .relief-packing-form .relief-item-table table thead tr{
+    position: sticky;
+    top:0;
+    margin:0;
+    background-color: var(--color-white);
+}
+.recent-announcements .relief-packing-form .relief-item-table table tbody td{
+    height: 2.8rem;
+    border-bottom: 1px solid var(--color-light);
+    padding:.5rem;
+    color: var(--color-dark-variant);
+}
+.recent-announcements .relief-packing-form .relief-item-table table tbody tr:last-child td{
+    border:none;
+}
+
+.recent-announcements .relief-packing-form .relief-packing-last-row{
+    display:flex;
+    justify-content: center;
+    gap:1rem;
+}
+.recent-announcements .relief-packing-form .relief-multiplier .text-box{
+    text-align: center;
+    width:3rem;
+    padding:.5rem;
+}
+/*-------------------MODAL FORM CSS--------------------*/

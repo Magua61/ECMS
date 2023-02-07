@@ -35,13 +35,13 @@
                     <span class="material-icons-sharp">group</span>
                     <h3>Evacuees</h3>
                 </a>
-                <a href="#" class="btn-inventory active">
+                <a href="#" class="btn-inventory">
                     <span class="material-icons-sharp">inventory</span>
                     <h3>Inventory</h3>
                 </a>
-                <a href="#" class="btn-settings">
-                    <span class="material-icons-sharp">settings</span>
-                    <h3>Settings</h3>
+                <a href="#" class="btn-volunteers active">
+                    <span class="material-icons-sharp">person</span>
+                    <h3>Volunteers</h3>
                 </a>
 
                 <a href="#" class="btn-logout">
@@ -205,8 +205,26 @@
                 <div class="announcements">
                     
                         <div class="relief-packing-form">
-                           
-                            <div class="relief-item-table">
+                            <div class="relief-packing-row-1">
+                                <div class="item-field">
+                                    <datalist id="item-suggestions" >
+                                        <option>Noodles</option>
+                                        <option>Corned Beef</option>
+                                        <option>Sardines</option>
+                                        <option>Meat Loaf</option>
+                                        <option>Rice</option>
+                                    </datalist>
+                                    <input  autoComplete="on" list="item-suggestions" class="txt-item"/> 
+                                    <h3 class="text-muted">Item</h3>
+                                </div>
+
+                                <div class="itemqty">
+                                <input type="number" name="quantity" class="text-box" >
+                                <h3 class="text-muted">Quantity</h3>
+                                </div>
+
+                                <button>Add</button> 
+                            </div>
                             <table>
                                 <thead>
                                     <tr>
@@ -231,45 +249,15 @@
                                         <td>2</td>
                                         <td><button>Remove</button></td>
                                     </tr>
-                                    <tr>
-                                        <td>Nescafe 3n1</td>
-                                        <td>2</td>
-                                        <td><button>Remove</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Alaska</td>
-                                        <td>2</td>
-                                        <td><button>Remove</button></td>
-                                    </tr>
                                 </tbody>
                             </table>
-                            </div>
-                            <div class="relief-packing-row-1">
-                                    <div class="item-field">
-                                        <datalist id="item-suggestions" >
-                                            <option>Noodles</option>
-                                            <option>Corned Beef</option>
-                                            <option>Sardines</option>
-                                            <option>Meat Loaf</option>
-                                            <option>Rice</option>
-                                        </datalist>
-                                        <input  autoComplete="on" list="item-suggestions" class="txt-item"/> 
-                                        <h3 class="text-muted">Item</h3>
-                                    </div>
-                                    <div class="itemqty">
-                                        <input type="number" name="quantity" class="text-box" >
-                                        <h3 class="text-muted">Quantity</h3>
-                                    </div>
-                                    <button>Add</button>             
-                            </div>
-                            <div class="relief-packing-last-row">
-                                <div class="relief-multiplier">
-                                    <input type="number" name="multiplier" class="text-box" >
-                                    <h3 class="text-muted">Multiplier</h3>
+                            <div class="reliefmultiplier">
+                                <input type="number" name="multiplier" class="text-box" >
+                                <h3 class="text-muted">X</h3>
                                 </div>
-                                <button>Submit</button>
-                                <button>Clear</button>
-                            </div>
+                            <button>Submit</button>
+                            <button>Clear</button>
+
                 </div>
             </div>
             </div>

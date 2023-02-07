@@ -53,7 +53,6 @@
         <!===================== END OF ASIDE =======================!>
 
         <main>
-
             <h1>Evacuee Manager</h1>
             
             <div class="recent-updates">
@@ -258,11 +257,10 @@
                             <button>Submit</button>
                             <button>Clear</button>
                         </div>
-    
                     </div>
                 </div>
             </div>
-            <! ---------------- End of Announcements ---------------- !>
+            <! ------------------ End of Add Evacuees ---------------- !>
             <div class="recent-announcements">
                 <h2>Add Household</h2>
                 <div class="announcements">
@@ -272,31 +270,66 @@
                             <h3 class="text-muted">Room ID</h3>
                             </div>
 
-                        <div class="add-evacuees-row-3">
-                            <div class="household-head-field">
-                            <datalist id="head-suggestions" >
-                                <option>Santiago, Jose</option>
-                                <option>Cristo, Jay</option>
-                                <option>Cruz, Samson</option>
-                                <option>Jolo, Joseph</option>
-                                <option>Tan, Gene</option>
-                            </datalist>
-                            <input  autoComplete="on" list="head-suggestions" class="txt-household"/> 
-                            <h3 class="text-muted">Household Head</h3>
+                        <div class="add-evacuees-row-2">
+                            <div class="household-head-field"> 
+                            <input type="text" name="name" class="text-box" placeholder="Family Head">
                             </div>
-                            <button>Submit</button>
-                            <button>Clear</button>
+                            <button data-modal-target="#modal-create-head">Create</button>
                         </div>
-    
+                        <button>Submit</button>
+                        <button>Clear</button>
                     </div>
-                </div>
-            </div>    
+                    
+                </div> 
+                <div class="modal" id="modal-create-head">
+                    <div class="modal-header">
+                        
+                      <div class="title"><span class= "material-icons-sharp">person_add</span>
+                        <h2>Create Head</h2>
+                        <h3 class="text-muted" id="room-id-edit"> </h3>
+                    </div>
+                      <button data-close-button class="close-button"><span class="material-icons-sharp">close</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-body-input">
+                            <input type="text" name="name" class="text-box" placeholder="First Name">
+                            <h3 class="text-muted">First Name</h3>
 
+                            <input type="text" name="name" class="text-box" placeholder="Middle Name">
+                            <h3 class="text-muted">Middle Name</h3>
+
+                            <input type="text" name="name" class="text-box" placeholder="Last Name">
+                            <h3 class="text-muted">Last Name</h3>
+
+                            <input type="number" name="age" class="text-box" placeholder="Age">
+                            <h3 class="text-muted">Age</h3>
+
+                            <input type="text" name="sex" class="text-box" placeholder="Sex">
+                            <h3 class="text-muted">Sex</h3>
+
+                            <input type="date" name="birthday" class="text-box">
+                            <h3 class="text-muted">Birthday</h3>
+
+                            <input type="text" name="contact" class="text-box" placeholder="Contact">
+                            <h3 class="text-muted">Contact No</h3>
+
+                            <input type="text" name="address" class="text-box" placeholder="Address">
+                            <h3 class="text-muted">Address</h3>
+
+                            <div class="modal-buttons">
+                                <button class="submit">Submit</button>
+                                <button class="cancel">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    </div>
+                    <div id="overlay"></div>
+                </div>   
+            </div>
         </div>
-    </div>
-
     
-
+        <! -------------------------END OF HTML----------------------- !>
     <script>
     const sideMenu = document.querySelector("aside");
     const menuBtn = document.querySelector("#menu-btn");
@@ -321,6 +354,47 @@
         themeToggler.querySelector('span:nth-child(1)').classList.toggle('active');
         themeToggler.querySelector('span:nth-child(2)').classList.toggle('active');
     })
+
+    //POP UP EDIT EVAC INFO FORM
+    var body = document.getElementsByTagName('body')[0];
+
+    const openModalButtons = document.querySelectorAll('[data-modal-target]');
+    const closeModalButtons = document.querySelectorAll('[data-close-button]');
+    const overlay = document.getElementById('overlay');
+
+    openModalButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const modal = document.querySelector(button.dataset.modalTarget);
+        openModal(modal);
+      });
+    });
+
+    overlay.addEventListener('click', () => {
+      const modals = document.querySelectorAll('.modal.active');
+      modals.forEach(modal => {
+        closeModal(modal);
+      });
+    });
+
+    closeModalButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const modal = button.closest('.modal');
+        closeModal(modal);
+      });
+    });
+
+    function openModal(modal) {
+      if (modal == null) return
+      modal.classList.add('active');
+      overlay.classList.add('active');
+    }
+
+    function closeModal(modal) {
+      if (modal == null) return
+      modal.classList.remove('active');
+      overlay.classList.remove('active');
+    }
+
 
 </script>
 </body>
