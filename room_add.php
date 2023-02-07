@@ -4,57 +4,35 @@
 /** @var $pdo \PDO */
 require_once "database.php";
 
-// you can use exec() but not good, only to make changes on database schema
-// to select                CALL addEvacuee(:First_Name, :Middle_Name, :Last_Name, :Sex, :Birthday, :Contact_No, :Household_ID);
-// $statement = $pdo->prepare("CALL ViewEvacuee();");
-
-// search function
-$search = $_GET['search'] ?? '';
-if ($search) {
-  $statement = $pdo->prepare('call searchEvacuee(:First_Name)');
-  $statement->bindValue(':First_Name', "%$search%");
-} else{
-  $statement = $pdo->prepare('CALL viewEvacueeJoinHousehold');
-}
-
-$statement->execute();
-$evacuee = $statement->fetchAll(PDO::FETCH_ASSOC);
-
 // if FirstName is empty, throw error because it is required
 $errors = [];
 
 // solution when FirstName, etc is empty
-$First_Name = '';
-$Middle_Name = '';
-$Last_Name = '';
-$Sex = '';
-$Birthday = '';
-$Contact_No = '';
-$Household_ID = '';
+// $Room_ID = '';
+$R_Name = '';
+$Area_ID = '';
+$R_Total_Capacity = '';
 
 // show request method
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $First_Name = $_POST['First_Name'];
-  $Middle_Name = $_POST['Middle_Name'];
-  $Last_Name = $_POST['Last_Name'];
-  $Sex = $_POST['Sex'];
-  $Birthday = $_POST['Birthday'];
-  $Contact_No = $_POST['Contact_No'];
-  $Household_ID = $_POST['Household_ID'];
+//   $Room_ID = $_POST['Room_ID'];
+  $R_Name = $_POST['R_Name'];
+  $Area_ID = $_POST['Area_ID'];
+  $R_Total_Capacity = $_POST['R_Total_Capacity'];
 
 
   // if FirstName is empty, throw error because it is required
-  if (!$First_Name) {
-    $errors[] = 'Please enter your First Name';
+//   if (!$Room_ID) {
+//     $errors[] = 'Please enter Room_ID';
+//   }
+  if (!$R_Name) {
+    $errors[] = 'Please enter R_Name';
   }
-  if (!$Last_Name) {
-    $errors[] = 'Please enter your Last Name';
+  if (!$Area_ID) {
+    $errors[] = 'Please enter Area_ID';
   }
-  if (!$Sex) {
-    $errors[] = 'Please enter your Gender';
-  }
-  if (!$Contact_No) {
-    $errors[] = 'Please enter your Contact No';
+  if (!$R_Total_Capacity) {
+    $errors[] = 'Please enter your R_Total_Capacity';
   }
 
   // Only Submit to sql when it is not empty
@@ -63,21 +41,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // double quotations are used so I can use variables in strings
     // exec() instead of prepare() should be avoided because it is unsafe
     // I created named parameters
-    $statement = $pdo->prepare("CALL addEvacuee(:First_Name, :Middle_Name, :Last_Name, :Sex, :Birthday, :Contact_No, :Household_ID);
+    $statement = $pdo->prepare("CALL addRoom(:R_Name, :Area_ID, :R_Total_Capacity);
                                 
                   ");
-                //   SELECT Household_ID FROM dagdaghh ORDER BY Household_ID ASC
-    $statement->bindValue(':First_Name', $First_Name);
-    $statement->bindValue(':Middle_Name', $Middle_Name);
-    $statement->bindValue(':Last_Name', $Last_Name);
-    $statement->bindValue(':Sex', $Sex);
-    $statement->bindValue(':Birthday', $Birthday);
-    $statement->bindValue(':Contact_No', $Contact_No);
-    $statement->bindValue(':Household_ID', $Household_ID);
+    // $statement->bindValue(':Room_ID', $Room_ID);
+    $statement->bindValue(':R_Name', $R_Name);
+    $statement->bindValue(':Area_ID', $Area_ID);
+    $statement->bindValue(':R_Total_Capacity', $R_Total_Capacity);
     $statement->execute();
 
     // redirect user after creating
-    header('Location: evacuees.php');
+    header('Location: center.php');
   }
 }
 
@@ -142,125 +116,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <h1>Room Manager</h1>
             <div class="add-evacuees">
                 <h2>---Add Room</h2>
-                <form action="evacuees.php" method="post" enctype="multipart/form-data">
+                <form action="" method="post" enctype="multipart/form-data">
                 <div class="add-evacuees-form">
                     <div class="add-evacuees-row-1">
-                        <div class="firstname">
-                        <input type="text" name="First_Name" class="text-box" placeholder="Enter First Name" value="<?php echo $First_Name ?>">
-                        <h3 class="text-muted">First Name</h3>
+                        <div class="R_Name">
+                        <input type="text" name="R_Name" class="text-box" placeholder="Enter Room Name" value="<?php echo $R_Name ?>">
+                        <h3 class="text-muted">Room Name</h3>
                         </div>
 
-                        <div class="middlename">
-                        <input type="text" name="Middle_Name" class="text-box" placeholder="Enter Middle Name" value="<?php echo $Middle_Name ?>">
-                        <h3 class="text-muted">Middle Name</h3>
-                        </div>
-
-                        <div class="lastname">
-                        <input type="text" name="Last_Name" class="text-box" placeholder="Enter Last Name" value="<?php echo $Last_Name ?>">
-                        <h3 class="text-muted">Last Name</h3>
+                        <div class="R_Total_Capacity">
+                        <input type="number" name="R_Total_Capacity" class="text-box" placeholder="Enter Room Total Capacity" value="<?php echo $R_Total_Capacity ?>">
+                        <h3 class="text-muted">Room Total Capacity</h3>
                         </div>
                     </div>
                     <div class="add-evacuees-row-2">
-                        <div>
-                        <input type="date" name="Birthday" class="text-box" value="<?php echo $Birthday ?>">
-                        <h3 class="text-muted">Birthday</h3>
-                        </div>
                         
-                        <div>
-                        <select name="Sex" value="<?php echo $Sex ?>">
-                            <option value="M">Male</option>
-                            <option value="F">Female</option>
+
+                        <div class="Area_ID">
+                        <select name="Area_ID" value="<?php echo $Area_ID ?>"><br>
+                            <option value="A-0001">A-0001</option>
+                            <option value="A-0002">A-0002</option>
+                            <option value="A-0003">A-0003</option>
+                            <option value="A-0004">A-0004</option>
                         </select>
-                        <h3 class="text-muted">Sex</h3>
-                        </div>
-                        <div>
-                        <input type="text" name="Contact_No" class="text-box" placeholder="Enter Contact" value="<?php echo $Contact_No ?>">
-                        <h3 class="text-muted">Contact No</h3>
-                        </div>
-                        <div class="household-field">
-                        <select name="Household_ID" value="<?php echo $Household_ID ?>"><br>
-                            <option value="HHOLD-0001">HHOLD-0001</option>
-                            <option value="HHOLD-0002">HHOLD-0002</option>
-                            <option value="HHOLD-0003">HHOLD-0003</option>
-                            <option value="HHOLD-0004">HHOLD-0004</option>
-                            <option value="HHOLD-0005">HHOLD-0005</option>
-                            <option value="HHOLD-0006">HHOLD-0006</option>
-                            <option value="HHOLD-0007">HHOLD-0007</option>
-                            <option value="HHOLD-0008">HHOLD-0008</option>
-                            <option value="HHOLD-0009">HHOLD-0009</option>
-                        </select>
-                        <h3 class="text-muted">Household ID</h3>
+                        <h3 class="text-muted">Area_ID</h3>
                         </div>
                     </div>
+                    <br><br>
                     <div class="add-evacuees-row-3">
                         
                         <button type="submit" id="sub" class="btn btn-primary">Submit</button>
-                        <a href="evacuees.php">Clear</a>
+                        <a href="center.php">Clear</a>
                     </div>
                 </form>
                 </div>
             </div>
-            <div class="recent-updates">
-                <h2>Evacuees' Information</h2>
-                    <form>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" 
-                                placeholder="Search for Evacuee Full Name" 
-                                name="search" value="<?php echo $search ?>">
-                        <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="submit">Search</button>
-                        <button class="btn btn-outline-secondary" type="submit" style="float: right;">View By Household</button>
-                        </div>
-                    </div>
-                    </form>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Full Name</th>
-                        <th scope="col">Sex</th>
-                        <th scope="col">Age</th>
-                        <!-- <th scope="col">Contact_No</th> -->
-                        <th scope="col">Status</th>
-                        <th scope="col">Household_ID</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php
-                    foreach ($evacuee as $i => $evacuee2) :
-                    ?>
-                        <tr>
-                        <td scope="row"><?php echo $evacuee2['Evacuee_ID'] ?></td>
-                        <td><?php echo $evacuee2['Full_Name'];?></td>
-                        <td><?php echo $evacuee2['Sex'] ?></td>
-                        <td><?php echo $evacuee2['Age'] ?></td>
-                        <!-- <td><?php echo $evacuee2['Contact_No'] ?></td> -->
-                        <td><?php echo $evacuee2['Evacuation_Status'] ?></td>
-                        <td><?php echo $evacuee2['Household_ID'] ?></td>
-
-                        <td>
-                            <!-- Edit button -->
-                            <a href="evacuee_update.php?Evacuee_ID=<?php echo $evacuee2['Evacuee_ID'] ?>" id="sub" class="btn btn-primary">Edit</a>
-
-                            
-                            <!-- Delete button -->
-                            <form style="display:inline-block" method="post" action="evacuee_delete.php">
-                            <input type="hidden" name="Evacuee_ID" value="<?php echo $evacuee2['Evacuee_ID'] ?>">
-                            <button type="submit">Delete</button>
-                            
-                            </form>
-                        </td>
-
-                        </tr>
-                    <?php
-                    endforeach;
-                    ?>
-
-                    </tbody>
-                </table>
-                <a href="#">Show All</a>
-            </div>
+            
         </main>
         <!  ------------------- END OF MAIN -----------------------  !>
 

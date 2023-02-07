@@ -125,6 +125,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <h2>---Update Room <?php echo $R_Name?></h2>
                 <form action="" method="post" enctype="multipart/form-data">
                 <div class="add-evacuees-form">
+
+                    <?php if (!empty($errors)) : ?>
+                        <!-- Display error -->
+                        <div class="alert alert-danger">
+                        <?php foreach ($errors as $error) : ?>
+                            <div><?php echo $error ?></div>
+                        <?php endforeach; ?>
+                        </div>
+                    <?php endif ?>
+                    
                     <div class="add-evacuees-row-1">
 
                                 <div class="Room_ID">
