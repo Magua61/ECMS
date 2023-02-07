@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   // Only Submit to sql when it is not empty
   if (empty($errors)) {
-    $statement = $pdo->prepare("CALL updateRoom(:Room_ID, R_Name:, Area_ID:, R_Total_Capacity:)");
+    $statement = $pdo->prepare("CALL updateRoom(:Room_ID, :R_Name, :Area_ID, :R_Total_Capacity)");
     // UPDATE room SET Room_ID = :Room_ID, 
     //                             R_Name = :R_Name, 
     //                             Area_ID = :Area_ID,
