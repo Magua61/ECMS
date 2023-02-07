@@ -53,10 +53,77 @@
         <!===================== END OF ASIDE =======================!>
 
         <main>
-            <h1>Inventory Manager</h1>
+            <h1>Dashboard</h1>
+            <div class="date">
+                <script>
+                date = new Date().toLocaleDateString();
+                document.write(date);
+                </script>
+            </div>
+            <div class="insights">
+                <!====================== CAPACITY ====================!>
+                <div class="cap">
+                    <span class= "material-icons-sharp">night_shelter</span>
+                    <div class="middle">
+                        <div class="left">
+                             <h3>Total Capacity</h3>
+                            <h1>854</h1>
+                        </div>
+                         <div class="progress">
+                             <svg>
+                                 <circle cx='40' cy="50" r="36"/>
+                            </svg>
+                             <div class="number">
+                                <p>81%</p>
+                             </div>
+                        </div>
+                    </div>
+                    <small class="text-muted">Last 24 Hours</small>
+                </div>
+                <!====================== EVACUEES ====================!>
+
+                <div class="evacuees">
+                    <span class= "material-icons-sharp">family_restroom</span>
+                    <div class="middle">
+                        <div class="left">
+                             <h3>Number of Families</h3>
+                            <h1>32</h1>
+                        </div>
+                         <div class="progress">
+                             <svg>
+                                 <circle cx='40' cy="50" r="36"/>
+                            </svg>
+                             <div class="number">
+                                <p>81%</p>
+                             </div>
+                        </div>
+                    </div>
+                    <small class="text-muted">Last 24 Hours</small>
+                </div>
+                <!====================== RELIEF ====================!>
+                <div class="inventory">
+                    <span class= "material-icons-sharp">food_bank</span>
+                    <div class="middle">
+                        <div class="left">
+                             <h3>Relief Packs</h3>
+                            <h1>1,523</h1>
+                        </div>
+                         <div class="progress">
+                             <svg>
+                                 <circle cx='40' cy="50" r="36"/>
+                            </svg>
+                             <div class="number">
+                                <p>65%</p>
+                             </div>
+                        </div>
+                    </div>
+                    <small class="text-muted">Last 24 Hours</small>
+                </div>
+                <!====================== CAPACITY ====================!>
+            </div>
 
             <div class="recent-updates">
-                <h2>Item Inventory</h2>
+                <h2>Recent Updates</h2>
                 <table>
                     <thead>
                         <tr>
@@ -83,7 +150,7 @@
                             <td>27</td>
                             <td>Male</td>
                             <td>Room 10</td>
-                            <td>Evacuated</td> 
+                            <td>Evacuated</td>
                         </tr>
                         <tr>
                             <td>Collins, Adon</td>
@@ -108,41 +175,6 @@
                             <td>Female</td>
                             <td>Room 15</td>
                             <td>Evacuated</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <a href="#">Show All</a>
-            </div>
-
-            <div class="recent-updates">
-                <h2>Relief Packs</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Relief ID</th>
-                            <th>Item</th>
-                            <th>Quantity</th>
-                            <th>Date Packed</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>RG_1123</td>
-                            <td>Noodles</td>
-                            <td>2</td>
-                            <td>01/02/2022</td>
-                        </tr>
-                        <tr>
-                            <td>RG_1123</td>
-                            <td>Rice</td>
-                            <td>2</td>
-                            <td>01/02/2022</td>
-                        </tr>
-                        <tr>
-                            <td>RG_1123</td>
-                            <td>Sardines</td>
-                            <td>2</td>
-                            <td>01/02/2022</td>
                         </tr>
                     </tbody>
                 </table>
@@ -173,107 +205,85 @@
             </div>
             <! ---------------- End of Top ---------------- !>
             <div class="recent-announcements">
-                <h2>Add Item</h2>
+                <h2>Announcements</h2>
                 <div class="announcements">
-                    
-                        <div class="add-items-form">
-                            <div class="itemname">
-                            <input type="text" name="name" class="text-box" placeholder="Item">
-                            <h3 class="text-muted">Item Name</h3>
-                            </div>
-                            <div class="expiry">
-                                <input type="date" name="expiry" class="text-box">
-                                <h3 class="text-muted">Expiry</h3>
-                            </div>
-                            <div class="itemqty">
-                                <input type="number" name="quantity" class="text-box" placeholder="Room ID">
-                                <h3 class="text-muted">Quantity</h3>
-                            </div>
-
-                            <div class="add-items-row-3">
-                                <button>Submit</button>
-                                <button>Clear</button>
-                            </div>
-    
+                    <div class="announcement">
+                        <div class="profile-photo">
+                            <img src="assets/profile-2.jpg">
                         </div>
-                    
+                        <div class="message">
+                            <p><b>NDRRMC</b> Alert Level 3 in Metro Manila and surrounding regions.</p>
+                            <small class="text-muted">4 Minutes Ago</small>
+                        </div>
+                    </div>
+
+                    <div class="announcement">
+                        <div class="profile-photo">
+                            <img src="assets/profile-2.jpg">
+                        </div>
+                        <div class="message">
+                            <p><b>NDRRMC</b> Alert Level 4 in North Luzon and Central Luzon regions.</p>
+                            <small class="text-muted">6 Minutes Ago</small>
+                        </div>
+                    </div>
+
+                    <div class="announcement">
+                        <div class="profile-photo">
+                            <img src="assets/profile-2.jpg">
+                        </div>
+                        <div class="message">
+                            <p><b>NDRRMC</b> Alert Level 2 in South Luzon and Northern Visayas regions.</p>
+                            <small class="text-muted">11 Minutes Ago</small>
+                        </div>
+                    </div>
                 </div>
             </div>
             <! ---------------- End of Announcements ---------------- !>
-            <div class="recent-announcements">
-                <h2>Relief Packing</h2>
-                <div class="announcements">
-                    
-                        <div class="relief-packing-form">
-                           
-                            <div class="relief-item-table">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Item</th>
-                                        <th>Quantity</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Noodles</td>
-                                        <td>2</td>
-                                        <td><button>Remove</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Corned Beef</td>
-                                        <td>2</td>
-                                        <td><button>Remove</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Rice</td>
-                                        <td>2</td>
-                                        <td><button>Remove</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Nescafe 3n1</td>
-                                        <td>2</td>
-                                        <td><button>Remove</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Alaska</td>
-                                        <td>2</td>
-                                        <td><button>Remove</button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                <div class="evac-analytics">
+                    <h2>Analytics</h2>
+                    <div class="evacuee analysis">
+                        <div class="icon">
+                            <span class= "material-icons-sharp">groups</span>
+                        </div>
+                        <div class="right">
+                            <div class="info">
+                                <h3>EVACUEES</h3>
+                                <small class="text-muted">Last 24 Hours</small>
                             </div>
-                            <div class="relief-packing-row-1">
-                                    <div class="item-field">
-                                        <datalist id="item-suggestions" >
-                                            <option>Noodles</option>
-                                            <option>Corned Beef</option>
-                                            <option>Sardines</option>
-                                            <option>Meat Loaf</option>
-                                            <option>Rice</option>
-                                        </datalist>
-                                        <input  autoComplete="on" list="item-suggestions" class="txt-item"/> 
-                                        <h3 class="text-muted">Item</h3>
-                                    </div>
-                                    <div class="itemqty">
-                                        <input type="number" name="quantity" class="text-box" >
-                                        <h3 class="text-muted">Quantity</h3>
-                                    </div>
-                                    <button>Add</button>             
+                            <h5 class="success">+26%</h5>
+                            <h3>854</h3>
+                        </div>
+                    </div>
+
+                    <div class="volunteer analysis">
+                        <div class="icon">
+                            <span class="material-icons-sharp">volunteer_activism</span>
+                        </div>
+                        <div class="right">
+                            <div class="info">
+                                <h3>VOLUNTEERS</h3>
+                                <small class="text-muted">Last 24 Hours</small>
                             </div>
-                            <div class="relief-packing-last-row">
-                                <div class="relief-multiplier">
-                                    <input type="number" name="multiplier" class="text-box" >
-                                    <h3 class="text-muted">Multiplier</h3>
-                                </div>
-                                <button>Submit</button>
-                                <button>Clear</button>
+                            <h5 class="danger">-15%</h5>
+                            <h3>23</h3>
+                        </div>
+                    </div>
+
+                    <div class="inventory analysis">
+                        <div class="icon">
+                            <span class= "material-icons-sharp">set_meal</span>
+                        </div>
+                        <div class="right">
+                            <div class="info">
+                                <h3>RELIEF GOODS</h3>
+                                <small class="text-muted">Last 24 Hours</small>
                             </div>
+                            <h5 class="warning">+0.7%</h5>
+                            <h3>1,523</h3>
+                        </div>
+                    </div>
+
                 </div>
-            </div>
-            </div>
-            
 
         </div>
     </div>
