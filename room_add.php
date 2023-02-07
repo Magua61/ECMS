@@ -139,9 +139,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <main>
 
-            <h1>Evacuee Manager</h1>
+            <h1>Room Manager</h1>
             <div class="add-evacuees">
-                <h2>---Add Evacuees</h2>
+                <h2>---Add Room</h2>
                 <form action="evacuees.php" method="post" enctype="multipart/form-data">
                 <div class="add-evacuees-form">
                     <div class="add-evacuees-row-1">
@@ -209,7 +209,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 name="search" value="<?php echo $search ?>">
                         <div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="submit">Search</button>
-                        <!-- <button class="btn btn-outline-secondary" type="submit" style="float: right;">View By Household</button> -->
+                        <button class="btn btn-outline-secondary" type="submit" style="float: right;">View By Household</button>
                         </div>
                     </div>
                     </form>

@@ -228,7 +228,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <h4 class="text-muted">/</h4>
                             <h4 class="text-muted"><?php echo $croom['R_Total_Capacity'] ?></h4>
                             </div>
-                            <h4 class="room-detail">Details</h4>
+                            <h4 class="room-detail"><a href="room_update.php?Room_ID=<?php echo $croom['Room_ID'] ?>" id="sub" class="btn btn-primary">Details</a></h4>
                         </div>
                     </div>
                     <div class="modal" id="modal-room-info">
@@ -262,10 +262,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                           <!-- modal -->
                     </div>
                 <?php endforeach;?>
+                <a href="room_add.php">
                     <div class="room-card-add">
                         <span class= "material-icons-sharp">add</span>
                         <h3>Add a Room</h3>
                     </div>
+                </a>
                 </div>
                 
                 
