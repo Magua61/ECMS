@@ -8,7 +8,7 @@ require_once "database.php";
 // to select                CALL addEvacuee(:First_Name, :Middle_Name, :Last_Name, :Sex, :Birthday, :Contact_No, :Household_ID);
 // $statement = $pdo->prepare("CALL ViewEvacuee();");
 
-// search function
+// search function for evacuee
 $search = $_GET['search'] ?? '';
 if ($search) {
   $statement = $pdo->prepare('call searchEvacuee(:First_Name)');
@@ -17,8 +17,21 @@ if ($search) {
   $statement = $pdo->prepare('CALL viewEvacueeJoinHousehold');
 }
 
+
+// // search function for household
+// $search2 = $_GET['search2'] ?? '';
+// if ($search2) {
+//   $statement = $pdo->prepare('call searchEvacuee(:First_Name)');
+//   $statement->bindValue(':First_Name', "%$search2%");
+// } else{
+//   $statement = $pdo->prepare('CALL viewEvacueeJoinHousehold');
+// }
+$statement2 = $pdo->prepare('CALL viewHousehold');
+$statement2->execute();
+$statement->closeCursor();
 $statement->execute();
 $evacuee = $statement->fetchAll(PDO::FETCH_ASSOC);
+$household = $statement2->fetchAll(PDO::FETCH_ASSOC);
 
 // if FirstName is empty, throw error because it is required
 $errors = [];
@@ -200,6 +213,71 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </form>
                 </div>
             </div>
+
+            <!-- Start of household -->
+            <div class="recent-updates">
+                <h2>Household Information</h2>
+                    <form>
+                    <div class="input-group mb-3">
+                        <!-- Search household -->
+                        <!-- <input type="text" class="form-control" 
+                                placeholder="Search for Household" 
+                                name="search2" value="<?php //echo $search2 ?>"> -->
+                        <div class="input-group-append">
+                        <!-- <button class="btn btn-outline-secondary" type="submit">Search</button> -->
+                        <!-- <button class="btn btn-outline-secondary" type="submit" style="float: right;">View By Household</button> -->
+                        </div>
+                    </div>
+                    </form>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Number of Members</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Family_Head</th>
+                        <!-- <th scope="col">Contact_No</th> -->
+                        <th scope="col">Room_ID</th>
+                        <th scope="col">Date_Evacuated</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    foreach ($household as $j => $hh) :
+                    ?>
+                        <tr>
+                        <td scope="row"><?php echo $hh['Household_ID'] ?></td>
+                        <td><?php echo $hh['Number_of_Members'];?></td>
+                        <td><?php echo $hh['Address'] ?></td>
+                        <td><?php echo $hh['Family_Head'] ?></td>
+                        <td><?php echo $hh['Room_ID'] ?></td>
+                        <td><?php echo $hh['Date_Evacuated'] ?></td>
+
+                        <td>
+                            <!-- Edit button -->
+                            <a href="evacuee_update.php?Household_ID=<?php echo $hh['Household_ID'] ?>" id="sub" class="btn btn-primary">Edit</a>
+
+                            
+                            <!-- Delete button -->
+                            <form style="display:inline-block" method="post" action="evacuee_delete.php">
+                            <input type="hidden" name="Household_ID" value="<?php echo $hh['Household_ID'] ?>">
+                            <button type="submit">Delete</button>
+                            
+                            </form>
+                        </td>
+
+                        </tr>
+                    <?php
+                    endforeach;
+                    ?>
+
+                    </tbody>
+                </table>
+                <a href="#">Show All</a>
+            <!-- End of Household -->
+            </div>
+
             <div class="recent-updates">
                 <h2>Evacuees' Information</h2>
                     <form>
@@ -286,85 +364,142 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <! ---------------- End of Top ---------------- !>
             <div class="recent-announcements">
-                <h2>Announcements</h2>
+                <h2>Add Evacuees</h2>
                 <div class="announcements">
-                    <div class="announcement">
-                        <div class="profile-photo">
-                            <img src="assets/profile-2.jpg">
-                        </div>
-                        <div class="message">
-                            <p><b>NDRRMC</b> Alert Level 3 in Metro Manila and surrounding regions.</p>
-                            <small class="text-muted">4 Minutes Ago</small>
-                        </div>
-                    </div>
+                    <form action="evacuees.php" method="post" enctype="multipart/form-data">
+                    <div class="add-evacuees-form">
+                            <div class="firstname">
+                                <input type="text" name="First_Name" class="text-box" placeholder="Enter First Name" value="<?php echo $First_Name ?>">
+                                <h3 class="text-muted">First Name</h3><br>
+                            </div>
+    
+                            <div class="middlename">
+                            <input type="text" name="Middle_Name" class="text-box" placeholder="Enter Middle Name" value="<?php echo $Middle_Name ?>">
+                                <h3 class="text-muted">Middle Name</h3><br>
+                            </div>
+    
+                            <div class="lastname">
+                            <input type="text" name="Last_Name" class="text-box" placeholder="Enter Last Name" value="<?php echo $Last_Name ?>">
+                                <h3 class="text-muted">Last Name</h3>
+                            </div>
 
-                    <div class="announcement">
-                        <div class="profile-photo">
-                            <img src="assets/profile-2.jpg">
+                        <div class="add-evacuees-row">
+                            
+                            <div>
+                                <select name="Sex" value="<?php echo $Sex ?>">
+                                    <option value="M">Male</option>
+                                    <option value="F">Female</option>
+                                </select>
+                                <h3 class="text-muted">Sex</h3>
+                            </div>
+                        <!-- Close row -->
                         </div>
-                        <div class="message">
-                            <p><b>NDRRMC</b> Alert Level 4 in North Luzon and Central Luzon regions.</p>
-                            <small class="text-muted">6 Minutes Ago</small>
-                        </div>
-                    </div>
+                            <div>
+                                <input type="date" name="Birthday" class="text-box" value="<?php echo $Birthday ?>">
+                                <h3 class="text-muted">Birthday</h3>
+                            </div>
 
-                    <div class="announcement">
-                        <div class="profile-photo">
-                            <img src="assets/profile-2.jpg">
-                        </div>
-                        <div class="message">
-                            <p><b>NDRRMC</b> Alert Level 2 in South Luzon and Northern Visayas regions.</p>
-                            <small class="text-muted">11 Minutes Ago</small>
+                            <div>
+                            <input type="text" name="Contact_No" class="text-box" placeholder="Enter Contact Number" value="<?php echo $Contact_No ?>">
+                                <h3 class="text-muted">Contact No</h3>
+                            </div>
+                        
+                        <div class="add-evacuees-row-3">
+                            <div class="household-field">
+                                <select name="Household_ID" value="<?php echo $Household_ID ?>"><br>
+                                    <option value="HHOLD-0001">HHOLD-0001</option>
+                                    <option value="HHOLD-0002">HHOLD-0002</option>
+                                    <option value="HHOLD-0003">HHOLD-0003</option>
+                                    <option value="HHOLD-0004">HHOLD-0004</option>
+                                    <option value="HHOLD-0005">HHOLD-0005</option>
+                                    <option value="HHOLD-0006">HHOLD-0006</option>
+                                    <option value="HHOLD-0007">HHOLD-0007</option>
+                                    <option value="HHOLD-0008">HHOLD-0008</option>
+                                    <option value="HHOLD-0009">HHOLD-0009</option>
+                                </select>
+                                <h3 class="text-muted">Household</h3>
+                            <!-- Close household-field -->
+                            </div>
+                            <!-- Buttons -->
+                            <button type="submit" id="sub" class="btn btn-primary">Submit</button>
+                            <a href="evacuees.php">Clear</a>
+                        <!-- close add-evacuees-row-3 -->
                         </div>
                     </div>
+                    </form>
+                <!-- Close Announcements -->
                 </div>
+            <!-- Close recent Announcements -->
             </div>
+            <! ------------------ End of Add Evacuees ---------------- !>
             <! ---------------- End of Announcements ---------------- !>
-                <div class="evac-analytics">
-                    <h2>Analytics</h2>
-                    <div class="evacuee analysis">
-                        <div class="icon">
-                            <span class= "material-icons-sharp">groups</span>
-                        </div>
-                        <div class="right">
-                            <div class="info">
-                                <h3>EVACUEES</h3>
-                                <small class="text-muted">Last 24 Hours</small>
+            <div class="recent-announcements">
+                <h2>Add Household</h2>
+                <div class="announcements">
+                    <div class="add-evacuees-form">
+                            <div class="roomid">
+                            <input type="text" name="name" class="text-box" placeholder="Room ID">
+                            <h3 class="text-muted">Room ID</h3>
                             </div>
-                            <h5 class="success">+26%</h5>
-                            <h3>854</h3>
+
+                        <div class="add-evacuees-row-2">
+                            <div class="household-head-field"> 
+                            <input type="text" name="name" class="text-box" placeholder="Family Head">
+                            </div>
+                            <button data-modal-target="#modal-create-head">Create</button>
+                        </div>
+                        <button>Submit</button>
+                        <button>Clear</button>
+                    </div>
+                    
+                </div> 
+                <div class="modal" id="modal-create-head">
+                    <div class="modal-header">
+                        
+                      <div class="title"><span class= "material-icons-sharp">person_add</span>
+                        <h2>Create Head</h2>
+                        <h3 class="text-muted" id="room-id-edit"> </h3>
+                    </div>
+                      <button data-close-button class="close-button"><span class="material-icons-sharp">close</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-body-input">
+                            <input type="text" name="name" class="text-box" placeholder="First Name">
+                            <h3 class="text-muted">First Name</h3>
+
+                            <input type="text" name="name" class="text-box" placeholder="Middle Name">
+                            <h3 class="text-muted">Middle Name</h3>
+
+                            <input type="text" name="name" class="text-box" placeholder="Last Name">
+                            <h3 class="text-muted">Last Name</h3>
+
+                            <input type="number" name="age" class="text-box" placeholder="Age">
+                            <h3 class="text-muted">Age</h3>
+
+                            <input type="text" name="sex" class="text-box" placeholder="Sex">
+                            <h3 class="text-muted">Sex</h3>
+
+                            <input type="date" name="birthday" class="text-box">
+                            <h3 class="text-muted">Birthday</h3>
+
+                            <input type="text" name="contact" class="text-box" placeholder="Contact">
+                            <h3 class="text-muted">Contact No</h3>
+
+                            <input type="text" name="address" class="text-box" placeholder="Address">
+                            <h3 class="text-muted">Address</h3>
+
+                            <div class="modal-buttons">
+                                <button class="submit">Submit</button>
+                                <button class="cancel">Cancel</button>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="volunteer analysis">
-                        <div class="icon">
-                            <span class="material-icons-sharp">volunteer_activism</span>
-                        </div>
-                        <div class="right">
-                            <div class="info">
-                                <h3>VOLUNTEERS</h3>
-                                <small class="text-muted">Last 24 Hours</small>
-                            </div>
-                            <h5 class="danger">-15%</h5>
-                            <h3>23</h3>
-                        </div>
+                    
                     </div>
-
-                    <div class="inventory analysis">
-                        <div class="icon">
-                            <span class= "material-icons-sharp">set_meal</span>
-                        </div>
-                        <div class="right">
-                            <div class="info">
-                                <h3>RELIEF GOODS</h3>
-                                <small class="text-muted">Last 24 Hours</small>
-                            </div>
-                            <h5 class="warning">+0.7%</h5>
-                            <h3>1,523</h3>
-                        </div>
-                    </div>
-
-                </div>
+                    <div id="overlay"></div>
+                </div>   
+            </div>
+        </div>
 
         </div>
     </div>
