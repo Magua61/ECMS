@@ -3,6 +3,8 @@
 // <!-- create connection to database -->
 /** @var $pdo \PDO */
 require_once "database.php";
+require_once "household_add.php";
+require_once "evacuee_add.php";
 
 // you can use exec() but not good, only to make changes on database schema
 // to select                CALL addEvacuee(:First_Name, :Middle_Name, :Last_Name, :Sex, :Birthday, :Contact_No, :Household_ID);
@@ -35,115 +37,116 @@ $household = $statement2->fetchAll(PDO::FETCH_ASSOC);
 
 // if FirstName is empty, throw error because it is required
 $errors = [];
-
-// Create Evacuee
-// solution when FirstName, etc is empty
-$First_Name = '';
-$Middle_Name = '';
-$Last_Name = '';
-$Sex = '';
-$Birthday = '';
-$Contact_No = '';
-$Household_ID = '';
-
-// show request method
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $First_Name = $_POST['First_Name'];
-  $Middle_Name = $_POST['Middle_Name'];
-  $Last_Name = $_POST['Last_Name'];
-  $Sex = $_POST['Sex'];
-  $Birthday = $_POST['Birthday'];
-  $Contact_No = $_POST['Contact_No'];
-  $Household_ID = $_POST['Household_ID'];
-
-
-  // if FirstName is empty, throw error because it is required
-  if (!$First_Name) {
-    $errors[] = 'Please enter your First Name';
-  }
-  if (!$Last_Name) {
-    $errors[] = 'Please enter your Last Name';
-  }
-  if (!$Sex) {
-    $errors[] = 'Please enter your Gender';
-  }
-  if (!$Contact_No) {
-    $errors[] = 'Please enter your Contact No';
-  }
-
-  // Only Submit to sql when it is not empty
-  if (empty($errors)) {
-
-    // double quotations are used so I can use variables in strings
-    // exec() instead of prepare() should be avoided because it is unsafe
-    // I created named parameters
-    $statement = $pdo->prepare("CALL addEvacuee(:First_Name, :Middle_Name, :Last_Name, :Sex, :Birthday, :Contact_No, :Household_ID);
-                                
-                  ");
-                //   SELECT Household_ID FROM dagdaghh ORDER BY Household_ID ASC
-    $statement->bindValue(':First_Name', $First_Name);
-    $statement->bindValue(':Middle_Name', $Middle_Name);
-    $statement->bindValue(':Last_Name', $Last_Name);
-    $statement->bindValue(':Sex', $Sex);
-    $statement->bindValue(':Birthday', $Birthday);
-    $statement->bindValue(':Contact_No', $Contact_No);
-    $statement->bindValue(':Household_ID', $Household_ID);
-    $statement->execute();
-
-    // redirect user after creating
-    header('Location: evacuees.php');
-  }
-}
-
-// Create Household
-// if FirstName is empty, throw error because it is required
 $errors2 = [];
-// solution when FirstName, etc is empty
-$Address = '';
-$Family_Head = '';
-$Room_ID = '';
-$Date_Evacuated = '';
 
-// show request method
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $Address = $_POST['Address'];
-  $Family_Head = $_POST['Family_Head'];
-  $Room_ID = $_POST['Room_ID'];
-  $Date_Evacuated = $_POST['Date_Evacuated'];
+// // Create Evacuee
+// // solution when FirstName, etc is empty
+// $First_Name = '';
+// $Middle_Name = '';
+// $Last_Name = '';
+// $Sex = '';
+// $Birthday = '';
+// $Contact_No = '';
+// $Household_ID = '';
+
+// // show request method
+// if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//   $First_Name = $_POST['First_Name'];
+//   $Middle_Name = $_POST['Middle_Name'];
+//   $Last_Name = $_POST['Last_Name'];
+//   $Sex = $_POST['Sex'];
+//   $Birthday = $_POST['Birthday'];
+//   $Contact_No = $_POST['Contact_No'];
+//   $Household_ID = $_POST['Household_ID'];
+
+
+//   // if FirstName is empty, throw error because it is required
+//   if (!$First_Name) {
+//     $errors[] = 'Please enter your First Name';
+//   }
+//   if (!$Last_Name) {
+//     $errors[] = 'Please enter your Last Name';
+//   }
+//   if (!$Sex) {
+//     $errors[] = 'Please enter your Gender';
+//   }
+//   if (!$Contact_No) {
+//     $errors[] = 'Please enter your Contact No';
+//   }
+
+//   // Only Submit to sql when it is not empty
+//   if (empty($errors)) {
+
+//     // double quotations are used so I can use variables in strings
+//     // exec() instead of prepare() should be avoided because it is unsafe
+//     // I created named parameters
+//     $statement = $pdo->prepare("CALL addEvacuee(:First_Name, :Middle_Name, :Last_Name, :Sex, :Birthday, :Contact_No, :Household_ID);
+                                
+//                   ");
+//                 //   SELECT Household_ID FROM dagdaghh ORDER BY Household_ID ASC
+//     $statement->bindValue(':First_Name', $First_Name);
+//     $statement->bindValue(':Middle_Name', $Middle_Name);
+//     $statement->bindValue(':Last_Name', $Last_Name);
+//     $statement->bindValue(':Sex', $Sex);
+//     $statement->bindValue(':Birthday', $Birthday);
+//     $statement->bindValue(':Contact_No', $Contact_No);
+//     $statement->bindValue(':Household_ID', $Household_ID);
+//     $statement->execute();
+
+//     // redirect user after creating
+//     header('Location: evacuees.php');
+//   }
+// }
+
+// // Create Household
+// // if FirstName is empty, throw error because it is required
+// $errors2 = [];
+// // solution when FirstName, etc is empty
+// $Address = '';
+// $Family_Head = '';
+// $Room_ID = '';
+// $Date_Evacuated = '';
+
+// // show request method
+// if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//   $Address = $_POST['Address'];
+//   $Family_Head = $_POST['Family_Head'];
+//   $Room_ID = $_POST['Room_ID'];
+//   $Date_Evacuated = $_POST['Date_Evacuated'];
   
 
-  // if FirstName is empty, throw error because it is required
-  if (!$Address) {
-    $errors[] = 'Please enter Address';
-  }
-  if (!$Date_Evacuated) {
-    $errors[] = 'Please enter Date_Evacuated';
-  }
-  if (!$Room_ID) {
-    $errors[] = 'Please enter Room_ID';
-  }
+//   // if FirstName is empty, throw error because it is required
+//   if (!$Address) {
+//     $errors[] = 'Please enter Address';
+//   }
+//   if (!$Date_Evacuated) {
+//     $errors[] = 'Please enter Date_Evacuated';
+//   }
+//   if (!$Room_ID) {
+//     $errors[] = 'Please enter Room_ID';
+//   }
 
 
-  // Only Submit to sql when it is not empty
-  if (empty($errors2)) {
+//   // Only Submit to sql when it is not empty
+//   if (empty($errors2)) {
 
-    // double quotations are used so I can use variables in strings
-    // exec() instead of prepare() should be avoided because it is unsafe
-    // I created named parameters
-    // CALL addHousehold('Dolores', NULL, 'RM-002', '2023-02-14');
-    $statement2 = $pdo->prepare("CALL addEvacuee(:Address, :Family_Head, :Room_ID, :Date_Evacuated);
-                  ");
+//     // double quotations are used so I can use variables in strings
+//     // exec() instead of prepare() should be avoided because it is unsafe
+//     // I created named parameters
+//     // CALL addHousehold('Dolores', NULL, 'RM-002', '2023-02-14');
+//     $statement2 = $pdo->prepare("CALL addEvacuee(:Address, :Family_Head, :Room_ID, :Date_Evacuated);
+//                   ");
 
-    $statement2->bindValue(':Address', $Address);
-    $statement2->bindValue(':Family_Head', $Family_Head);
-    $statement2->bindValue(':Room_ID', $Room_ID);
-    $statement2->bindValue(':Date_Evacuated', $Date_Evacuated);
-    $statement2->execute();
+//     $statement2->bindValue(':Address', $Address);
+//     $statement2->bindValue(':Family_Head', $Family_Head);
+//     $statement2->bindValue(':Room_ID', $Room_ID);
+//     $statement2->bindValue(':Date_Evacuated', $Date_Evacuated);
+//     $statement2->execute();
 
-    // redirect user after creating
-    header('Location: evacuees.php');
-  }
-}
+//     // redirect user after creating
+//     header('Location: evacuees.php');
+//   }
+// }
 ?>
 
 <!DOCTYPE html>
@@ -416,7 +419,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="recent-announcements">
                 <h2>Add Evacuees</h2>
                 <div class="announcements">
-                    <form action="evacuees.php" method="post" enctype="multipart/form-data">
+                    <form action="evacuee_add.php" method="post" enctype="multipart/form-data">
                     <div class="add-evacuees-form">
                             <div class="firstname">
                                 <input type="text" name="First_Name" class="text-box" placeholder="Enter First Name" value="<?php echo $First_Name ?>">
@@ -485,10 +488,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <! ---------------- End of Announcements ---------------- !>
             <div class="recent-announcements">
             <!-- CALL addHousehold('Dolores', NULL, 'RM-002', '2023-02-14'); -->
-            <form action="" method="post" enctype="multipart/form-data">
+            <form action="household_add.php" method="post" enctype="multipart/form-data">
                 <h2>Add Household</h2>
                 <div class="announcements">
-                    <div class="add-evacuees-form">
+                    <div class="add-household-form">
                             <div class="Address">
                                 <input type="text" name="Address" class="text-box" placeholder="Enter Address" value="<?php echo $Address ?>">
                                 <h3 class="text-muted">Address</h3>
@@ -499,7 +502,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <h3 class="text-muted">Family Head</h3>
                             </div>
 
-                            <div class="Area_ID-field">
+                            <div class="Room_ID-field">
                                 <select name="Room_ID" value="<?php echo $Room_ID ?>" ><br>
                                     <option value="RM-001">RM-001</option>
                                     <option value="RM-002">RM-002</option>
