@@ -6,7 +6,7 @@ require_once "database.php";
 
 $Evacuee_ID = $_GET['Evacuee_ID'] ?? null;
 if (!$Evacuee_ID) {
-  header('Location: index.php');
+  header('Location: evacuees.php');
   exit;
 }
 
@@ -19,6 +19,7 @@ $evacuee2 = $statement->fetch(PDO::FETCH_ASSOC);
 $errors = [];
 
 // solution when Name etch is empty
+$Evacuee_ID = $evacuee2['Evacuee_ID'];
 $First_Name = $evacuee2['First_Name'];
 $Middle_Name = $evacuee2['Middle_Name'];
 $Last_Name = $evacuee2['Last_Name'];
@@ -31,6 +32,7 @@ $Household_ID = $evacuee2['Household_ID'];
 // show request method
 // echo $_SERVER['REQUEST_METHOD']. '<br>';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//   $Evacuee_ID = $_POST['Evacuee_ID'];
   $First_Name = $_POST['First_Name'];
   $Last_Name = $_POST['Last_Name'];
   $Sex = $_POST['Sex'];
@@ -65,7 +67,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Only Submit to sql when it is not empty
   if (empty($errors)) {
     // CALL updateEvacuee('EVAC-0021', 'Hello', 'Hello', 'Hello', 'M', '2005-12-25', '09999999999', 'HHOLD-0005', 'Evacuated');
-    $statement = $pdo->prepare("CALL updateEvacuee(:Evacuee_ID, :First_Name, :Middle_Name, :Last_Name, :Sex, :Birthday, :Contact_No, :Household_ID, :Evacuation_Status);");
+    // CALL updateEvacuee(:Evacuee_ID, :First_Name, :Middle_Name, :Last_Name, :Sex, :Birthday, :Contact_No, :Household_ID, :Evacuation_Status)
+    // UPDATE evacuee SET Evacuee_ID = :Evacuee_ID, 
+    //                             First_Name = :First_Name, 
+    //                             Middle_Name = :Middle_Name,
+    //                             Last_Name = :Last_Name,
+    //                             Sex = :Sex,
+    //                             Birthday = :Birthday,
+    //                             Contact_No = :Contact_No,
+    //                             Household_ID = :Household_ID,
+    //                             Evacuation_Status = :Evacuation_Status WHERE Evacuee_ID = :Evacuee_ID
+    $statement = $pdo->prepare("CALL updateEvacuee(:Evacuee_ID, :First_Name, :Middle_Name, :Last_Name, :Sex, :Birthday, :Contact_No, :Household_ID, :Evacuation_Status)");
     $statement->bindValue(':Evacuee_ID', $Evacuee_ID);
     $statement->bindValue(':First_Name', $First_Name);
     $statement->bindValue(':Middle_Name', $Middle_Name);
@@ -142,7 +154,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <h1>Evacuee Manager -> Update</h1>
             <div class="add-evacuees">
                 <h2>---Update Evacuee <?php echo $First_Name. ' '. $Middle_Name. ' '. $Last_Name?></h2>
-                <form action="evacuees.php" method="post" enctype="multipart/form-data">
+                <form action="" method="post" enctype="multipart/form-data">
                 <div class="add-evacuees-form">
                     <div class="add-evacuees-row-1">
                         <div class="firstname">
@@ -168,6 +180,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         
                         <div>
                         <select name="Sex" value="<?php echo $Sex ?>">
+                        <option value="<?php echo $Sex ?>" selected="<?php echo $Sex ?>"><?php echo $Sex ?></option>
                             <option value="M">Male</option>
                             <option value="F">Female</option>
                         </select>
@@ -179,11 +192,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                         <div class="household-field">
                         <select name="Household_ID" value="<?php echo $Household_ID ?>"><br>
+                            <option value="<?php echo $Household_ID ?>" selected="<?php echo $Household_ID ?>"><?php echo $Household_ID ?></option>
                             <option value="HHOLD-0001">HHOLD-0001</option>
                             <option value="HHOLD-0002">HHOLD-0002</option>
-                            <option value="HHOLD-0003">HHOLD-0004</option>
-                            <option value="HHOLD-0004">HHOLD-0005</option>
-                            <option value="HHOLD-0005">HHOLD-0006</option>
+                            <option value="HHOLD-0003">HHOLD-0003</option>
+                            <option value="HHOLD-0004">HHOLD-0004</option>
+                            <option value="HHOLD-0005">HHOLD-0005</option>
                             <option value="HHOLD-0006">HHOLD-0006</option>
                             <option value="HHOLD-0007">HHOLD-0007</option>
                             <option value="HHOLD-0008">HHOLD-0008</option>
@@ -194,7 +208,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                     <div class="add-evacuees-row-3">
                         <div class="household-field">
-                            <select name="Household_ID" value="<?php echo $Evacuation_Status ?>"><br>
+                            <select name="Evacuation_Status" value="<?php echo $Evacuation_Status ?>"><br>
                                 <option value="Evacuated">Evacuated</option>
                                 <option value="DEPARTED">DEPARTED</option>
                                 <option value="DIED">DIED</option>
