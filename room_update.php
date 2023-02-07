@@ -30,7 +30,7 @@ $R_Total_Capacity = $croom['R_Total_Capacity'];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 //   $Room_ID = $_POST['Room_ID'];
   $R_Name = $_POST['R_Name'];
-//   $Area_ID = $_POST['Area_ID'];
+  $Area_ID = $_POST['Area_ID'];
   $R_Total_Capacity = $_POST['R_Total_Capacity'];
 
   // if Name is empty, throw error because it is required
@@ -137,8 +137,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
 
                         <div class="Area_ID-field">
-                        <select name="Area_ID" value="<?php echo $Area_ID ?>"><br>
-                            <option value="none" selected disabled hidden>Select an Option</option>
+                        <select name="Area_ID" value="<?php echo $Area_ID ?>" ><br>
+                            <option value="<?php echo $Area_ID ?>" selected="<?php echo $Area_ID ?>"><?php echo $Area_ID ?></option>
                             <option value="A-0001">A-0001</option>
                             <option value="A-0002">A-0002</option>
                         </select>
