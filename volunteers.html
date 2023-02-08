@@ -35,28 +35,32 @@
                     <span class="material-icons-sharp">group</span>
                     <h3>Evacuees</h3>
                 </a>
-                <a href="#" class="btn-inventory">
+                <a href="#" class="btn-volunteers active">
+                    <span class="material-icons-sharp">volunteer_activism</span>
+                    <h3>Volunteers</h3>
+                </a>
+                <a href="inventory.html" class="btn-inventory">
                     <span class="material-icons-sharp">inventory</span>
                     <h3>Inventory</h3>
                 </a>
-                <a href="#" class="btn-volunteers active">
-                    <span class="material-icons-sharp">person</span>
-                    <h3>Volunteers</h3>
+                <a href="distribution.html" class="btn-distribution">
+                    <span class="material-icons-sharp">local_shipping</span>
+                    <h3>Distribution</h3>
                 </a>
-
                 <a href="#" class="btn-logout">
                     <span class="material-icons-sharp">logout</span>
                     <h3>Logout</h3>
                 </a>
+            
             </div>
         </aside>
         <!===================== END OF ASIDE =======================!>
 
         <main>
-            <h1>Inventory Manager</h1>
+            <h1>Volunteer Manager</h1>
 
             <div class="recent-updates">
-                <h2>Item Inventory</h2>
+                <h2>Volunteers</h2>
                 <table>
                     <thead>
                         <tr>
@@ -115,7 +119,7 @@
             </div>
 
             <div class="recent-updates">
-                <h2>Relief Packs</h2>
+                <h2>Volunteer Groups</h2>
                 <table>
                     <thead>
                         <tr>
@@ -173,23 +177,36 @@
             </div>
             <! ---------------- End of Top ---------------- !>
             <div class="recent-announcements">
-                <h2>Add Item</h2>
+                <h2>Add Volunteer</h2>
                 <div class="announcements">
                     
                         <div class="add-items-form">
                             <div class="itemname">
-                            <input type="text" name="name" class="text-box" placeholder="Item">
-                            <h3 class="text-muted">Item Name</h3>
+                            <input type="text" name="name" class="text-box" placeholder="Name">
+                            <h3 class="text-muted">Name</h3>
                             </div>
                             <div class="expiry">
-                                <input type="date" name="expiry" class="text-box">
-                                <h3 class="text-muted">Expiry</h3>
+                                <input type="date" name="birthday" class="text-box">
+                                <h3 class="text-muted">Birthday</h3>
                             </div>
                             <div class="itemqty">
-                                <input type="number" name="quantity" class="text-box" placeholder="Room ID">
-                                <h3 class="text-muted">Quantity</h3>
+                                <input type="number" name="age" class="text-box" placeholder="Age">
+                                <h3 class="text-muted">Age</h3>
                             </div>
-
+                            <div class="itemname">
+                                <input type="text" name="name" class="text-box" placeholder="Name">
+                                <h3 class="text-muted">Sex</h3>
+                                </div>
+                            
+                                <div class="item-field">
+                                    <datalist id="item-suggestions" >
+                                        <option>Medical Group 1</option>
+                                        <option>Evacuation Group 1</option>
+                                        <option>Relief Operations Group 1</option>
+                                    </datalist>
+                                    <input  autoComplete="on" list="item-suggestions" class="txt-item"/> 
+                                    <h3 class="text-muted">Volunteer Group</h3>
+                                </div>
                             <div class="add-items-row-3">
                                 <button>Submit</button>
                                 <button>Clear</button>
@@ -205,7 +222,7 @@
                 <div class="announcements">
                     
                         <div class="relief-packing-form">
-                            <div class="relief-packing-row-1">
+
                                 <div class="item-field">
                                     <datalist id="item-suggestions" >
                                         <option>Noodles</option>
@@ -215,46 +232,14 @@
                                         <option>Rice</option>
                                     </datalist>
                                     <input  autoComplete="on" list="item-suggestions" class="txt-item"/> 
-                                    <h3 class="text-muted">Item</h3>
+                                    <h3 class="text-muted">Area</h3>
                                 </div>
 
                                 <div class="itemqty">
-                                <input type="number" name="quantity" class="text-box" >
-                                <h3 class="text-muted">Quantity</h3>
+                                <input type="text" name="name" class="text-box" >
+                                <h3 class="text-muted">Group Name</h3>
                                 </div>
 
-                                <button>Add</button> 
-                            </div>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Item</th>
-                                        <th>Quantity</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Noodles</td>
-                                        <td>2</td>
-                                        <td><button>Remove</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Corned Beef</td>
-                                        <td>2</td>
-                                        <td><button>Remove</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Rice</td>
-                                        <td>2</td>
-                                        <td><button>Remove</button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="reliefmultiplier">
-                                <input type="number" name="multiplier" class="text-box" >
-                                <h3 class="text-muted">X</h3>
-                                </div>
                             <button>Submit</button>
                             <button>Clear</button>
 
