@@ -39,7 +39,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       // exec() instead of prepare() should be avoided because it is unsafe
       // I created named parameters
       // CALL addHousehold('Dolores', NULL, 'RM-002', '2023-02-14');
-      $statement2 = $pdo->prepare("CALL addHousehold(:Address, :Family_Head, :Room_ID, :Date_Evacuated)");
+      // "CALL addHousehold(:Address, :Family_Head, :Room_ID, :Date_Evacuated)"
+      $statement2 = $pdo->prepare("INSERT INTO household (Address, Family_Head, Room_ID, Date_Evacuated)
+                                  VALUES (:Address, :Family_Head, :Room_ID, :Date_Evacuated);");
   
       $statement2->bindValue(':Address', $Address);
       $statement2->bindValue(':Family_Head', $Family_Head);

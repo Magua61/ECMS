@@ -1,3 +1,47 @@
+<?php
+
+// <!-- create connection to database -->
+/** @var $pdo \PDO */
+require_once "database.php";
+
+// if FirstName is empty, throw error because it is required
+$errors = [];
+
+// solution when FirstName, etc is empty
+// $Item_ID = '';
+$I_Name = '';
+$Expiry = '';
+$Quantity = '';
+
+// add evac
+$First_Name = '';
+$Middle_Name = '';
+$Last_Name = '';
+$Sex = '';
+$Birthday = '';
+$Contact_No = '';
+$Household_ID = '';
+
+// // search function for inventory
+// $search = $_GET['search'] ?? '';
+// if ($search) {
+//   $statement = $pdo->prepare('call searchEvacuee(:First_Name)');
+//   $statement->bindValue(':First_Name', "%$search%");
+// } else{
+//   $statement = $pdo->prepare('CALL viewEvacueeJoinHousehold');
+// }
+
+$statement = $pdo->prepare('CALL viewItem');
+$statement->execute();
+$item = $statement->fetchAll(PDO::FETCH_ASSOC);
+$statement->closeCursor();
+$statement2 = $pdo->prepare('CALL viewReliefGood');
+$statement2->execute();
+$statement->closeCursor();
+$good = $statement2->fetchAll(PDO::FETCH_ASSOC);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,7 +83,7 @@
                     <span class="material-icons-sharp">inventory</span>
                     <h3>Inventory</h3>
                 </a>
-                <a href="inventory.php" class="btn-settings">
+                <a href="#" class="btn-settings">
                     <span class="material-icons-sharp">settings</span>
                     <h3>Settings</h3>
                 </a>
@@ -53,128 +97,150 @@
         <!===================== END OF ASIDE =======================!>
 
         <main>
-            <h1>Dashboard</h1>
-            <div class="date">
-                <script>
-                date = new Date().toLocaleDateString();
-                document.write(date);
-                </script>
-            </div>
-            <div class="insights">
-                <!====================== CAPACITY ====================!>
-                <div class="cap">
-                    <span class= "material-icons-sharp">night_shelter</span>
-                    <div class="middle">
-                        <div class="left">
-                             <h3>Total Capacity</h3>
-                            <h1>854</h1>
-                        </div>
-                         <div class="progress">
-                             <svg>
-                                 <circle cx='40' cy="50" r="36"/>
-                            </svg>
-                             <div class="number">
-                                <p>81%</p>
-                             </div>
-                        </div>
-                    </div>
-                    <small class="text-muted">Last 24 Hours</small>
-                </div>
-                <!====================== EVACUEES ====================!>
+            <h1>Inventory Manager</h1>
 
-                <div class="evacuees">
-                    <span class= "material-icons-sharp">family_restroom</span>
-                    <div class="middle">
-                        <div class="left">
-                             <h3>Number of Families</h3>
-                            <h1>32</h1>
-                        </div>
-                         <div class="progress">
-                             <svg>
-                                 <circle cx='40' cy="50" r="36"/>
-                            </svg>
-                             <div class="number">
-                                <p>81%</p>
-                             </div>
+            <div class="recent-updates">
+                <h2>Item Inventory</h2>
+                    <form>
+                    <div class="input-group mb-3">
+                        <!-- Search household -->
+                        <!-- <input type="text" class="form-control" 
+                                placeholder="Search for Household" 
+                                name="search2" value="<?php //echo $search2 ?>"> -->
+                        <div class="input-group-append">
+                        <!-- <button class="btn btn-outline-secondary" type="submit">Search</button> -->
+                        <!-- <button class="btn btn-outline-secondary" type="submit" style="float: right;">View By Household</button> -->
                         </div>
                     </div>
-                    <small class="text-muted">Last 24 Hours</small>
-                </div>
-                <!====================== RELIEF ====================!>
-                <div class="inventory">
-                    <span class= "material-icons-sharp">food_bank</span>
-                    <div class="middle">
-                        <div class="left">
-                             <h3>Relief Packs</h3>
-                            <h1>1,523</h1>
-                        </div>
-                         <div class="progress">
-                             <svg>
-                                 <circle cx='40' cy="50" r="36"/>
-                            </svg>
-                             <div class="number">
-                                <p>65%</p>
-                             </div>
+                    </form>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">I_Name</th>
+                        <th scope="col">Expiry</th>
+                        <th scope="col">I_Quantity</th>
+                        <!-- <th scope="col">Contact_No</th> -->
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    foreach ($item as $j => $ii) :
+                    ?>
+                        <tr>
+                        <td scope="row"><?php echo $ii['Item_ID'] ?></td>
+                        <td><?php echo $ii['I_Name'];?></td>
+                        <td><?php echo $ii['Expiry'] ?></td>
+                        <td><?php echo $ii['I_Quantity'] ?></td>
+
+                        <td>
+                            <!-- Edit button -->
+                            <a href="household_update.php?Household_ID=<?php echo $hh['Household_ID'] ?>" id="sub" class="btn btn-primary">Edit</a>
+
+                            
+                            <!-- Delete button -->
+                            <form style="display:inline-block" method="post" action="household_delete.php">
+                            <input type="hidden" name="Household_ID" value="<?php echo $hh['Household_ID'] ?>">
+                            <button type="submit">Delete</button>
+                            
+                            </form>
+                        </td>
+
+                        </tr>
+                    <?php
+                    endforeach;
+                    ?>
+
+                    </tbody>
+                </table>
+                <a href="#">Show All</a>
+            <!-- End of Item Inventory -->
+            </div>
+            
+            <div class="recent-updates">
+                <h2>Relief Packs</h2>
+                    <form>
+                    <div class="input-group mb-3">
+                        <!-- Search household -->
+                        <!-- <input type="text" class="form-control" 
+                                placeholder="Search for Household" 
+                                name="search2" value="<?php //echo $search2 ?>"> -->
+                        <div class="input-group-append">
+                        <!-- <button class="btn btn-outline-secondary" type="submit">Search</button> -->
+                        <!-- <button class="btn btn-outline-secondary" type="submit" style="float: right;">View By Household</button> -->
                         </div>
                     </div>
-                    <small class="text-muted">Last 24 Hours</small>
-                </div>
-                <!====================== CAPACITY ====================!>
+                    </form>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Relief_ID</th>
+                        <th scope="col">Item/s</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    foreach ($good as $x => $xx) :
+                    ?>
+                        <tr>
+                        <td scope="row"><?php echo $xx['Relief_ID'] ?></td>
+                        <td><?php echo $xx['Item/s'];?></td>
+
+                        <td>
+                            <!-- Edit button -->
+                            <a href="household_update.php?Household_ID=<?php echo $hh['Household_ID'] ?>" id="sub" class="btn btn-primary">Edit</a>
+
+                            
+                            <!-- Delete button -->
+                            <form style="display:inline-block" method="post" action="household_delete.php">
+                            <input type="hidden" name="Household_ID" value="<?php echo $hh['Household_ID'] ?>">
+                            <button type="submit">Delete</button>
+                            
+                            </form>
+                        </td>
+
+                        </tr>
+                    <?php
+                    endforeach;
+                    ?>
+
+                    </tbody>
+                </table>
+                <a href="#">Show All</a>
+            <!-- End of Relief Pack -->
             </div>
 
             <div class="recent-updates">
-                <h2>Recent Updates</h2>
+                <h2>Relief Packs</h2>
                 <table>
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Address</th>
-                            <th>Age</th>
-                            <th>Sex</th>
-                            <th>Room</th>
-                            <th>Status</th>
+                            <th>Relief ID</th>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>Date Packed</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Samson, Anne Marie</td>
-                            <td>San Roque</td>
-                            <td>23</td>
-                            <td>Female</td>
-                            <td>Room 16</td>
-                            <td>Evacuated</td>
+                            <td>RG_1123</td>
+                            <td>Noodles</td>
+                            <td>2</td>
+                            <td>01/02/2022</td>
                         </tr>
                         <tr>
-                            <td>Lee, John Mike</td>
-                            <td>Village East</td>
-                            <td>27</td>
-                            <td>Male</td>
-                            <td>Room 10</td>
-                            <td>Evacuated</td>
+                            <td>RG_1123</td>
+                            <td>Rice</td>
+                            <td>2</td>
+                            <td>01/02/2022</td>
                         </tr>
                         <tr>
-                            <td>Collins, Adon</td>
-                            <td>San Fidel</td>
-                            <td>17</td>
-                            <td>Male</td>
-                            <td>Room 7</td>
-                            <td>Departed</td>
-                        </tr>
-                        <tr>
-                            <td>Santos, Desirie</td>
-                            <td>Santolan</td>
-                            <td>37</td>
-                            <td>Female</td>
-                            <td>Room 21</td>
-                            <td>Evacuated</td>
-                        </tr>
-                        <tr>
-                            <td>Santiago, Janna</td>
-                            <td>Pinagbuhatan</td>
-                            <td>25</td>
-                            <td>Female</td>
-                            <td>Room 15</td>
-                            <td>Evacuated</td>
+                            <td>RG_1123</td>
+                            <td>Sardines</td>
+                            <td>2</td>
+                            <td>01/02/2022</td>
                         </tr>
                     </tbody>
                 </table>
@@ -205,85 +271,178 @@
             </div>
             <! ---------------- End of Top ---------------- !>
             <div class="recent-announcements">
-                <h2>Announcements</h2>
+                <h2>Add Item</h2>
                 <div class="announcements">
-                    <div class="announcement">
-                        <div class="profile-photo">
-                            <img src="assets/profile-2.jpg">
-                        </div>
-                        <div class="message">
-                            <p><b>NDRRMC</b> Alert Level 3 in Metro Manila and surrounding regions.</p>
-                            <small class="text-muted">4 Minutes Ago</small>
-                        </div>
-                    </div>
+                    
+                        <div class="add-items-form">
+                        <form action="item_add.php" method="post" enctype="multipart/form-data">
+                            <div class="I_Name">
+                            <input type="text" name="I_Name" class="text-box" placeholder="Enter Item Name" value="<?php echo $I_Name ?>">
+                            <h3 class="text-muted">Item Name</h3>
+                            </div>
+                            <div class="Expiry">
+                                <input type="date" name="Expiry" class="text-box" value="<?php echo $Expiry ?>">
+                                <h3 class="text-muted">Expiry</h3>
+                            </div>
+                            <div class="Quantity">
+                                <input type="number" name="Quantity" class="text-box" placeholder="Enter Quantity" value="<?php echo $Quantity ?>">
+                                <h3 class="text-muted">Quantity</h3>
+                            </div>
 
-                    <div class="announcement">
-                        <div class="profile-photo">
-                            <img src="assets/profile-2.jpg">
+                            <div class="add-items-row-3">
+                                <button type="submit" id="sub" class="btn btn-primary">Submit</button>
+                                <a href="evacuees.php">Clear</a>
+                            </div>
+                        </form>
                         </div>
-                        <div class="message">
-                            <p><b>NDRRMC</b> Alert Level 4 in North Luzon and Central Luzon regions.</p>
-                            <small class="text-muted">6 Minutes Ago</small>
-                        </div>
-                    </div>
-
-                    <div class="announcement">
-                        <div class="profile-photo">
-                            <img src="assets/profile-2.jpg">
-                        </div>
-                        <div class="message">
-                            <p><b>NDRRMC</b> Alert Level 2 in South Luzon and Northern Visayas regions.</p>
-                            <small class="text-muted">11 Minutes Ago</small>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
-            <! ---------------- End of Announcements ---------------- !>
-                <div class="evac-analytics">
-                    <h2>Analytics</h2>
-                    <div class="evacuee analysis">
-                        <div class="icon">
-                            <span class= "material-icons-sharp">groups</span>
-                        </div>
-                        <div class="right">
-                            <div class="info">
-                                <h3>EVACUEES</h3>
-                                <small class="text-muted">Last 24 Hours</small>
+            <!-- --------------------------------------------------------------- -->
+            <div class="recent-announcements">
+                <h2>Add Evacuees</h2>
+                <div class="announcements">
+                    <form action="evacuee_add.php" method="post" enctype="multipart/form-data">
+                    <div class="add-evacuees-form">
+                            <div class="firstname">
+                                <input type="text" name="First_Name" class="text-box" placeholder="Enter First Name" value="<?php echo $First_Name ?>">
+                                <h3 class="text-muted">First Name</h3><br>
                             </div>
-                            <h5 class="success">+26%</h5>
-                            <h3>854</h3>
+    
+                            <div class="middlename">
+                            <input type="text" name="Middle_Name" class="text-box" placeholder="Enter Middle Name" value="<?php echo $Middle_Name ?>">
+                                <h3 class="text-muted">Middle Name</h3><br>
+                            </div>
+    
+                            <div class="lastname">
+                            <input type="text" name="Last_Name" class="text-box" placeholder="Enter Last Name" value="<?php echo $Last_Name ?>">
+                                <h3 class="text-muted">Last Name</h3>
+                            </div>
+
+                        <div class="add-evacuees-row">
+                            
+                            <div>
+                                <select name="Sex" value="<?php echo $Sex ?>">
+                                    <option value="M">Male</option>
+                                    <option value="F">Female</option>
+                                </select>
+                                <h3 class="text-muted">Sex</h3>
+                            </div>
+                        <!-- Close row -->
+                        </div>
+                            <div>
+                                <input type="date" name="Birthday" class="text-box" value="<?php echo $Birthday ?>">
+                                <h3 class="text-muted">Birthday</h3>
+                            </div>
+
+                            <div>
+                            <input type="text" name="Contact_No" class="text-box" placeholder="Enter Contact Number" value="<?php echo $Contact_No ?>">
+                                <h3 class="text-muted">Contact No</h3>
+                            </div>
+                        
+                        <div class="add-evacuees-row-3">
+                            <div class="household-field">
+                                <select name="Household_ID" value="<?php echo $Household_ID ?>"><br>
+                                    <option value="HHOLD-0001">HHOLD-0001</option>
+                                    <option value="HHOLD-0002">HHOLD-0002</option>
+                                    <option value="HHOLD-0003">HHOLD-0003</option>
+                                    <option value="HHOLD-0004">HHOLD-0004</option>
+                                    <option value="HHOLD-0005">HHOLD-0005</option>
+                                    <option value="HHOLD-0006">HHOLD-0006</option>
+                                    <option value="HHOLD-0007">HHOLD-0007</option>
+                                    <option value="HHOLD-0008">HHOLD-0008</option>
+                                    <option value="HHOLD-0009">HHOLD-0009</option>
+                                </select>
+                                <h3 class="text-muted">Household</h3>
+                            <!-- Close household-field -->
+                            </div>
+                            <!-- Buttons -->
+                            <button type="submit" id="sub" class="btn btn-primary">Submit</button>
+                            <a href="evacuees.php">Clear</a>
+                        <!-- close add-evacuees-row-3 -->
                         </div>
                     </div>
-
-                    <div class="volunteer analysis">
-                        <div class="icon">
-                            <span class="material-icons-sharp">volunteer_activism</span>
-                        </div>
-                        <div class="right">
-                            <div class="info">
-                                <h3>VOLUNTEERS</h3>
-                                <small class="text-muted">Last 24 Hours</small>
-                            </div>
-                            <h5 class="danger">-15%</h5>
-                            <h3>23</h3>
-                        </div>
-                    </div>
-
-                    <div class="inventory analysis">
-                        <div class="icon">
-                            <span class= "material-icons-sharp">set_meal</span>
-                        </div>
-                        <div class="right">
-                            <div class="info">
-                                <h3>RELIEF GOODS</h3>
-                                <small class="text-muted">Last 24 Hours</small>
-                            </div>
-                            <h5 class="warning">+0.7%</h5>
-                            <h3>1,523</h3>
-                        </div>
-                    </div>
-
+                    </form>
+                <!-- Close Announcements -->
                 </div>
+            <!-- Close recent Announcements -->
+            </div>
+            <!-- --------------------------------------------------------------- -->
+            <! ---------------- End of Announcements ---------------- !>
+            <div class="recent-announcements">
+                <h2>Relief Packing</h2>
+                <div class="announcements">
+                    
+                        <div class="relief-packing-form">
+                           
+                            <div class="relief-item-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Item</th>
+                                        <th>Quantity</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Noodles</td>
+                                        <td>2</td>
+                                        <td><button>Remove</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Corned Beef</td>
+                                        <td>2</td>
+                                        <td><button>Remove</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Rice</td>
+                                        <td>2</td>
+                                        <td><button>Remove</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nescafe 3n1</td>
+                                        <td>2</td>
+                                        <td><button>Remove</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Alaska</td>
+                                        <td>2</td>
+                                        <td><button>Remove</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </div>
+                            <div class="relief-packing-row-1">
+                                    <div class="item-field">
+                                        <datalist id="item-suggestions" >
+                                            <option>Noodles</option>
+                                            <option>Corned Beef</option>
+                                            <option>Sardines</option>
+                                            <option>Meat Loaf</option>
+                                            <option>Rice</option>
+                                        </datalist>
+                                        <input  autoComplete="on" list="item-suggestions" class="txt-item"/> 
+                                        <h3 class="text-muted">Item</h3>
+                                    </div>
+                                    <div class="itemqty">
+                                        <input type="number" name="quantity" class="text-box" >
+                                        <h3 class="text-muted">Quantity</h3>
+                                    </div>
+                                    <button>Add</button>             
+                            </div>
+                            <div class="relief-packing-last-row">
+                                <div class="relief-multiplier">
+                                    <input type="number" name="multiplier" class="text-box" >
+                                    <h3 class="text-muted">Multiplier</h3>
+                                </div>
+                                <button>Submit</button>
+                                <button>Clear</button>
+                            </div>
+                </div>
+            </div>
+            </div>
+            
 
         </div>
     </div>
