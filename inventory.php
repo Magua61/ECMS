@@ -22,6 +22,12 @@ $Birthday = '';
 $Contact_No = '';
 $Household_ID = '';
 
+// add pack zxc
+$Relief_ID = '';
+$Item_ID = '';
+$Date_Packed = '';
+$R_Quantity = '';
+
 // // search function for inventory
 // $search = $_GET['search'] ?? '';
 // if ($search) {
@@ -291,7 +297,7 @@ $good = $statement2->fetchAll(PDO::FETCH_ASSOC);
 
                             <div class="add-items-row-3">
                                 <button type="submit" id="sub" class="btn btn-primary">Submit</button>
-                                <a href="evacuees.php">Clear</a>
+                                <a href="inventory.php">Clear</a>
                             </div>
                         </form>
                         </div>
@@ -368,6 +374,41 @@ $good = $statement2->fetchAll(PDO::FETCH_ASSOC);
             <!-- Close recent Announcements -->
             </div>
             <!-- --------------------------------------------------------------- -->
+            
+            <!-- zxc -->
+            <div class="recent-announcements">
+                <h2>Relief Packing</h2>
+                <div class="announcements">
+                    
+                        <div class="add-items-form">
+                        <form action="reliefpack_add.php" method="post" enctype="multipart/form-data">
+                            <div class="Relief_ID">
+                                <input type="text" name="Relief_ID" class="text-box" placeholder="Enter Relief_ID" value="<?php echo $Relief_ID ?>">
+                                <h3 class="text-muted">Relief_ID</h3>
+                            </div>
+                            <div class="Item_ID">
+                                <input type="text" name="Item_ID" class="text-box" placeholder="Enter Item_ID" value="<?php echo $Item_ID ?>">
+                                <h3 class="text-muted">Item_ID</h3>
+                            </div>
+                            <div class="Date_Packed">
+                                <input type="date" name="Date_Packed" class="text-box" value="<?php echo $Date_Packed ?>">
+                                <h3 class="text-muted">Date_Packed</h3>
+                            </div>
+                            <div class="R_Quantity">
+                                <input type="number" name="R_Quantity" class="text-box" placeholder="Enter R_Quantity" value="<?php echo $R_Quantity ?>">
+                                <h3 class="text-muted">R_Quantity</h3>
+                            </div>
+
+                            <div class="add-items-row-3">
+                                <button type="submit" id="sub" class="btn btn-primary">Submit</button>
+                                <a href="inventory.php">Clear</a>
+                            </div>
+                        </form>
+                        </div>
+                    
+                </div>
+            </div>
+        
             <! ---------------- End of Announcements ---------------- !>
             <div class="recent-announcements">
                 <h2>Relief Packing</h2>
