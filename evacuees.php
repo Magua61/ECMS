@@ -110,66 +110,7 @@ $errors2 = [];
         <main>
 
             <h1>Evacuee Manager</h1>
-            <div class="add-evacuees">
-                <h2>---Add Evacuees</h2>
-                <form action="evacuees.php" method="post" enctype="multipart/form-data">
-                <div class="add-evacuees-form">
-                    <div class="add-evacuees-row-1">
-                        <div class="firstname">
-                        <input type="text" name="First_Name" class="text-box" placeholder="Enter First Name" value="<?php echo $First_Name ?>">
-                        <h3 class="text-muted">First Name</h3>
-                        </div>
-
-                        <div class="middlename">
-                        <input type="text" name="Middle_Name" class="text-box" placeholder="Enter Middle Name" value="<?php echo $Middle_Name ?>">
-                        <h3 class="text-muted">Middle Name</h3>
-                        </div>
-
-                        <div class="lastname">
-                        <input type="text" name="Last_Name" class="text-box" placeholder="Enter Last Name" value="<?php echo $Last_Name ?>">
-                        <h3 class="text-muted">Last Name</h3>
-                        </div>
-                    </div>
-                    <div class="add-evacuees-row-2">
-                        <div>
-                        <input type="date" name="Birthday" class="text-box" value="<?php echo $Birthday ?>">
-                        <h3 class="text-muted">Birthday</h3>
-                        </div>
-                        
-                        <div>
-                        <select name="Sex" value="<?php echo $Sex ?>">
-                            <option value="M">Male</option>
-                            <option value="F">Female</option>
-                        </select>
-                        <h3 class="text-muted">Sex</h3>
-                        </div>
-                        <div>
-                        <input type="text" name="Contact_No" class="text-box" placeholder="Enter Contact" value="<?php echo $Contact_No ?>">
-                        <h3 class="text-muted">Contact No</h3>
-                        </div>
-                        <div class="household-field">
-                        <select name="Household_ID" value="<?php echo $Household_ID ?>"><br>
-                            <option value="HHOLD-0001">HHOLD-0001</option>
-                            <option value="HHOLD-0002">HHOLD-0002</option>
-                            <option value="HHOLD-0003">HHOLD-0003</option>
-                            <option value="HHOLD-0004">HHOLD-0004</option>
-                            <option value="HHOLD-0005">HHOLD-0005</option>
-                            <option value="HHOLD-0006">HHOLD-0006</option>
-                            <option value="HHOLD-0007">HHOLD-0007</option>
-                            <option value="HHOLD-0008">HHOLD-0008</option>
-                            <option value="HHOLD-0009">HHOLD-0009</option>
-                        </select>
-                        <h3 class="text-muted">Household ID</h3>
-                        </div>
-                    </div>
-                    <div class="add-evacuees-row-3">
-                        
-                        <button type="submit" id="sub" class="btn btn-primary">Submit</button>
-                        <a href="evacuees.php">Clear</a>
-                    </div>
-                </form>
-                </div>
-            </div>
+            
 
             <!-- Start of household -->
             <div class="recent-updates">
