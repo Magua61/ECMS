@@ -142,12 +142,12 @@ $good = $statement2->fetchAll(PDO::FETCH_ASSOC);
 
                         <td>
                             <!-- Edit button -->
-                            <a href="household_update.php?Household_ID=<?php echo $hh['Household_ID'] ?>" id="sub" class="btn btn-primary">Edit</a>
+                            <a href="item_update.php?Item_ID=<?php echo $ii['Item_ID'] ?>" id="sub" class="btn btn-primary">Edit</a>
 
                             
                             <!-- Delete button -->
-                            <form style="display:inline-block" method="post" action="household_delete.php">
-                            <input type="hidden" name="Household_ID" value="<?php echo $hh['Household_ID'] ?>">
+                            <form style="display:inline-block" method="post" action="item_delete.php">
+                            <input type="hidden" name="Item_ID" value="<?php echo $ii['Item_ID'] ?>">
                             <button type="submit">Delete</button>
                             
                             </form>
@@ -183,7 +183,7 @@ $good = $statement2->fetchAll(PDO::FETCH_ASSOC);
                     <tr>
                         <th scope="col">Relief_ID</th>
                         <th scope="col">Item/s</th>
-                        <th scope="col">Action</th>
+                        <!-- <th scope="col">Action</th> -->
                     </tr>
                     </thead>
                     <tbody>
@@ -194,18 +194,18 @@ $good = $statement2->fetchAll(PDO::FETCH_ASSOC);
                         <td scope="row"><?php echo $xx['Relief_ID'] ?></td>
                         <td><?php echo $xx['Item/s'];?></td>
 
-                        <td>
+                        <!-- <td> -->
                             <!-- Edit button -->
-                            <a href="household_update.php?Household_ID=<?php echo $hh['Household_ID'] ?>" id="sub" class="btn btn-primary">Edit</a>
+                            <!-- <a href="household_update.php?Household_ID=<?php //echo $hh['Household_ID'] ?>" id="sub" class="btn btn-primary">Edit</a> -->
 
                             
                             <!-- Delete button -->
-                            <form style="display:inline-block" method="post" action="household_delete.php">
-                            <input type="hidden" name="Household_ID" value="<?php echo $hh['Household_ID'] ?>">
-                            <button type="submit">Delete</button>
+                            <!-- <form style="display:inline-block" method="post" action="household_delete.php">
+                            <input type="hidden" name="Household_ID" value="<?php //echo $hh['Household_ID'] ?>">
+                            <button type="submit">Delete</button> -->
                             
                             </form>
-                        </td>
+                        <!-- </td> -->
 
                         </tr>
                     <?php
