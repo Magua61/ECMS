@@ -6,16 +6,6 @@ require_once "database.php";
 // if FirstName is empty, throw error because it is required
 $errors = [];
 
-// Create Evacuee
-// solution when FirstName, etc is empty
-$First_Name = '';
-$Middle_Name = '';
-$Last_Name = '';
-$Sex = '';
-$Birthday = '';
-$Contact_No = '';
-$Household_ID = '';
-
 // show request method
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $First_Name = $_POST['First_Name'];
