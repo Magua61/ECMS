@@ -56,96 +56,93 @@
         <!===================== END OF ASIDE =======================!>
 
         <main>
-            <h1>Inventory Manager</h1>
+            <h1>Relief Distribution Manager</h1>
+            
 
             <div class="recent-updates">
-                <h2>Item Inventory</h2>
+                <div class="room-household-header">
+                    <h2>Rooms</h2>
+                    <div class="item-field">
+                        <datalist id="item-suggestions" >
+                            <option>Room 1</option>
+                            <option>Room 2</option>
+                            <option>Room 3</option>
+                            <option>Room 4</option>
+                            <option>Room 5</option>
+                        </datalist>
+                        <input  autoComplete="on" list="item-suggestions" class="txt-item"/> 
+                    </div>
+                    <button>Select</button>
+                </div>
                 <table>
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Address</th>
-                            <th>Age</th>
-                            <th>Sex</th>
-                            <th>Room</th>
-                            <th>Status</th>
+                            <th><input type="checkbox"></th>
+                            <th>Household ID</th>
+                            <th>Head</th>
+                            <th>Members</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Samson, Anne Marie</td>
-                            <td>San Roque</td>
-                            <td>23</td>
-                            <td>Female</td>
-                            <td>Room 16</td>
-                            <td>Evacuated</td>
+                            <td><input type="checkbox"></td>
+                            <td>HH_1123</td>
+                            <td>Jose Santiago</td>
+                            <td>5</td>
                         </tr>
                         <tr>
-                            <td>Lee, John Mike</td>
-                            <td>Village East</td>
-                            <td>27</td>
-                            <td>Male</td>
-                            <td>Room 10</td>
-                            <td>Evacuated</td> 
+                            <td><input type="checkbox"></td>
+                            <td>HH_1123</td>
+                            <td>Kris Magno</td>
+                            <td>8</td>
                         </tr>
                         <tr>
-                            <td>Collins, Adon</td>
-                            <td>San Fidel</td>
-                            <td>17</td>
-                            <td>Male</td>
-                            <td>Room 7</td>
-                            <td>Departed</td>
+                            <td><input type="checkbox"></td>
+                            <td>HH_1123</td>
+                            <td>Tiyo Delo</td>
+                            <td>4</td>
                         </tr>
                         <tr>
-                            <td>Santos, Desirie</td>
-                            <td>Santolan</td>
-                            <td>37</td>
-                            <td>Female</td>
-                            <td>Room 21</td>
-                            <td>Evacuated</td>
+                            <td><input type="checkbox"></td>
+                            <td>HH_1123</td>
+                            <td>Anton Nuevo</td>
+                            <td>6</td>
                         </tr>
-                        <tr>
-                            <td>Santiago, Janna</td>
-                            <td>Pinagbuhatan</td>
-                            <td>25</td>
-                            <td>Female</td>
-                            <td>Room 15</td>
-                            <td>Evacuated</td>
-                        </tr>
+                        
                     </tbody>
                 </table>
                 <a href="#">Show All</a>
             </div>
 
             <div class="recent-updates">
-                <h2>Relief Packs</h2>
+                <h2>Distribution History</h2>
                 <table>
                     <thead>
                         <tr>
                             <th>Relief ID</th>
-                            <th>Item</th>
-                            <th>Quantity</th>
-                            <th>Date Packed</th>
+                            <th>Household ID</th>
+                            <th>Head</th>
+                            <th>Date Given</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>RG_1123</td>
-                            <td>Noodles</td>
-                            <td>2</td>
-                            <td>01/02/2022</td>
+                            <td>HH_1123</td>
+                            <td>Jose Santiago</td>
+                            <td>01/09/2022</td>
                         </tr>
                         <tr>
                             <td>RG_1123</td>
-                            <td>Rice</td>
-                            <td>2</td>
-                            <td>01/02/2022</td>
+                            <td>HH_1123</td>
+                            <td>Jose Santiago</td>
+                            <td>01/09/2022</td>
                         </tr>
                         <tr>
                             <td>RG_1123</td>
-                            <td>Sardines</td>
-                            <td>2</td>
-                            <td>01/02/2022</td>
+                            <td>HH_1123</td>
+                            <td>Jose Santiago</td>
+                            <td>01/09/2022</td>
                         </tr>
                     </tbody>
                 </table>
@@ -176,25 +173,45 @@
             </div>
             <! ---------------- End of Top ---------------- !>
             <div class="recent-announcements">
-                <h2>Add Item</h2>
+                <h2>Relief Goods</h2>
                 <div class="announcements">
                     
-                        <div class="add-items-form">
-                            <div class="itemname">
-                            <input type="text" name="name" class="text-box" placeholder="Item">
-                            <h3 class="text-muted">Item Name</h3>
+                        <div class="distribute-form">
+                            <div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th><input type="checkbox"></th>
+                                            <th>Quantity</th>
+                                            <th>Contents</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input type="checkbox"></td>
+                                            <td>124</td>
+                                            <td>2 Noodles, 3 Sardines, 1 Rice, 4 Nescafe 3n1, 4 Alaska</td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="checkbox"></td>
+                                            <td>78</td>
+                                            <td>2 Wow Ulam, 2 Sardines, 1 Rice, 4 Nescafe 3n1, 4 Bear Brand</td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="checkbox"></td>
+                                            <td>132</td>
+                                            <td>3 Corned Beef, 2 Pancit Canton, 1 Rice, 4 Kopiko 3n1, 4 Alaska</td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="checkbox"></td>
+                                            <td>98</td>
+                                            <td>1 Loaf Bread, 5 Bottled Water, 1 Biscuit</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="expiry">
-                                <input type="date" name="expiry" class="text-box">
-                                <h3 class="text-muted">Expiry</h3>
-                            </div>
-                            <div class="itemqty">
-                                <input type="number" name="quantity" class="text-box" placeholder="Room ID">
-                                <h3 class="text-muted">Quantity</h3>
-                            </div>
-
-                            <div class="add-items-row-3">
-                                <button>Submit</button>
+                            <div class="distribute-row-2">
+                                <button>Distribute</button>
                                 <button>Clear</button>
                             </div>
     
@@ -203,69 +220,6 @@
                 </div>
             </div>
             <! ---------------- End of Announcements ---------------- !>
-            <div class="recent-announcements">
-                <h2>Relief Packing</h2>
-                <div class="announcements">
-                    
-                        <div class="relief-packing-form">
-                            <div class="relief-packing-row-1">
-                                <div class="item-field">
-                                    <datalist id="item-suggestions" >
-                                        <option>Noodles</option>
-                                        <option>Corned Beef</option>
-                                        <option>Sardines</option>
-                                        <option>Meat Loaf</option>
-                                        <option>Rice</option>
-                                    </datalist>
-                                    <input  autoComplete="on" list="item-suggestions" class="txt-item"/> 
-                                    <h3 class="text-muted">Item</h3>
-                                </div>
-
-                                <div class="itemqty">
-                                <input type="number" name="quantity" class="text-box" >
-                                <h3 class="text-muted">Quantity</h3>
-                                </div>
-
-                                <button>Add</button> 
-                            </div>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Item</th>
-                                        <th>Quantity</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Noodles</td>
-                                        <td>2</td>
-                                        <td><button>Remove</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Corned Beef</td>
-                                        <td>2</td>
-                                        <td><button>Remove</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Rice</td>
-                                        <td>2</td>
-                                        <td><button>Remove</button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="reliefmultiplier">
-                                <input type="number" name="multiplier" class="text-box" >
-                                <h3 class="text-muted">X</h3>
-                                </div>
-                            <button>Submit</button>
-                            <button>Clear</button>
-
-                </div>
-            </div>
-            </div>
-            
-
         </div>
     </div>
 
