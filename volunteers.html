@@ -64,54 +64,60 @@
                 <table>
                     <thead>
                         <tr>
+                            <th>ID</th>
                             <th>Name</th>
-                            <th>Address</th>
+                            <th>Birthday</th>
                             <th>Age</th>
                             <th>Sex</th>
-                            <th>Room</th>
-                            <th>Status</th>
+                            <th>Group</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
+                            <td>V_1123</td>
                             <td>Samson, Anne Marie</td>
-                            <td>San Roque</td>
+                            <td>02/06/2000</td>
                             <td>23</td>
                             <td>Female</td>
-                            <td>Room 16</td>
-                            <td>Evacuated</td>
+                            <td>Medical Group 1</td>
+                            <td><button>Edit</button><button>Delete</button></td>
                         </tr>
                         <tr>
-                            <td>Lee, John Mike</td>
-                            <td>Village East</td>
-                            <td>27</td>
-                            <td>Male</td>
-                            <td>Room 10</td>
-                            <td>Evacuated</td> 
-                        </tr>
-                        <tr>
-                            <td>Collins, Adon</td>
-                            <td>San Fidel</td>
-                            <td>17</td>
-                            <td>Male</td>
-                            <td>Room 7</td>
-                            <td>Departed</td>
-                        </tr>
-                        <tr>
-                            <td>Santos, Desirie</td>
-                            <td>Santolan</td>
-                            <td>37</td>
+                            <td>V_1123</td>
+                            <td>Samson, Anne Marie</td>
+                            <td>02/06/2000</td>
+                            <td>23</td>
                             <td>Female</td>
-                            <td>Room 21</td>
-                            <td>Evacuated</td>
+                            <td>Medical Group 1</td>
+                            <td><button>Edit</button><button>Delete</button></td>
                         </tr>
                         <tr>
-                            <td>Santiago, Janna</td>
-                            <td>Pinagbuhatan</td>
-                            <td>25</td>
+                            <td>V_1123</td>
+                            <td>Samson, Anne Marie</td>
+                            <td>02/06/2000</td>
+                            <td>23</td>
                             <td>Female</td>
-                            <td>Room 15</td>
-                            <td>Evacuated</td>
+                            <td>Medical Group 1</td>
+                            <td><button>Edit</button><button>Delete</button></td>
+                        </tr>
+                        <tr>
+                            <td>V_1123</td>
+                            <td>Samson, Anne Marie</td>
+                            <td>02/06/2000</td>
+                            <td>23</td>
+                            <td>Female</td>
+                            <td>Medical Group 1</td>
+                            <td><button>Edit</button><button>Delete</button></td>
+                        </tr>
+                        <tr>
+                            <td>V_1123</td>
+                            <td>Samson, Anne Marie</td>
+                            <td>02/06/2000</td>
+                            <td>23</td>
+                            <td>Female</td>
+                            <td>Medical Group 1</td>
+                            <td><button>Edit</button><button>Delete</button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -123,30 +129,30 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Relief ID</th>
-                            <th>Item</th>
-                            <th>Quantity</th>
-                            <th>Date Packed</th>
+                            <th>Group ID</th>
+                            <th>Group Name</th>
+                            <th>Area</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>RG_1123</td>
-                            <td>Noodles</td>
-                            <td>2</td>
-                            <td>01/02/2022</td>
+                            <td>VG_1123</td>
+                            <td>Med Group 1</td>
+                            <td>Medical Area 1</td>
+                            <td><button>Edit</button><button>Delete</button></td>
                         </tr>
                         <tr>
-                            <td>RG_1123</td>
-                            <td>Rice</td>
-                            <td>2</td>
-                            <td>01/02/2022</td>
+                            <td>VG_1123</td>
+                            <td>Evac Group 2</td>
+                            <td>Evacuation Area 1</td>
+                            <td><button>Edit</button><button>Delete</button></td>
                         </tr>
                         <tr>
-                            <td>RG_1123</td>
-                            <td>Sardines</td>
-                            <td>2</td>
-                            <td>01/02/2022</td>
+                            <td>VG_1123</td>
+                            <td>Rel Ops Group 3</td>
+                            <td>Relief Operations Area 1</td>
+                            <td><button>Edit</button><button>Delete</button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -194,7 +200,7 @@
                                 <h3 class="text-muted">Age</h3>
                             </div>
                             <div class="itemname">
-                                <input type="text" name="name" class="text-box" placeholder="Name">
+                                <input type="text" name="sex" class="text-box" placeholder="Sex">
                                 <h3 class="text-muted">Sex</h3>
                                 </div>
                             
@@ -218,18 +224,16 @@
             </div>
             <! ---------------- End of Announcements ---------------- !>
             <div class="recent-announcements">
-                <h2>Relief Packing</h2>
+                <h2>Add Group</h2>
                 <div class="announcements">
                     
                         <div class="relief-packing-form">
 
                                 <div class="item-field">
                                     <datalist id="item-suggestions" >
-                                        <option>Noodles</option>
-                                        <option>Corned Beef</option>
-                                        <option>Sardines</option>
-                                        <option>Meat Loaf</option>
-                                        <option>Rice</option>
+                                        <option>Medical Area 1</option>
+                                        <option>Evacuation Area 1</option>
+                                        <option>Relief Operation 1</option>
                                     </datalist>
                                     <input  autoComplete="on" list="item-suggestions" class="txt-item"/> 
                                     <h3 class="text-muted">Area</h3>
