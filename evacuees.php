@@ -196,9 +196,10 @@ $errors2 = [];
                         <th scope="col">Full Name</th>
                         <th scope="col">Sex</th>
                         <th scope="col">Age</th>
-                        <!-- <th scope="col">Contact_No</th> -->
-                        <th scope="col">Status</th>
+                        <th scope="col">Contact_No</th>
+                        <th scope="col">Room ID</th>
                         <th scope="col">Household_ID</th>
+                        <th scope="col">Status</th>
                         <th scope="col">Action</th>
                     </tr>
                     </thead>
@@ -211,9 +212,10 @@ $errors2 = [];
                         <td><?php echo $evacuee2['Full_Name'];?></td>
                         <td><?php echo $evacuee2['Sex'] ?></td>
                         <td><?php echo $evacuee2['Age'] ?></td>
-                        <!-- <td><?php echo $evacuee2['Contact_No'] ?></td> -->
-                        <td><?php echo $evacuee2['Evacuation_Status'] ?></td>
+                        <td><?php echo $evacuee2['Contact_No'] ?></td>
+                        <td><?php echo $evacuee2['Room_ID'] ?></td>
                         <td><?php echo $evacuee2['Household_ID'] ?></td>
+                        <td><?php echo $evacuee2['Evacuation_Status'] ?></td>
 
                         <td>
                             <!-- Edit button -->
