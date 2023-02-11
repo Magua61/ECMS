@@ -13,6 +13,16 @@ $statement2->execute();
 $statement->closeCursor();
 $vg = $statement2->fetchAll(PDO::FETCH_ASSOC);
 
+// Create Volunteer
+$V_Name = '';
+$V_Birthday = '';
+$V_Sex = '';
+$V_Group = '';
+
+// Create Volunteer Group
+$G_Name = '';
+$Area_ID = '';
+
 ?>
 
 <!DOCTYPE html>
@@ -104,11 +114,11 @@ $vg = $statement2->fetchAll(PDO::FETCH_ASSOC);
 
                         <td>
                             <!-- Edit button -->
-                            <a href="volunteer_update.php?V_ID=<?php echo $vv['V_ID'] ?>" id="sub" class="btn btn-primary">Edit</a>
+                            <a href="volunteers_update.php?V_ID=<?php echo $vv['V_ID'] ?>" id="sub" class="btn btn-primary">Edit</a>
 
                             
                             <!-- Delete button -->
-                            <form style="display:inline-block" method="post" action="volunteer_delete.php">
+                            <form style="display:inline-block" method="post" action="volunteers_delete.php">
                             <input type="hidden" name="V_ID" value="<?php echo $vv['V_ID'] ?>">
                             <button type="submit">Delete</button>
                             
@@ -149,11 +159,11 @@ $vg = $statement2->fetchAll(PDO::FETCH_ASSOC);
 
                         <td>
                             <!-- Edit button -->
-                            <a href="vgroup_update.php?V_Group=<?php echo $vg2['V_Group'] ?>" id="sub" class="btn btn-primary">Edit</a>
+                            <a href="volunteergroup_update.php?V_Group=<?php echo $vg2['V_Group'] ?>" id="sub" class="btn btn-primary">Edit</a>
 
                             
                             <!-- Delete button -->
-                            <form style="display:inline-block" method="post" action="vgroup_delete.php">
+                            <form style="display:inline-block" method="post" action="volunteergroup_delete.php">
                             <input type="hidden" name="V_Group" value="<?php echo $vg2['V_Group'] ?>">
                             <button type="submit">Delete</button>
                             
@@ -173,40 +183,7 @@ $vg = $statement2->fetchAll(PDO::FETCH_ASSOC);
 
             
 
-            <div class="recent-updates">
-                <h2>Volunteer Groups</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Group ID</th>
-                            <th>Group Name</th>
-                            <th>Area</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>VG_1123</td>
-                            <td>Med Group 1</td>
-                            <td>Medical Area 1</td>
-                            <td><button>Edit</button><button>Delete</button></td>
-                        </tr>
-                        <tr>
-                            <td>VG_1123</td>
-                            <td>Evac Group 2</td>
-                            <td>Evacuation Area 1</td>
-                            <td><button>Edit</button><button>Delete</button></td>
-                        </tr>
-                        <tr>
-                            <td>VG_1123</td>
-                            <td>Rel Ops Group 3</td>
-                            <td>Relief Operations Area 1</td>
-                            <td><button>Edit</button><button>Delete</button></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <a href="#">Show All</a>
-            </div>
+
         </main>
         <!  ------------------- END OF MAIN -----------------------  !>
 
@@ -231,75 +208,85 @@ $vg = $statement2->fetchAll(PDO::FETCH_ASSOC);
 
             </div>
             <! ---------------- End of Top ---------------- !>
+            <!-- Start add volunteer -->
             <div class="recent-announcements">
-                <h2>Add Volunteer</h2>
+                <h2>Add Volunteers</h2>
                 <div class="announcements">
-                    
-                        <div class="add-items-form">
-                            <div class="itemname">
-                            <input type="text" name="name" class="text-box" placeholder="Name">
-                            <h3 class="text-muted">Name</h3>
+                    <form action="volunteers_add.php" method="post" enctype="multipart/form-data">
+                    <div class="add-evacuees-form">
+                            <div class="V_Name">
+                                <input type="text" name="V_Name" class="text-box" placeholder="Enter Volunteer Name" value="<?php echo $V_Name ?>">
+                                <h3 class="text-muted">Volunteer Name</h3><br>
                             </div>
-                            <div class="expiry">
-                                <input type="date" name="birthday" class="text-box">
-                                <h3 class="text-muted">Birthday</h3>
+
+                            <div>
+                                <input type="date" name="V_Birthday" class="text-box" value="<?php echo $V_Birthday ?>">
+                                <h3 class="text-muted">Birthday</h3><br>
                             </div>
-                            <div class="itemqty">
-                                <input type="number" name="age" class="text-box" placeholder="Age">
-                                <h3 class="text-muted">Age</h3>
+
+                            <div>
+                                <select name="V_Sex" value="<?php echo $V_Sex ?>">
+                                    <option value="M">Male</option>
+                                    <option value="F">Female</option>
+                                </select>
+                                <h3 class="text-muted">V_Sex</h3><br>
                             </div>
-                            <div class="itemname">
-                                <input type="text" name="sex" class="text-box" placeholder="Sex">
-                                <h3 class="text-muted">Sex</h3>
-                                </div>
-                            
-                                <div class="item-field">
-                                    <datalist id="item-suggestions" >
-                                        <option>Medical Group 1</option>
-                                        <option>Evacuation Group 1</option>
-                                        <option>Relief Operations Group 1</option>
-                                    </datalist>
-                                    <input  autoComplete="on" list="item-suggestions" class="txt-item"/> 
-                                    <h3 class="text-muted">Volunteer Group</h3>
-                                </div>
-                            <div class="add-items-row-3">
-                                <button>Submit</button>
-                                <button>Clear</button>
+
+                            <div class="V_Group">
+                                <select name="V_Group" value="<?php echo $V_Group ?>"><br>
+                                    <option value="VG-001">VG-001</option>
+                                    <option value="VG-002">VG-002</option>
+                                    <option value="VG-003">VG-003</option>
+                                    <option value="VG-004">VG-004</option>
+                                    <option value="VG-005">VG-005</option>
+                                </select>
+                                <h3 class="text-muted">Household</h3>
+                            <!-- Close V_Group -->
                             </div>
-    
+                        
+                        <div class="add-volunteers-row-3">
+                            <!-- Buttons -->
+                            <button type="submit" id="sub" class="btn btn-primary">Submit</button>
+                            <a href="volunteers.php">Clear</a>
+                        <!-- close add-volunteers-row-3 -->
                         </div>
-                    
+                    </div>
+                    </form>
                 </div>
-            </div>
-            <! ---------------- End of Announcements ---------------- !>
+            <!-- End Add Volunteer -->
+            <!-- Start add Group  -->
             <div class="recent-announcements">
-                <h2>Add Group</h2>
+                <h2>Add Volunteer Group</h2>
                 <div class="announcements">
-                    
-                        <div class="relief-packing-form">
+                    <form action="volunteergroup_add.php" method="post" enctype="multipart/form-data">
+                    <div class="volunteergroup_add-form">
+                            <div class="G_Name">
+                                <input type="text" name="G_Name" class="text-box" placeholder="Enter Group Name" value="<?php echo $G_Name ?>">
+                                <h3 class="text-muted">Volunteer Group Name</h3><br>
+                            </div>
 
-                                <div class="item-field">
-                                    <datalist id="item-suggestions" >
-                                        <option>Medical Area 1</option>
-                                        <option>Evacuation Area 1</option>
-                                        <option>Relief Operation 1</option>
-                                    </datalist>
-                                    <input  autoComplete="on" list="item-suggestions" class="txt-item"/> 
-                                    <h3 class="text-muted">Area</h3>
-                                </div>
-
-                                <div class="itemqty">
-                                <input type="text" name="name" class="text-box" >
-                                <h3 class="text-muted">Group Name</h3>
-                                </div>
-
-                            <button>Submit</button>
-                            <button>Clear</button>
-
+                            <div class="Area_ID">
+                                <select name="Area_ID" value="<?php echo $Area_ID ?>"><br>
+                                    <option value="A-0001">A-0001</option>
+                                    <option value="A-0002">A-0002</option>
+                                    <option value="A-0003">A-0003</option>
+                                    <option value="A-0004">A-0004</option>
+                                    <option value="A-0005">A-0005</option>
+                                </select>
+                                <h3 class="text-muted">Area_ID</h3>
+                            <!-- Close V_Group -->
+                            </div>
+                        
+                        <div class="add-volunteers-row-3">
+                            <!-- Buttons -->
+                            <button type="submit" id="sub" class="btn btn-primary">Submit</button>
+                            <a href="volunteers.php">Clear</a>
+                        <!-- close add-volunteers-row-3 -->
+                        </div>
+                    </div>
+                    </form>
                 </div>
-            </div>
-            </div>
-            
+            <!-- End Add Volunteer -->
 
         </div>
     </div>
