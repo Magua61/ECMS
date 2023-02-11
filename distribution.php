@@ -1,3 +1,66 @@
+<?php
+
+// <!-- create connection to database -->
+/** @var $pdo \PDO */
+require_once "database.php";
+
+$search = $_GET['search'] ?? '';
+if ($search) {
+  $statement = $pdo->prepare('CALL viewRoom');
+  $statement->execute();
+  $room = $statement->fetchAll(PDO::FETCH_ASSOC);
+  $statement->closeCursor();
+
+  //$rr['Room_ID']
+  //foreach ($room as $i => $rr) :
+  $statement2 = $pdo->prepare('CALL viewHouseholdByRoom(:Field_Name)');
+  $statement2->bindValue(':Field_Name', "$search");
+  //endforeach;
+  $statement2->execute();
+  $household = $statement2->fetchAll(PDO::FETCH_ASSOC);
+  $statement2->closeCursor();
+
+
+} else{
+  $statement = $pdo->prepare('CALL viewRoom');
+  $statement->execute();
+  $room = $statement->fetchAll(PDO::FETCH_ASSOC);
+  $statement->closeCursor();
+  $statement2 = $pdo->prepare('CALL viewHousehold');
+  $statement2->execute();
+  $household = $statement2->fetchAll(PDO::FETCH_ASSOC);
+  $statement2->closeCursor();
+  // $statement2 = $pdo->prepare('CALL viewReliefGood');
+  // $statement2->execute();
+  // $statement->closeCursor();
+  // $good = $statement2->fetchAll(PDO::FETCH_ASSOC);
+}
+
+  $statement3 = $pdo->prepare('CALL viewDistributionHistory');
+  $statement3->execute();
+  $History = $statement3->fetchAll(PDO::FETCH_ASSOC);
+  $statement3->closeCursor();
+// if FirstName is empty, throw error because it is required
+$errors = [];
+
+// solution when FirstName, etc is empty
+// $Item_ID = '';
+$I_Name = '';
+$Expiry = '';
+$Quantity = '';
+
+
+// $statement = $pdo->prepare('CALL viewItem');
+// $statement->execute();
+// $item = $statement->fetchAll(PDO::FETCH_ASSOC);
+// $statement->closeCursor();
+// $statement2 = $pdo->prepare('CALL viewReliefGood');
+// $statement2->execute();
+// $statement->closeCursor();
+// $good = $statement2->fetchAll(PDO::FETCH_ASSOC);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,90 +123,109 @@
             
 
             <div class="recent-updates">
+            <h2>Rooms</h2>
+                
                 <div class="room-household-header">
-                    <h2>Rooms</h2>
-                    <div class="item-field">
-                        <datalist id="item-suggestions" >
-                            <option>Room 1</option>
-                            <option>Room 2</option>
-                            <option>Room 3</option>
-                            <option>Room 4</option>
-                            <option>Room 5</option>
-                        </datalist>
-                        <input  autoComplete="on" list="item-suggestions" class="txt-item"/> 
-                    </div>
-                    <button>Select</button>
+                    <!-- <br> -->
+                    <form>
+                    <!-- <div class="input-group mb-3"> -->
+                        <!-- <input type="text" class="form-control" 
+                                placeholder="" 
+                                name="search" value="<?php //echo $search ?>" readonly><br> -->
+
+                                <select name="search" value="<?php echo $search ?>" size="5">
+                                    <option value="volvo" disabled selected value>Choose Room Name</option>
+                                    <option value="<?php echo $search ?>" selected="<?php echo $search ?>"><?php echo $search ?></option>
+
+                                
+                                    <?php foreach ($room as $i => $rr) :?>
+                                    <option value="<?php echo $rr['Room_ID'];?>"><?php echo $rr['R_Name'] ?></option>
+                                    <?php endforeach;?>
+                                </select><br>
+
+                        <!-- <div class="input-group-append"> -->
+                        <button class="btn btn-outline-secondary" type="submit">Search</button>
+                        <!-- <button class="btn btn-outline-secondary" type="submit" style="float: right;">View By Household</button> -->
+                        <!-- </div> -->
+                    <!-- </div> -->
+                    </form>
                 </div>
-                <table>
+                
+                <table class="table">
                     <thead>
-                        <tr>
-                            <th><input type="checkbox"></th>
-                            <th>Household ID</th>
-                            <th>Head</th>
-                            <th>Members</th>
-                        </tr>
+                    <tr>
+                        <th scope="col">o</th>
+                        <th scope="col">Household_ID</th>
+                        <th scope="col">Family_Head</th>
+                        <th scope="col">Members</th>
+                        <!-- <th scope="col">Contact_No</th> -->
+                        <!-- <th scope="col">Action</th> -->
+                    </tr>
                     </thead>
                     <tbody>
+                    <?php
+                    foreach ($household as $i => $hh) :
+                    ?>
                         <tr>
-                            <td><input type="checkbox"></td>
-                            <td>HH_1123</td>
-                            <td>Jose Santiago</td>
-                            <td>5</td>
+                        <td scope="row"><input type="checkbox" name="check[]" value="<?php echo $hh['Household_ID'] ?>"/></td>
+                        <td scope="row"><?php echo $hh['Household_ID'] ?></td>
+                        <td><?php echo $hh['Family_Head'];?></td>
+                        <td><?php echo $hh['Number_of_Members'] ?></td>
+
+                        <!-- <td> -->
+                            <!-- Edit button -->
+                            <!-- <a href="item_update.php?Item_ID=<?php //echo $ii['Item_ID'] ?>" id="sub" class="btn btn-primary">Edit</a> -->
+
+                            
+                            <!-- Delete button -->
+                            <!-- <form style="display:inline-block" method="post" action="item_delete.php">
+                            <input type="hidden" name="Item_ID" value="<?php //echo $ii['Item_ID'] ?>">
+                            <button type="submit">Delete</button>
+                            
+                            </form> -->
+                        <!-- </td> -->
+
                         </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>HH_1123</td>
-                            <td>Kris Magno</td>
-                            <td>8</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>HH_1123</td>
-                            <td>Tiyo Delo</td>
-                            <td>4</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>HH_1123</td>
-                            <td>Anton Nuevo</td>
-                            <td>6</td>
-                        </tr>
-                        
+                    <?php
+                    endforeach;
+                    ?>
+
                     </tbody>
                 </table>
-                <a href="#">Show All</a>
             </div>
+
+            <!-- End of Household -->
+            <!-- Start of Distribution History -->
 
             <div class="recent-updates">
                 <h2>Distribution History</h2>
-                <table>
+                <table class="table">
                     <thead>
-                        <tr>
-                            <th>Relief ID</th>
-                            <th>Household ID</th>
-                            <th>Head</th>
-                            <th>Date Given</th>
-                        </tr>
+                    <tr>
+                        <th scope="col">Distribution_ID</th>
+                        <th scope="col">Relief_ID</th>
+                        <th scope="col">Household_ID</th>
+                        <th scope="col">Family_Head</th>
+                        <th scope="col">Date_Given</th>
+                    </tr>
                     </thead>
                     <tbody>
+                    <?php
+                    foreach ($History as $x => $xx) :
+                    ?>
                         <tr>
-                            <td>RG_1123</td>
-                            <td>HH_1123</td>
-                            <td>Jose Santiago</td>
-                            <td>01/09/2022</td>
+                        <td scope="row"><?php echo $xx['Distribution_ID'] ?></td>
+                        <td scope="row"><?php echo $xx['Relief_ID'] ?></td>
+                        <td><?php echo $xx['Household_ID'];?></td>
+                        <td><?php echo $xx['Family Head'] ?></td>
+                        <td><?php echo $xx['Date_Given'] ?></td>
+
+
                         </tr>
-                        <tr>
-                            <td>RG_1123</td>
-                            <td>HH_1123</td>
-                            <td>Jose Santiago</td>
-                            <td>01/09/2022</td>
-                        </tr>
-                        <tr>
-                            <td>RG_1123</td>
-                            <td>HH_1123</td>
-                            <td>Jose Santiago</td>
-                            <td>01/09/2022</td>
-                        </tr>
+                    <?php
+                    endforeach;
+                    ?>
+
                     </tbody>
                 </table>
                 <a href="#">Show All</a>
