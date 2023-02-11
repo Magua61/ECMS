@@ -7,7 +7,7 @@
     <title>ECMS</title>
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Sharp"
       rel="stylesheet">
-   <link rel="stylesheet" href="style.css">
+   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
