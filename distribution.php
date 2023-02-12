@@ -167,7 +167,7 @@ $Quantity = '';
                     foreach ($household as $i => $hh) :
                     ?>
                         <tr>
-                        <td scope="row"><input type="checkbox" name="lols" value="<?php echo $hh['Household_ID'];?>"/></td>
+                        <td scope="row"><input type="checkbox" name="lols[]" value="<?php echo $hh['Household_ID'];?>"/></td>
                         <td scope="row"><?php echo $hh['Household_ID'] ?></td>
                         <td><?php echo $hh['Family_Head'];?></td>
                         <td><?php echo $hh['Number_of_Members'] ?></td>
