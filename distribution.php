@@ -4,6 +4,12 @@
 /** @var $pdo \PDO */
 require_once "database.php";
 
+// Create Evacuee
+// solution when FirstName, etc is empty
+$Household_ID = '';
+$Relief_ID = '';
+$Date_Given = '';
+
 $search = $_GET['search'] ?? '';
 if ($search) {
   $statement = $pdo->prepare('CALL viewRoom');
@@ -30,16 +36,17 @@ if ($search) {
   $statement2->execute();
   $household = $statement2->fetchAll(PDO::FETCH_ASSOC);
   $statement2->closeCursor();
-  // $statement2 = $pdo->prepare('CALL viewReliefGood');
-  // $statement2->execute();
-  // $statement->closeCursor();
-  // $good = $statement2->fetchAll(PDO::FETCH_ASSOC);
 }
 
   $statement3 = $pdo->prepare('CALL viewDistributionHistory');
   $statement3->execute();
   $History = $statement3->fetchAll(PDO::FETCH_ASSOC);
   $statement3->closeCursor();
+
+  $statement4 = $pdo->prepare('CALL viewReliefGood');
+  $statement4->execute();
+  $pack= $statement4->fetchAll(PDO::FETCH_ASSOC);
+  $statement4->closeCursor();
 // if FirstName is empty, throw error because it is required
 $errors = [];
 
@@ -48,16 +55,6 @@ $errors = [];
 $I_Name = '';
 $Expiry = '';
 $Quantity = '';
-
-
-// $statement = $pdo->prepare('CALL viewItem');
-// $statement->execute();
-// $item = $statement->fetchAll(PDO::FETCH_ASSOC);
-// $statement->closeCursor();
-// $statement2 = $pdo->prepare('CALL viewReliefGood');
-// $statement2->execute();
-// $statement->closeCursor();
-// $good = $statement2->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -150,11 +147,14 @@ $Quantity = '';
                     <!-- </div> -->
                     </form>
                 </div>
-                
+
+                <!-- Form distribution add -->
+                <form action="distribution_adds.php" method="post" enctype="multipart/form-data">
+
                 <table class="table">
                     <thead>
                     <tr>
-                        <th scope="col">o</th>
+                        <th scope="col">/</th>
                         <th scope="col">Household_ID</th>
                         <th scope="col">Family_Head</th>
                         <th scope="col">Members</th>
@@ -167,7 +167,7 @@ $Quantity = '';
                     foreach ($household as $i => $hh) :
                     ?>
                         <tr>
-                        <td scope="row"><input type="checkbox" name="check[]" value="<?php echo $hh['Household_ID'] ?>"/></td>
+                        <td scope="row"><input type="checkbox" name="lols" value="<?php echo $hh['Household_ID'];?>"/></td>
                         <td scope="row"><?php echo $hh['Household_ID'] ?></td>
                         <td><?php echo $hh['Family_Head'];?></td>
                         <td><?php echo $hh['Number_of_Members'] ?></td>
@@ -192,6 +192,9 @@ $Quantity = '';
 
                     </tbody>
                 </table>
+                <!-- Delete  -->
+                <button type="submit" id="sub" class="btn btn-primary">Submit</button>
+                </form>
             </div>
 
             <!-- End of Household -->
@@ -259,48 +262,39 @@ $Quantity = '';
                 <div class="announcements">
                     
                         <div class="distribute-form">
-                            <div>
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th><input type="checkbox"></th>
-                                            <th>Quantity</th>
-                                            <th>Contents</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><input type="checkbox"></td>
-                                            <td>124</td>
-                                            <td>2 Noodles, 3 Sardines, 1 Rice, 4 Nescafe 3n1, 4 Alaska</td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox"></td>
-                                            <td>78</td>
-                                            <td>2 Wow Ulam, 2 Sardines, 1 Rice, 4 Nescafe 3n1, 4 Bear Brand</td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox"></td>
-                                            <td>132</td>
-                                            <td>3 Corned Beef, 2 Pancit Canton, 1 Rice, 4 Kopiko 3n1, 4 Alaska</td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox"></td>
-                                            <td>98</td>
-                                            <td>1 Loaf Bread, 5 Bottled Water, 1 Biscuit</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                <!-- Start Relief Goods -->
+                    <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">/</th>
+                        <th scope="col">Stock</th>
+                        <th scope="col">Contents</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    foreach ($pack as $p => $pp) :?>
+                        <tr>
+                        <td scope="row"><input type="checkbox" name="good[]" value="<?php echo $pp['Relief_ID'] ?>"/></td>
+                        <td scope="row"><?php echo $pp['Relief_ID'] ?></td>
+                        <td><?php echo $pp['Item/s'];?></td>
+                        </tr>
+                    <?php endforeach; ?>
+
+                    </tbody>
+                </table>
+                
                             <div class="distribute-row-2">
-                                <button>Distribute</button>
-                                <button>Clear</button>
+                                <button type="submit" id="sub" class="btn btn-primary">Submit</button>
+                                <a href="distribution.php">Clear</a>
                             </div>
     
                         </div>
-                    
+                    <!-- iterateform -->
+                    <!-- </form> -->
                 </div>
             </div>
+            <!-- End Relief Goods -->
             <! ---------------- End of Announcements ---------------- !>
         </div>
     </div>
