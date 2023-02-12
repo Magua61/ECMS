@@ -31,21 +31,22 @@ if ($search) {
   $statement = $pdo->prepare('CALL viewEvacueeJoinHousehold');
 }
 
-
-// // search function for household
-// $search2 = $_GET['search2'] ?? '';
-// if ($search2) {
-//   $statement = $pdo->prepare('call searchEvacuee(:First_Name)');
-//   $statement->bindValue(':First_Name', "%$search2%");
-// } else{
-//   $statement = $pdo->prepare('CALL viewEvacueeJoinHousehold');
-// }
 $statement2 = $pdo->prepare('CALL viewHousehold');
 $statement2->execute();
 $statement->closeCursor();
 $statement->execute();
 $evacuee = $statement->fetchAll(PDO::FETCH_ASSOC);
 $household = $statement2->fetchAll(PDO::FETCH_ASSOC);
+
+$sort = $_GET['sort'] ?? '';
+if ($sort) {
+  $statement4 = $pdo->prepare('CALL viewEvacueeJoinHouseholdSortBy(:Field_Name)');
+  $statement4->bindValue(':Field_Name', "$sort");
+  $statement->closeCursor();
+  $statement4->execute();
+  $evacuee = $statement4->fetchAll(PDO::FETCH_ASSOC);
+  $statement4->closeCursor();
+}
 
 // if FirstName is empty, throw error because it is required
 $errors = [];
@@ -123,18 +124,7 @@ $errors2 = [];
             <!-- Start of household -->
             <div class="recent-updates">
                 <h2>Household Information</h2>
-                    <form>
-                    <div class="input-group mb-3">
-                        <!-- Search household -->
-                        <!-- <input type="text" class="form-control" 
-                                placeholder="Search for Household" 
-                                name="search2" value="<?php //echo $search2 ?>"> -->
-                        <div class="input-group-append">
-                        <!-- <button class="btn btn-outline-secondary" type="submit">Search</button> -->
-                        <!-- <button class="btn btn-outline-secondary" type="submit" style="float: right;">View By Household</button> -->
-                        </div>
-                    </div>
-                    </form>
+
                 <table class="table">
                     <thead>
                     <tr>
@@ -186,17 +176,34 @@ $errors2 = [];
 
             <div class="recent-updates">
                 <h2>Evacuees' Information</h2>
-                    <form>
+                    
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" 
-                                placeholder="Search for Evacuee Full Name" 
-                                name="search" value="<?php echo $search ?>">
-                        <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="submit">Search</button>
-                        <!-- <button class="btn btn-outline-secondary" type="submit" style="float: right;">View By Household</button> -->
-                        </div>
+                        <!-- search evacuee -->
+                        <form>
+                            <input type="text" class="form-control" 
+                                    placeholder="Search for Evacuee Full Name" 
+                                    name="search" value="<?php echo $search ?>">
+                            <!-- <div class="input-group-append"> -->
+                            <button class="btn btn-outline-secondary" type="submit">Search</button>
+                        </form>
+
+                        <form>
+                        <button class="btn btn-outline-secondary" type="submit" style="float: right;">Sort</button>
+                        <select name="sort" value="<?php echo $sort ?>"  style="float: right;">
+                                    <option value="Evacuee_ID" disabled selected value>Choose Sort by</option>
+                                    <option value="Evacuation_Status" selected="Evacuation_Status">Evacuation_Status</option>
+                                    <option value="Room_Id">Room_Id</option>
+                                    <option value="Household_ID">Household_ID</option> 
+                                    <option value="Sex">Sex</option> 
+                                    <option value="Full_Name">Full_Name</option> 
+                                    <option value="Evacuee_ID">Evacuee_ID</option> 
+                                    
+                                </select>
+                        </form>
+                        <!-- </div> -->
+                        <!-- End search evacuee -->
                     </div>
-                    </form>
+                    
                 <table class="table">
                     <thead>
                     <tr>

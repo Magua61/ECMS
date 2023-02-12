@@ -4,15 +4,40 @@
 /** @var $pdo \PDO */
 require_once "database.php";
 
-$statement = $pdo->prepare('CALL viewVolunteers');
-$statement->execute();
-$vltr = $statement->fetchAll(PDO::FETCH_ASSOC);
-$statement->closeCursor();
+$search = $_GET['search'] ?? '';
+if ($search) {
+  $statement = $pdo->prepare('CALL searchVolunteer(:In_Text)');
+  $statement->bindValue(':In_Text', "$search");
+  $statement->execute();
+  $vltr = $statement->fetchAll(PDO::FETCH_ASSOC);
+  $statement->closeCursor();
+} else{
+    $statement = $pdo->prepare('CALL viewVolunteers');
+    $statement->execute();
+    $vltr = $statement->fetchAll(PDO::FETCH_ASSOC);
+    $statement->closeCursor();
+}
+
+$sort = $_GET['sort'] ?? '';
+if ($sort) {
+  $statement4 = $pdo->prepare('CALL viewVolunteersSortBy(:Field_Name)');
+  $statement4->bindValue(':Field_Name', "$sort");
+  $statement4->closeCursor();
+  $statement4->execute();
+  $vltr = $statement4->fetchAll(PDO::FETCH_ASSOC);
+  $statement4->closeCursor();
+} 
+// else{
+//     $statement = $pdo->prepare('CALL viewVolunteers');
+//     $statement->execute();
+//     $vltr = $statement->fetchAll(PDO::FETCH_ASSOC);
+//     $statement->closeCursor();
+// }
+
 $statement2 = $pdo->prepare('CALL viewVolunteerGroup');
 $statement2->execute();
-$statement->closeCursor();
 $vg = $statement2->fetchAll(PDO::FETCH_ASSOC);
-
+$statement2->closeCursor();
 // Create Volunteer
 $V_Name = '';
 $V_Birthday = '';
@@ -88,6 +113,33 @@ $Area_ID = '';
 
             <div class="recent-updates">
                 <h2>Volunteers</h2>
+
+                <div class="input-group mb-3">
+
+                        <form>
+                            <input type="text" class="form-control" 
+                                    placeholder="Search Volunteer(name, birthday, v_id)" 
+                                    name="search" value="<?php echo $search ?>">
+                            <!-- <div class="input-group-append"> -->
+                            <button class="btn btn-outline-secondary" type="submit">Search</button>
+                        </form>
+
+                        <!-- search evacuee -->
+                        <form>
+                        <button class="btn btn-outline-secondary" type="submit" style="float: right;">Sort</button>
+                        <select name="sort" value="<?php echo $sort ?>"  style="float: right;">
+                                    <option value="V_ID" disabled selected value>Choose Sort by</option>
+                                    <option value="V_ID" selected="V_ID">V_ID</option>
+                                    <option value="V_Age">V_Age</option>
+                                    <option value="V_Group">V_Group</option> 
+                                    <option value="V_Sex">V_Sex</option> 
+                                    <option value="V_Name">V_Name</option>  
+                                </select>
+                        </form>
+                        <!-- </div> -->
+                        <!-- End search evacuee -->
+                    </div>
+
                 <table class="table">
                     <thead>
                     <tr>

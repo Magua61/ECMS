@@ -37,10 +37,34 @@ $R_Quantity = '';
 //   $statement = $pdo->prepare('CALL viewEvacueeJoinHousehold');
 // }
 
-$statement = $pdo->prepare('CALL viewItem');
-$statement->execute();
-$item = $statement->fetchAll(PDO::FETCH_ASSOC);
-$statement->closeCursor();
+$search = $_GET['search'] ?? '';
+if ($search) {
+  $statement = $pdo->prepare('CALL searchItem(:In_Text)');
+  $statement->bindValue(':In_Text', "$search");
+  $statement->execute();
+  $item = $statement->fetchAll(PDO::FETCH_ASSOC);
+    $statement->closeCursor();
+} else{
+    $statement = $pdo->prepare('CALL viewItem');
+    $statement->execute();
+    $item = $statement->fetchAll(PDO::FETCH_ASSOC);
+    $statement->closeCursor();
+}
+// $statement = $pdo->prepare('CALL viewItem');
+// $statement->execute();
+// $item = $statement->fetchAll(PDO::FETCH_ASSOC);
+// $statement->closeCursor();
+
+$sort = $_GET['sort'] ?? '';
+if ($sort) {
+  $statement4 = $pdo->prepare('CALL viewItemSortBy(:Field_Name)');
+  $statement4->bindValue(':Field_Name', "$sort");
+  $statement->closeCursor();
+  $statement4->execute();
+  $item = $statement4->fetchAll(PDO::FETCH_ASSOC);
+  $statement4->closeCursor();
+}
+
 $statement2 = $pdo->prepare('CALL viewReliefGood');
 $statement2->execute();
 $statement->closeCursor();
@@ -107,6 +131,31 @@ $good = $statement2->fetchAll(PDO::FETCH_ASSOC);
 
             <div class="recent-updates">
                 <h2>Item Inventory</h2>
+
+                <div class="input-group mb-3">
+                        <!-- search item -->
+                        <form>
+                            <input type="text" class="form-control" 
+                                    placeholder="Search for Item Name" 
+                                    name="search" value="<?php echo $search ?>">
+                            <!-- <div class="input-group-append"> -->
+                            <button class="btn btn-outline-secondary" type="submit">Search</button>
+                        </form>
+
+                        <form>
+                        <button class="btn btn-outline-secondary" type="submit" style="float: right;">Sort</button>
+                        <select name="sort" value="<?php echo $sort ?>"  style="float: right;">
+                                    <option value="Item_ID" disabled selected value>Choose Sort by</option>
+                                    <option value="Item_ID" selected="Item_ID">Item_ID</option>
+                                    <option value="Expiry">Expiry</option>
+                                    <option value="I_Quantity">I_Quantity</option> 
+                                    
+                                </select>
+                        </form>
+                        <!-- </div> -->
+                        <!-- End search item -->
+                    </div>
+
                     <form>
                     <div class="input-group mb-3">
                         <!-- Search household -->
