@@ -99,6 +99,10 @@ $Area_ID = '';
                     <span class="material-icons-sharp">local_shipping</span>
                     <h3>Distribution</h3>
                 </a>
+                <a href="#" class="btn-settings">
+                    <span class="material-icons-sharp">settings</span>
+                    <h3>Settings</h3>
+                </a>
                 <a href="#" class="btn-logout">
                     <span class="material-icons-sharp">logout</span>
                     <h3>Logout</h3>

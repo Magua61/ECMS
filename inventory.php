@@ -109,9 +109,17 @@ $good = $statement2->fetchAll(PDO::FETCH_ASSOC);
                     <span class="material-icons-sharp">group</span>
                     <h3>Evacuees</h3>
                 </a>
+                <a href="volunteers.php" class="btn-volunteers">
+                    <span class="material-icons-sharp">volunteer_activism</span>
+                    <h3>Volunteers</h3>
+                </a>
                 <a href="#" class="btn-inventory active">
                     <span class="material-icons-sharp">inventory</span>
                     <h3>Inventory</h3>
+                </a>
+                <a href="distribution.php" class="btn-distribution">
+                    <span class="material-icons-sharp">local_shipping</span>
+                    <h3>Distribution</h3>
                 </a>
                 <a href="#" class="btn-settings">
                     <span class="material-icons-sharp">settings</span>
