@@ -322,15 +322,9 @@ $errors2 = [];
                         <div class="add-evacuees-row-3">
                             <div class="household-field">
                                 <select name="Household_ID" value="<?php echo $Household_ID ?>"><br>
-                                    <option value="HHOLD-0001">HHOLD-0001</option>
-                                    <option value="HHOLD-0002">HHOLD-0002</option>
-                                    <option value="HHOLD-0003">HHOLD-0003</option>
-                                    <option value="HHOLD-0004">HHOLD-0004</option>
-                                    <option value="HHOLD-0005">HHOLD-0005</option>
-                                    <option value="HHOLD-0006">HHOLD-0006</option>
-                                    <option value="HHOLD-0007">HHOLD-0007</option>
-                                    <option value="HHOLD-0008">HHOLD-0008</option>
-                                    <option value="HHOLD-0009">HHOLD-0009</option>
+                                <?php foreach ($household as $i => $rr) :?>
+                                    <option value="<?php echo $rr['Household_ID'];?>"><?php echo $rr['Household_ID'] ?></option>
+                                    <?php endforeach;?>
                                 </select>
                                 <h3 class="text-muted">Household</h3>
                             <!-- Close household-field -->

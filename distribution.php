@@ -4,12 +4,6 @@
 /** @var $pdo \PDO */
 require_once "database.php";
 
-// Create Evacuee
-// solution when FirstName, etc is empty
-$Household_ID = '';
-$Relief_ID = '';
-$Date_Given = '';
-
 $search = $_GET['search'] ?? '';
 if ($search) {
   $statement = $pdo->prepare('CALL viewRoom');
@@ -43,10 +37,16 @@ if ($search) {
   $History = $statement3->fetchAll(PDO::FETCH_ASSOC);
   $statement3->closeCursor();
 
-  $statement4 = $pdo->prepare('CALL viewReliefGood');
+  $statement4 = $pdo->prepare('CALL viewReliefGoodGrouped');
   $statement4->execute();
   $pack= $statement4->fetchAll(PDO::FETCH_ASSOC);
   $statement4->closeCursor();
+
+  $statement5 = $pdo->prepare('CALL viewHousehold');
+  $statement5->execute();
+  $household2 = $statement5->fetchAll(PDO::FETCH_ASSOC);
+  $statement5->closeCursor();
+
 // if FirstName is empty, throw error because it is required
 $errors = [];
 
@@ -56,6 +56,11 @@ $I_Name = '';
 $Expiry = '';
 $Quantity = '';
 
+// Create Evacuee
+// solution when FirstName, etc is empty
+$Household_ID = '';
+$Items = '';
+$Date_Given = '';
 ?>
 
 <!DOCTYPE html>
@@ -205,7 +210,7 @@ $Quantity = '';
             <!-- Start of Distribution History -->
 
             <div class="recent-updates">
-                <h2>Distribution History</h2>
+                <h2 id="anchor">Distribution History</h2>
                 <table class="table">
                     <thead>
                     <tr>
@@ -263,31 +268,48 @@ $Quantity = '';
             <! ---------------- End of Top ---------------- !>
             <div class="recent-announcements">
                 <h2>Relief Goods</h2>
+                <form action="distribution_add1.php" method="post" enctype="multipart/form-data">
+
                 <div class="announcements">
-                    
+                    <select name="Household_ID" value="<?php echo $Household_ID ?>" >
+                                    <?php foreach ($household2 as $i => $rr) :?>
+                                    <option value="<?php echo $rr['Household_ID'];?>"><?php echo $rr['Household_ID'] ?></option>
+                                    <?php endforeach;?>
+                                </select><br>
+                                <h3 class="text-muted">Enter Household</h3><br>
+
+                                <select name="Items" value="<?php echo $Items ?>" >
+                                    <?php foreach ($pack as $p => $pp):?>
+                                    <option value="<?php echo $pp['Items'];?>"><?php echo $pp['Items'] ?> (Packs left: <?php echo $pp['COUNT(*)'] ?>)</option>
+                                    <?php endforeach;?>
+                                </select><br>
+                                <h3 class="text-muted">Enter Items</h3><br>
                         <div class="distribute-form">
-                <!-- Start Relief Goods -->
-                    <table class="table">
+                <!-- Table -->
+                    <!-- <table class="table">
                     <thead>
                     <tr>
                         <th scope="col">/</th>
-                        <th scope="col">Stock</th>
-                        <th scope="col">Contents</th>
+                        <th scope="col">Packs left</th>
+                        <th scope="col">Items</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <?php
-                    foreach ($pack as $p => $pp) :?>
+                    <?php //foreach ($pack as $p => $pp) :?>
                         <tr>
-                        <td scope="row"><input type="checkbox" name="good[]" value="<?php echo $pp['Relief_ID'] ?>"/></td>
-                        <td scope="row"><?php echo $pp['Relief_ID'] ?></td>
-                        <td><?php echo $pp['Item/s'];?></td>
+                        <td scope="row"><input type="checkbox" name="Items" value="<?php //echo $Items;?>"/></td>
+                        <td scope="row"><?php //echo $pp['COUNT(*)'] ?></td>
+                        <td><?php //echo $pp['Items'];?></td>
                         </tr>
-                    <?php endforeach; ?>
+                    <?php //endforeach; ?>
 
                     </tbody>
-                </table>
-                
+                </table> -->
+                            <div>
+                                <input type="date" name="Date_Given" class="text-box" value="<?php echo $Date_Given ?>">
+                                <h3 class="text-muted">Date_Given</h3>
+                            </div>
+
                             <div class="distribute-row-2">
                                 <button type="submit" id="sub" class="btn btn-primary">Submit</button>
                                 <a href="distribution.php">Clear</a>
@@ -295,7 +317,7 @@ $Quantity = '';
     
                         </div>
                     <!-- iterateform -->
-                    <!-- </form> -->
+                    </form>
                 </div>
             </div>
             <!-- End Relief Goods -->
