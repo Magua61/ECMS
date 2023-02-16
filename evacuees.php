@@ -27,6 +27,7 @@ $search = $_GET['search'] ?? '';
 if ($search) {
   $statement = $pdo->prepare('call searchEvacuee(:First_Name)');
   $statement->bindValue(':First_Name', "%$search%");
+  
 } else{
   $statement = $pdo->prepare('CALL viewEvacueeJoinHousehold');
 }
@@ -180,7 +181,7 @@ $statement5->closeCursor();
             </div>
 
             <div class="recent-updates">
-                <h2>Evacuees' Information</h2>
+                <h2 id="anchor">Evacuees' Information</h2>
                     
                     <div class="input-group mb-3">
                         <!-- search evacuee -->
@@ -189,7 +190,9 @@ $statement5->closeCursor();
                                     placeholder="Search for Evacuee Full Name" 
                                     name="search" value="<?php echo $search ?>">
                             <!-- <div class="input-group-append"> -->
-                            <button class="btn btn-outline-secondary" type="submit">Search</button>
+                            <!-- <a href="#anchor"> -->
+                                <button class="btn btn-outline-secondary" type="submit" onclick="window.location.href ='#anchor';">Search</button>
+                        <!-- </a> -->
                         </form>
 
                         <form>
