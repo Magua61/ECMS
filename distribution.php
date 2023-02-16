@@ -229,7 +229,7 @@ $Date_Given = '';
                         <td scope="row"><?php echo $xx['Distribution_ID'] ?></td>
                         <td scope="row"><?php echo $xx['Relief_ID'] ?></td>
                         <td><?php echo $xx['Household_ID'];?></td>
-                        <td><?php echo $xx['Family Head'] ?></td>
+                        <td><?php echo $xx['Family_Head'] ?></td>
                         <td><?php echo $xx['Date_Given'] ?></td>
 
 

@@ -24,6 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if (!$Date_Evacuated) {
     $errors[] = 'Please enter your Date_Evacuated';
   }
+  if (!$Family_Head) {
+    $Family_Head = $_POST['NULL'];
+  }
 
   // Only Submit to sql when it is not empty
   if (empty($errors)) {
