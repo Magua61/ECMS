@@ -37,6 +37,7 @@ $statement->closeCursor();
 $statement->execute();
 $evacuee = $statement->fetchAll(PDO::FETCH_ASSOC);
 $household = $statement2->fetchAll(PDO::FETCH_ASSOC);
+$statement2->closeCursor();
 
 $sort = $_GET['sort'] ?? '';
 if ($sort) {
@@ -52,6 +53,10 @@ if ($sort) {
 $errors = [];
 $errors2 = [];
 
+$statement5 = $pdo->prepare('CALL viewRoom');
+$statement5->execute();
+$rooms = $statement5->fetchAll(PDO::FETCH_ASSOC);
+$statement5->closeCursor();
 ?>
 
 <!DOCTYPE html>
@@ -359,7 +364,7 @@ $errors2 = [];
                             </div>
 
                             <div class="Room_ID-field">
-                                <select name="Room_ID" value="<?php echo $Room_ID ?>" ><br>
+                                <!-- <select name="Room_ID" value="<?php //echo $Room_ID ?>" ><br>
                                     <option value="RM-001">RM-001</option>
                                     <option value="RM-002">RM-002</option>
                                     <option value="RM-003">RM-003</option>
@@ -369,6 +374,11 @@ $errors2 = [];
                                     <option value="RM-007">RM-007</option>
                                     <option value="RM-008">RM-008</option>
                                     <option value="RM-009">RM-009</option>
+                                </select> -->
+                                <select name="Room_ID" value="<?php echo $Room_ID ?>"><br>
+                                <?php foreach ($rooms as $x => $rx) :?>
+                                    <option value="<?php echo $rx['Room_ID'];?>"><?php echo $rx['Room_ID'] ?></option>
+                                    <?php endforeach;?>
                                 </select>
                                 <h3 class="text-muted">Room ID</h3>
                             </div>

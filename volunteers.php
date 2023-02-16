@@ -289,12 +289,17 @@ $Area_ID = '';
                             </div>
 
                             <div class="V_Group">
-                                <select name="V_Group" value="<?php echo $V_Group ?>"><br>
+                                <!-- <select name="V_Group" value="<?php //echo $V_Group ?>"><br>
                                     <option value="VG-001">VG-001</option>
                                     <option value="VG-002">VG-002</option>
                                     <option value="VG-003">VG-003</option>
                                     <option value="VG-004">VG-004</option>
                                     <option value="VG-005">VG-005</option>
+                                </select> -->
+                                <select name="V_Group" value="<?php echo $V_Group ?>"><br>
+                                <?php foreach ($vg as $v => $vv) :?>
+                                    <option value="<?php echo $vv['V_Group'];?>"><?php echo $vv['V_Group'] ?></option>
+                                    <?php endforeach;?>
                                 </select>
                                 <h3 class="text-muted">Household</h3>
                             <!-- Close V_Group -->
