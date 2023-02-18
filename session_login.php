@@ -10,16 +10,16 @@
     $mypassword = mysqli_real_escape_string($conn,$_POST['password']); 
 
     if (!$myusername) {
-      $errors[] = 'Please enter Username';
+      $errors[] = 'Please enter <b>Username</b>';
     }
     if ($myusername != "admin" && $myusername != "") {
-      $errors[] = 'Enter valid username';
+      $errors[] = 'Invalid Username or Password';
     }
     if (!$mypassword) {
-      $errors[] = 'Please enter Password';
+      $errors[] = 'Please enter <b>Password</b>';
     }
     if ($mypassword != "admin" && $mypassword != "") {
-      $errors[] = 'Enter valid password';
+      $errors[] = 'Invalid Username or Password';
     }
     
     // $sql = "SELECT id FROM account WHERE Username = '$myusername' and Password = '$mypassword'";
@@ -76,16 +76,16 @@
               </div>
         <?php endif ?>
 
-
-
            <input type="text" name="username" placeholder="Email" autocomplete="off" id="user">
            <i class="typcn typcn-eye" id="eye"></i>
-
            <input type="password" name="password" placeholder="Passsword" id="pwd" autocomplete="off">
+
            <a href="#" class="forgetpass">Forget Password?</a>
            
            <input type="submit" value="Sign in" class="btn1">
          </form>
+
+
            <a href="#" class="dnthave">Don’t have an account? Sign up</a>
      </div> 
    </div>

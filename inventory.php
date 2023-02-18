@@ -363,7 +363,7 @@ $good = $statement2->fetchAll(PDO::FETCH_ASSOC);
                 </div>
             </div>
             <!-- --------------------------------------------------------------- -->
-            <div class="recent-announcements">
+            <!-- <div class="recent-announcements">
                 <h2>Add Evacuees</h2>
                 <div class="announcements">
                     <form action="evacuee_add.php" method="post" enctype="multipart/form-data">
@@ -386,16 +386,16 @@ $good = $statement2->fetchAll(PDO::FETCH_ASSOC);
                         <div class="add-evacuees-row">
                             
                             <div>
-                                <select name="Sex" value="<?php echo $Sex ?>">
+                                <select name="Sex" value="<?php //echo $Sex ?>">
                                     <option value="M">Male</option>
                                     <option value="F">Female</option>
                                 </select>
                                 <h3 class="text-muted">Sex</h3>
-                            </div>
+                            </div> -->
                         <!-- Close row -->
-                        </div>
+                        <!-- </div>
                             <div>
-                                <input type="date" name="Birthday" class="text-box" value="<?php echo $Birthday ?>">
+                                <input type="date" name="Birthday" class="text-box" value="<?php //echo $Birthday ?>">
                                 <h3 class="text-muted">Birthday</h3>
                             </div>
 
@@ -406,7 +406,7 @@ $good = $statement2->fetchAll(PDO::FETCH_ASSOC);
                         
                         <div class="add-evacuees-row-3">
                             <div class="household-field">
-                                <select name="Household_ID" value="<?php echo $Household_ID ?>"><br>
+                                <select name="Household_ID" value="<?php //echo $Household_ID ?>"><br>
                                     <option value="HHOLD-0001">HHOLD-0001</option>
                                     <option value="HHOLD-0002">HHOLD-0002</option>
                                     <option value="HHOLD-0003">HHOLD-0003</option>
@@ -417,20 +417,20 @@ $good = $statement2->fetchAll(PDO::FETCH_ASSOC);
                                     <option value="HHOLD-0008">HHOLD-0008</option>
                                     <option value="HHOLD-0009">HHOLD-0009</option>
                                 </select>
-                                <h3 class="text-muted">Household</h3>
+                                <h3 class="text-muted">Household</h3> -->
                             <!-- Close household-field -->
-                            </div>
+                            <!-- </div> -->
                             <!-- Buttons -->
-                            <button type="submit" id="sub" class="btn btn-primary">Submit</button>
-                            <a href="evacuees.php">Clear</a>
+                            <!-- <button type="submit" id="sub" class="btn btn-primary">Submit</button>
+                            <a href="evacuees.php">Clear</a> -->
                         <!-- close add-evacuees-row-3 -->
-                        </div>
+                        <!-- </div>
                     </div>
-                    </form>
+                    </form> -->
                 <!-- Close Announcements -->
-                </div>
+                <!-- </div> -->
             <!-- Close recent Announcements -->
-            </div>
+            <!-- </div> -->
             <!-- --------------------------------------------------------------- -->
             
             <!-- zxc -->
@@ -468,7 +468,7 @@ $good = $statement2->fetchAll(PDO::FETCH_ASSOC);
             </div>
         
             <! ---------------- End of Announcements ---------------- !>
-            <div class="recent-announcements">
+            <!-- <div class="recent-announcements">
                 <h2>Relief Packing</h2>
                 <div class="announcements">
                     
@@ -538,7 +538,7 @@ $good = $statement2->fetchAll(PDO::FETCH_ASSOC);
                                 <button>Submit</button>
                                 <button>Clear</button>
                             </div>
-                </div>
+                </div> -->
             </div>
             </div>
             
