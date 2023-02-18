@@ -3,6 +3,7 @@
 // <!-- create connection to database -->
 /** @var $pdo \PDO */
 require_once "database.php";
+include('session.php');
 
 // you can use exec() but not good, only to make changes on database schema
 // to select                CALL addEvacuee(:First_Name, :Middle_Name, :Last_Name, :Sex, :Birthday, :Contact_No, :Household_ID);
@@ -130,7 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <h3>Settings</h3>
                 </a>
 
-                <a href="#" class="btn-logout">
+                <a href = "session_logout.php" class="btn-logout">
                     <span class="material-icons-sharp">logout</span>
                     <h3>Logout</h3>
                 </a>

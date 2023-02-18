@@ -3,6 +3,7 @@
 // <!-- create connection to database -->
 /** @var $pdo \PDO */
 require_once "database.php";
+include('session.php');
 
 $search = $_GET['search'] ?? '';
 if ($search) {
@@ -103,7 +104,7 @@ $Area_ID = '';
                     <span class="material-icons-sharp">settings</span>
                     <h3>Settings</h3>
                 </a>
-                <a href="#" class="btn-logout">
+                <a href = "session_logout.php" class="btn-logout">
                     <span class="material-icons-sharp">logout</span>
                     <h3>Logout</h3>
                 </a>
