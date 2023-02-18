@@ -3,12 +3,27 @@
    session_start();
 
    if($_SERVER["REQUEST_METHOD"] == "POST") {
+
     // username and password sent from form 
     
     $myusername = mysqli_real_escape_string($conn,$_POST['username']);
     $mypassword = mysqli_real_escape_string($conn,$_POST['password']); 
+
+    if (!$myusername) {
+      $errors[] = 'Please enter Username';
+    }
+    if ($myusername != "admin" && $myusername != "") {
+      $errors[] = 'Enter valid username';
+    }
+    if (!$mypassword) {
+      $errors[] = 'Please enter Password';
+    }
+    if ($mypassword != "admin" && $mypassword != "") {
+      $errors[] = 'Enter valid password';
+    }
     
-    $sql = "SELECT id FROM account WHERE Username = '$myusername' and Password = '$mypassword'";
+    // $sql = "SELECT id FROM account WHERE Username = '$myusername' and Password = '$mypassword'";
+    $sql = "SELECT User_ID FROM user WHERE User_ID = '$myusername' and User_Password = '$mypassword'";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
   //   $active = $row['active'];
@@ -47,9 +62,21 @@
      <div class="container">
        <span class="error animated tada" id="msg"></span>
        <!-- <form name="form1" class="box" onsubmit="return checkStuff()"> -->
-       <form action = "" method = "post" class="box">
+       <form action = "" method = "post" class="box" onsubmit="return checkStuff()">
          <h4>ECMS<span>Dashboard</span></h4>
          <h5>Sign in to your account.</h5>
+
+        <!-- Display only when empty use div -->
+        <?php if (!empty($errors)): ?>
+              <!-- Display error -->
+              <div class="alert alert-danger">
+                <?php foreach ($errors as $error) :?>
+                  <div><?php echo $error ?></div>
+                <?php endforeach; ?>
+              </div>
+        <?php endif ?>
+
+
 
            <input type="text" name="username" placeholder="Email" autocomplete="off" id="user">
            <i class="typcn typcn-eye" id="eye"></i>
@@ -91,8 +118,8 @@ if (email == "") {
 else if (email == user && password == pass){
     location.href = "index.html";
     return false;
-
-  } else {
+ } 
+ else {
     msg.style.display = 'block';
     msg.innerHTML = "Incorrect username or password";
     return false;
