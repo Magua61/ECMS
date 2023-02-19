@@ -10,6 +10,10 @@ if (!$Room_ID) {
   header('Location: center.php');
   exit;
 }
+$statement2 = $pdo->prepare('CALL viewArea');
+$statement2->execute();
+$rooms = $statement2->fetchAll(PDO::FETCH_ASSOC);
+$statement2->closeCursor();
 
 $statement = $pdo->prepare('SELECT * FROM room WHERE Room_ID = :Room_ID;');
 $statement->bindValue(':Room_ID', $Room_ID);
@@ -147,10 +151,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
 
                         <div class="Area_ID-field">
-                        <select name="Area_ID" value="<?php echo $Area_ID ?>" ><br>
-                            <option value="<?php echo $Area_ID ?>" selected="<?php echo $Area_ID ?>"><?php echo $Area_ID ?></option>
+                        <!-- <select name="Area_ID" value="<?php //echo $Area_ID ?>" ><br>
+                            <option value="<?php //echo $Area_ID ?>" selected="<?php //echo $Area_ID ?>"><?php //echo $Area_ID ?></option>
                             <option value="A-0001">A-0001</option>
                             <option value="A-0002">A-0002</option>
+                        </select> -->
+
+                        <select name="Area_ID" value="<?php echo $Area_ID ?>"><br>
+                        <option value="<?php echo $Area_ID ?>" selected="<?php echo $Area_ID ?>"><?php echo $Area_ID ?></option>
+                                <?php foreach ($rooms as $r => $rr) :?>
+                                    <option value="<?php echo $rr['Area_ID'];?>"><?php echo $rr['Area_ID'] ?></option>
+                                <?php endforeach;?>
                         </select>
                         <h3 class="text-muted">Area ID</h3>
                         </div>

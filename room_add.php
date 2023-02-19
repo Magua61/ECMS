@@ -4,6 +4,12 @@
 /** @var $pdo \PDO */
 require_once "database.php";
 
+// Area
+$statement2 = $pdo->prepare('CALL viewArea');
+$statement2->execute();
+$rooms = $statement2->fetchAll(PDO::FETCH_ASSOC);
+$statement2->closeCursor();
+
 // if FirstName is empty, throw error because it is required
 $errors = [];
 
@@ -118,6 +124,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <h2>---Add Room</h2>
                 <form action="" method="post" enctype="multipart/form-data">
                 <div class="add-evacuees-form">
+
+                    <!-- Display error -->
+                <?php if (!empty($errors)): ?>
+                                <div class="alert alert-danger">
+                                    <?php foreach ($errors as $error) :?>
+                                    <div><?php echo $error ?></div>
+                                    <?php endforeach; ?>
+                                </div>
+                                <?php endif ?>
+                                
                     <div class="add-evacuees-row-1">
                         <div class="R_Name">
                         <input type="text" name="R_Name" class="text-box" placeholder="Enter Room Name" value="<?php echo $R_Name ?>">
@@ -133,12 +149,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         
 
                         <div class="Area_ID">
-                        <select name="Area_ID" value="<?php echo $Area_ID ?>"><br>
+                        <!-- <select name="Area_ID" value="<?php //echo $Area_ID ?>"><br>
                             <option value="A-0001">A-0001</option>
                             <option value="A-0002">A-0002</option>
                             <option value="A-0003">A-0003</option>
                             <option value="A-0004">A-0004</option>
+                        </select> -->
+
+                        <select name="Area_ID" value="<?php echo $Area_ID ?>"><br>
+                                <?php foreach ($rooms as $r => $rr) :?>
+                                    <option value="<?php echo $rr['Area_ID'];?>"><?php echo $rr['Area_ID'] ?></option>
+                                <?php endforeach;?>
                         </select>
+
                         <h3 class="text-muted">Area_ID</h3>
                         </div>
                     </div>

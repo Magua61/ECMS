@@ -197,7 +197,7 @@ $statement5->closeCursor();
                         </form>
 
                         <form>
-                        <button class="btn btn-outline-secondary" type="submit" style="float: right;">Sort</button>
+                        <button class="btn btn-outline-secondary" type="submit" style="float: right;" onclick="window.location.href ='#anchor';">Sort</button>
                         <select name="sort" value="<?php echo $sort ?>"  style="float: right;">
                                     <option value="Evacuee_ID" disabled selected value>Choose Sort by</option>
                                     <option value="Evacuation_Status" selected="Evacuation_Status">Evacuation_Status</option>
@@ -290,6 +290,15 @@ $statement5->closeCursor();
             <div class="recent-announcements">
                 <h2>Add Evacuees</h2>
                 <div class="announcements">
+                    <!-- Display error -->
+                    <?php if (!empty($errors)): ?>
+                                <div class="alert alert-danger">
+                                    <?php foreach ($errors as $error) :?>
+                                    <div><?php echo $error ?></div>
+                                    <?php endforeach; ?>
+                                </div>
+                                <?php endif ?>
+
                     <form action="evacuee_add.php" method="post" enctype="multipart/form-data">
                     <div class="add-evacuees-form">
                             <div class="firstname">
@@ -353,6 +362,16 @@ $statement5->closeCursor();
             <! ---------------- End of Announcements ---------------- !>
             <div class="recent-announcements">
             <!-- CALL addHousehold('Dolores', NULL, 'RM-002', '2023-02-14'); -->
+            
+                                <!-- Display error -->
+                                <?php if (!empty($errors)): ?>
+                                <div class="alert alert-danger">
+                                    <?php foreach ($errors as $error) :?>
+                                    <div><?php echo $error ?></div>
+                                    <?php endforeach; ?>
+                                </div>
+                                <?php endif ?>
+
             <form action="household_add.php" method="post" enctype="multipart/form-data">
                 <h2>Add Household</h2>
                 <div class="announcements">
@@ -363,8 +382,26 @@ $statement5->closeCursor();
                             </div>
 
                             <div class="Family_Head">
-                                <input type="text" name="Family_Head" class="text-box" placeholder="Enter Family_Head" value="<?php echo $Family_Head ?>">
-                                <h3 class="text-muted">Family Head</h3>
+                                <!-- <input type="text" name="Family_Head" class="text-box" placeholder="Enter Family_Head" value="<?php //echo $Family_Head ?>"> -->
+                                
+                                <div class="input-group mb-3">
+                                <select class="custom-select" id="inputGroupSelect02" name="Family_Head" value="<?php echo $Family_Head ?>">
+                                    <option value="" selected>Default(None)</option>
+                                    <?php foreach ($evacuee as $e => $ee) :?>
+                                        <option value="<?php echo $ee['Evacuee_ID'];?>"><?php echo $ee['Evacuee_ID'].' ('.$ee['Full_Name'].')' ?></option>
+                                    <?php endforeach;?>
+                                </select>
+                                <div class="input-group-append">
+                                    <h3 class="text-muted">Family Head</h3>
+                                </div>
+                                </div>
+
+                                <!-- <select name="Family_Head" value="<?php //echo $Family_Head ?>"><br>
+                                <?php //foreach ($evacuee as $e => $ee) :?>
+                                    <option value="<?php //echo $ee['Evacuee_ID'];?>"><?php //echo $ee['Evacuee_ID'].' ('.$ee['Full_Name'].')' ?></option>
+                                    <?php //endforeach;?>
+                                </select>
+                                <h3 class="text-muted">Family Head</h3> -->
                             </div>
 
                             <div class="Room_ID-field">

@@ -165,7 +165,7 @@ $Date_Given = '';
                 <table class="table">
                     <thead>
                     <tr>
-                        <th scope="col">/</th>
+                        <!-- <th scope="col">/</th> -->
                         <th scope="col">Household_ID</th>
                         <th scope="col">Family_Head</th>
                         <th scope="col">Members</th>
@@ -178,7 +178,7 @@ $Date_Given = '';
                     foreach ($household as $i => $hh) :
                     ?>
                         <tr>
-                        <td scope="row"><input type="checkbox" name="lols[]" value="<?php echo $hh['Household_ID'];?>"/></td>
+                        <!-- <td scope="row"><input type="checkbox" name="lols[]" value="<?php //echo $hh['Household_ID'];?>"/></td> -->
                         <td scope="row"><?php echo $hh['Household_ID'] ?></td>
                         <td><?php echo $hh['Family_Head'];?></td>
                         <td><?php echo $hh['Number_of_Members'] ?></td>
@@ -204,7 +204,7 @@ $Date_Given = '';
                     </tbody>
                 </table>
                 <!-- Delete  -->
-                <button type="submit" id="sub" class="btn btn-primary">Submit</button>
+                <!-- <button type="submit" id="sub" class="btn btn-primary">Submit</button> -->
                 </form>
             </div>
 
@@ -285,7 +285,7 @@ $Date_Given = '';
                                     <option value="<?php echo $pp['Items'];?>"><?php echo $pp['Items'] ?> (Packs left: <?php echo $pp['COUNT(*)'] ?>)</option>
                                     <?php endforeach;?>
                                 </select><br>
-                                <h3 class="text-muted">Enter Items</h3><br>
+                                <h3 class="text-muted">Enter Pack</h3><br>
                         <div class="distribute-form">
                 <!-- Table -->
                     <!-- <table class="table">

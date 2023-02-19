@@ -42,7 +42,7 @@ $statement = $pdo->prepare('CALL viewEvacuationCenter');
 
 $statement->execute();
 $center = $statement->fetchAll(PDO::FETCH_ASSOC);
-$statement = $pdo->prepare('SELECT * FROM room');
+$statement = $pdo->prepare('CALL viewRoom');
 $statement->execute();
 $center2 = $statement->fetchAll(PDO::FETCH_ASSOC);
 
@@ -167,6 +167,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </div>
                             <div class="modal-body">
                                 <div class="modal-body-input">
+
+                                <!-- Display error -->
+                                <?php if (!empty($errors)): ?>
+                                <div class="alert alert-danger">
+                                    <?php foreach ($errors as $error) :?>
+                                    <div><?php echo $error ?></div>
+                                    <?php endforeach; ?>
+                                </div>
+                                <?php endif ?>
 
                                 <form action="" method="post" enctype="multipart/form-data">
 

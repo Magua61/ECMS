@@ -16,6 +16,11 @@ $statement->bindValue(':Household_ID', $Household_ID);
 $statement->execute();
 $household2 = $statement->fetch(PDO::FETCH_ASSOC);
 
+$statement2 = $pdo->prepare('CALL viewEvacueeJoinHousehold');
+$statement2->closeCursor();
+$statement2->execute();
+$evacuee = $statement2->fetchAll(PDO::FETCH_ASSOC);
+
 // if Name is empty, throw error because it is required
 $errors = [];
 
@@ -136,7 +141,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
 
                         <div class="Family_Head">
-                        <input type="text" name="Family_Head" class="text-box" placeholder="Enter Family_Head" value="<?php echo $Family_Head ?>">
+                        <!-- <input type="text" name="Family_Head" class="text-box" placeholder="Enter Family_Head" value="<?php //echo $Family_Head ?>"> -->
+                        <select class="custom-select" id="inputGroupSelect02" name="Family_Head" value="<?php echo $Family_Head ?>">
+                            <option value="<?php echo $Family_Head ?>" selected="<?php echo $Family_Head ?>" selected><?php echo $Family_Head ?></option>
+                            <option value="">Default(None)</option>
+                                    <?php foreach ($evacuee as $e => $ee) :?>
+                                        <option value="<?php echo $ee['Evacuee_ID'];?>"><?php echo $ee['Evacuee_ID'].' ('.$ee['Full_Name'].')' ?></option>
+                                    <?php endforeach;?>
+                                </select>
                         <h3 class="text-muted">Family_Head</h3>
                         </div>
 

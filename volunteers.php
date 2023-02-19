@@ -299,10 +299,10 @@ $Area_ID = '';
                                 </select> -->
                                 <select name="V_Group" value="<?php echo $V_Group ?>"><br>
                                 <?php foreach ($vg as $v => $vv) :?>
-                                    <option value="<?php echo $vv['V_Group'];?>"><?php echo $vv['V_Group'] ?></option>
+                                    <option value="<?php echo $vv['V_Group'];?>"><?php echo $vv['V_Group']." (".$vv['G_Name'].")" ?></option>
                                     <?php endforeach;?>
                                 </select>
-                                <h3 class="text-muted">Household</h3>
+                                <h3 class="text-muted">Volunteer Group</h3>
                             <!-- Close V_Group -->
                             </div>
                         

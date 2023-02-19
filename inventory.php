@@ -276,40 +276,6 @@ $good = $statement2->fetchAll(PDO::FETCH_ASSOC);
             <!-- End of Relief Pack -->
             </div>
 
-            <div class="recent-updates">
-                <h2>Relief Packs</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Relief ID</th>
-                            <th>Item</th>
-                            <th>Quantity</th>
-                            <th>Date Packed</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>RG_1123</td>
-                            <td>Noodles</td>
-                            <td>2</td>
-                            <td>01/02/2022</td>
-                        </tr>
-                        <tr>
-                            <td>RG_1123</td>
-                            <td>Rice</td>
-                            <td>2</td>
-                            <td>01/02/2022</td>
-                        </tr>
-                        <tr>
-                            <td>RG_1123</td>
-                            <td>Sardines</td>
-                            <td>2</td>
-                            <td>01/02/2022</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <a href="#">Show All</a>
-            </div>
         </main>
         <!  ------------------- END OF MAIN -----------------------  !>
 
@@ -445,7 +411,12 @@ $good = $statement2->fetchAll(PDO::FETCH_ASSOC);
                                 <h3 class="text-muted">Relief_ID</h3>
                             </div>
                             <div class="Item_ID">
-                                <input type="text" name="Item_ID" class="text-box" placeholder="Enter Item_ID" value="<?php echo $Item_ID ?>">
+                                <!-- <input type="text" name="Item_ID" class="text-box" placeholder="Enter Item_ID" value="<?php //echo $Item_ID ?>"> -->
+                                <select name="Item_ID" value="<?php echo $Item_ID ?>"><br>
+                                <?php foreach ($item as $i => $rr) :?>
+                                    <option value="<?php echo $rr['Item_ID'];?>"><?php echo $rr['Item_ID']."\t(".$rr['I_Name'].")" ?></option>
+                                    <?php endforeach;?>
+                                </select>
                                 <h3 class="text-muted">Item_ID</h3>
                             </div>
                             <div class="Date_Packed">
