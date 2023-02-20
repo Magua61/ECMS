@@ -16,6 +16,11 @@ $statement->bindValue(':Evacuee_ID', $Evacuee_ID);
 $statement->execute();
 $evacuee2 = $statement->fetch(PDO::FETCH_ASSOC);
 
+$statement2 = $pdo->prepare('CALL viewHousehold');
+$statement2->execute();
+$household = $statement2->fetchAll(PDO::FETCH_ASSOC);
+$statement2->closeCursor();
+
 // if Name is empty, throw error because it is required
 $errors = [];
 
@@ -194,15 +199,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="household-field">
                         <select name="Household_ID" value="<?php echo $Household_ID ?>"><br>
                             <option value="<?php echo $Household_ID ?>" selected="<?php echo $Household_ID ?>"><?php echo $Household_ID ?></option>
-                            <option value="HHOLD-0001">HHOLD-0001</option>
-                            <option value="HHOLD-0002">HHOLD-0002</option>
-                            <option value="HHOLD-0003">HHOLD-0003</option>
-                            <option value="HHOLD-0004">HHOLD-0004</option>
-                            <option value="HHOLD-0005">HHOLD-0005</option>
-                            <option value="HHOLD-0006">HHOLD-0006</option>
-                            <option value="HHOLD-0007">HHOLD-0007</option>
-                            <option value="HHOLD-0008">HHOLD-0008</option>
-                            <option value="HHOLD-0009">HHOLD-0009</option>
+                            <?php foreach ($household as $i => $rr) :?>
+                                    <option value="<?php echo $rr['Household_ID'];?>"><?php echo $rr['Household_ID'] ?></option>
+                                    <?php endforeach;?>
                         </select>
                         <h3 class="text-muted">Household ID</h3>
                         </div>

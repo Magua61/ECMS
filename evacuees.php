@@ -187,9 +187,8 @@ $statement5->closeCursor();
                     <div class="input-group mb-3">
                         <!-- search evacuee -->
                         <form>
-                            <input type="text" class="form-control" 
-                                    placeholder="Search for Evacuee Full Name" 
-                                    name="search" value="<?php echo $search ?>">
+                            <input type="text" class="form-control" placeholder="Search for Evacuee Full Name" 
+                                    name="search" value="<?php echo $search ?>" >
                             <!-- <div class="input-group-append"> -->
                             <!-- <a href="#anchor"> -->
                                 <button class="btn btn-outline-secondary" type="submit" onclick="window.location.href ='#anchor';">Search</button>

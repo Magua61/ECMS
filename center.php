@@ -235,14 +235,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="room-body">
                             <div class="room-capacity">
                             <span class= "material-icons-sharp">group</span>
-                            <h3>27</h3>
+                            <h3><?php echo $croom['R_Current_Capacity'] ?></h3>
                             <h4 class="text-muted">/</h4>
                             <h4 class="text-muted"><?php echo $croom['R_Total_Capacity'] ?></h4>
-                            </div>
+                            </div><br>
                             <h4 class="room-detail"><a href="room_update.php?Room_ID=<?php echo $croom['Room_ID'] ?>" id="sub" class="btn btn-primary">Details</a></h4>
-                        </div>
+                            </div>
+                            <!-- Delete button -->
+                            <!-- <form style="display:inline-block" method="post" action="room_delete.php" id="myform">
+                            <input type="hidden" name="Room_ID" value="<?php //echo $evacuee2['Room_ID'] ?>">
+                            <button type="submit">Delete</button>
+                            </form> -->
+                            <!-- <h4 class="room-detail"><a href="room_update.php?Room_ID=<?php //echo $croom['Room_ID'] ?>" id="sub" class="btn btn-primary" style="color:#C24641">Delete</a></h4> -->
+                        
                     </div>
+                    <!-- modal -->
                     <div class="modal" id="modal-room-info">
+                    <form action="room_update" method="post" enctype="multipart/form-data">
                             <div class="modal-header">
                                 
                               <div class="title"><span class= "material-icons-sharp">edit</span>
@@ -256,22 +265,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <div class="modal-body">
                                 <div class="modal-body-input">
                                 <h3>Room Name</h3>
-                                <input type="text" name="name" placeholder="<?php echo $croom['Room_ID']?>" class="text-box">
+                                <input type="text" name="R_Name" value="<?php echo $croom['R_Name']?>"placeholder="<?php echo $croom['Room_ID']?>" class="text-box">
                                 <h3>Location</h3>
-                                <input type="text" name="address" placeholder="Enter Address" class="text-box">
+                                <input type="text" name="Area_ID" value="<?php echo $croom['Area_ID']?>" placeholder="Enter Address" class="text-box">
                                 <h3>Total Capacity</h3>
-                                <input type="number" name="capacity" placeholder="Enter Capacity" class="text-box">
+                                <input type="number" name="R_Total_Capacity" value="<?php echo $croom['R_Total_Capacity']?>" placeholder="Enter Capacity" class="text-box" value="<?php echo $R_Total_Capacity ?>">
                                 <!-- modal-body-input -->
                                 </div>
+                                
                                 <div class="modal-buttons">
-                                    <button class="submit">Submit</button>
-                                    <button class="cancel">Cancel</button>
+                                <center>
+                                    <button type="submit" id="sub" class="btn btn-primary" >Submit</button>
+                                    <a href="center.php">Back</a>
+                                </center>
                                 <!-- modal buttons -->
                                 </div>
                             <!-- modal-body -->
                             </div>
-                          <!-- modal -->
+                    </form>
+                          
                     </div>
+                    <!-- modal -->
                 <?php endforeach;?>
                 <a href="room_add.php">
                     <div class="room-card-add">
@@ -312,10 +326,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                             
                             <!-- Delete button -->
-                            <form style="display:inline-block" method="post" action="room_delete.php">
+                            <form style="display:inline-block" method="post" action="room_delete.php" class="danger">
                             <input type="hidden" name="Room_ID" value="<?php echo $evacuee2['Room_ID'] ?>">
-                            <button type="submit">Delete</button>
-                            
+                            <button type="submit" class="color-danger">Delete</button>
                             </form>
                         </td>
 
@@ -515,7 +528,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         editBtn.addEventListener('click', () =>{
             editId.innerHTML = "123456";
         });
+
+        function myFunction() {
+                document.getElementById("GFG").submit();
+            }
         </script>
+
+        <noscript>
+            <input type="submit" value="Submit form!" />    
+        </noscript>
    
 </body>
 </html>

@@ -18,7 +18,8 @@ if ($result2 = mysqli_query($conn2, $sql2)) {
  }
 
 // Recent
-$statement = $pdo->prepare('SELECT * FROM recent ORDER BY Recent_ID DESC LIMIT 5');
+// $statement = $pdo->prepare('SELECT * FROM recent ORDER BY Recent_ID DESC LIMIT 5');
+$statement = $pdo->prepare('CALL viewRecentWithoutNull');
 $statement->execute();
 $recently = $statement->fetchAll(PDO::FETCH_ASSOC);
 
@@ -157,6 +158,7 @@ $recently = $statement->fetchAll(PDO::FETCH_ASSOC);
                             <th scope="col">Recent ID</th>
                             <th scope="col">Transact ID</th>
                             <th scope="col">Transact Type</th>
+                            <th scope="col">Transaction_DateTime</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -167,9 +169,7 @@ $recently = $statement->fetchAll(PDO::FETCH_ASSOC);
                             <td><?php echo $r2['Recent_ID'] ?></td>
                             <td><?php echo $r2['Transact_ID'] ?></td>
                             <td><?php echo $r2['Transact_Type'] ?></td>
-
-                            
-
+                            <td><?php echo $r2['Transaction_DateTime'] ?></td>
                             </tr>
                         <?php
                         endforeach;
