@@ -71,7 +71,8 @@
               <!-- Display error -->
               <div class="alert alert-danger">
                 <?php foreach ($errors as $error) :?>
-                  <div><?php echo $error ?></div>
+                  <div>
+                  <p style="color:red"><?php echo $error ?></p></div>
                 <?php endforeach; ?>
               </div>
         <?php endif ?>

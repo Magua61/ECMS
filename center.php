@@ -42,9 +42,11 @@ $statement = $pdo->prepare('CALL viewEvacuationCenter');
 
 $statement->execute();
 $center = $statement->fetchAll(PDO::FETCH_ASSOC);
+$statement->closeCursor();
 $statement = $pdo->prepare('CALL viewRoom');
 $statement->execute();
 $center2 = $statement->fetchAll(PDO::FETCH_ASSOC);
+$statement->closeCursor();
 
 // if Name is empty, throw error because it is required
 $errors = [];
@@ -90,7 +92,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 }
 
+// Create Area
+// solution when Area, etc is empty
+$A_Name = '';
+$Center_ID = '';
 
+$statement3 = $pdo->prepare('CALL viewArea');
+$statement3->execute();
+$area = $statement3->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -295,8 +304,73 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </a>
                 </div>
                 
+                <!-- AREAS -->
+                <div class="rooms">
+                <h2>Area Manager</h2>
+                <div class="room-manager">
+                <?php foreach ($area as $x => $areas) :?>
+                    <div class="room-card">
+                    <center>
+                        <div>
+                            <div >
+                                <h1><?php echo $areas['A_Name'] ?></h3>
+                                <h3 class="text-muted"><?php echo $areas['Area_ID'] ?></h4>
+                                <h5 class="text-muted"><?php echo $areas['Center_ID'] ?></h4>
+                                
+                            <!-- Edit button -->
+                            <a href="area_update.php?Area_ID=<?php echo $areas['Area_ID'] ?>" id="sub" class="btn btn-primary">Edit</a>
+
+                            <form style="display:inline-block" method="post" action="area_delete.php" class="danger">
+                                <input type="hidden" name="Area_ID" value="<?php echo $areas['Area_ID'] ?>">
+                                <button type="submit" class="color-danger">Delete</button>
+                            </form>
+                            </div>
+                        </div>
+                        </center>
+                        <div class="room-body">
+
+                            </div>
+                            <!-- Delete button -->
+                            <!-- <form style="display:inline-block" method="post" action="room_delete.php" id="myform">
+                            <input type="hidden" name="Room_ID" value="<?php //echo $evacuee2['Room_ID'] ?>">
+                            <button type="submit">Delete</button>
+                            </form> -->
+                            <!-- <h4 class="room-detail"><a href="room_update.php?Room_ID=<?php //echo $areas['Room_ID'] ?>" id="sub" class="btn btn-primary" style="color:#C24641">Delete</a></h4> -->
+                        
+                    </div>
+                    <!-- modal -->
+                    <div class="modal" id="modal-room-info">
+                    <form action="room_update" method="post" enctype="multipart/form-data">
+                            <div class="modal-header">
+                                
+                              <div class="title"><span class= "material-icons-sharp">edit</span>
+                                <h2>Edit Room</h2>
+                                <h3 class="text-muted" id="room-id-edit"><?php echo $areas['Room_ID']?></h3>
+                              <!-- title -->
+                              </div>
+                              <button data-close-button class="close-button"><span class="material-icons-sharp">close</span></button>
+                            <!-- modal-header -->
+                            </div>
+                            <div class="modal-body">
+                                
+                                <div class="modal-buttons">
+                                <center>
+                                    <button type="submit" id="sub" class="btn btn-primary" >Submit</button>
+                                    <a href="center.php">Back</a>
+                                </center>
+                                <!-- modal buttons -->
+                                </div>
+                            <!-- modal-body -->
+                            </div>
+                    </form>
+                          
+                    </div>
+                    <!-- modal -->
+                <?php endforeach;?>
+                </div>
+                <!-- Areas -->
                 
-                          <div class="recent-updates">
+                <div class="recent-updates">
                 <h2>Room Manager</h2>
                 <table class="table">
                     <thead>
@@ -343,6 +417,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>           
             </div>
 
+            <!-- Delete -->
+
+            <!-- Delete -->
+
             
             </main>
             
@@ -369,79 +447,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 </div>
                 <! ---------------- End of Top ---------------- !>
-                <div class="room-details-section">
-                    <h2>Details</h2>
-                    <div class="room-details">
-                        <h3>Room 1</h3>
-                        <table>
-                        <thead>
-                            <tr>
-                                <th>Household ID</th>
-                                <th>Household Name</th>
-                                <th><span class= "material-icons-sharp">group</span></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>123456</td>
-                                <td>Santiago</td>
-                                <td>8</td>
-                                <td>See more</td>
-                            </tr>
-                            <tr>
-                                <td>123457</td>
-                                <td>Dela Cruz</td>
-                                <td>12</td>
-                                <td>See more</td>
-                            </tr>
-                            <tr>
-                                <td>123458</td>
-                                <td>Manansala</td>
-                                <td>4</td>
-                                <td>See more</td>
-                            </tr>
-                        </tbody>
-                    </table>
+
+                <div class="recent-announcements">
+                <h2>Add Area</h2>
+                <div class="announcements">
+                    <!-- Display error -->
+                    <?php if (!empty($errors)): ?>
+                                <div class="alert alert-danger">
+                                    <?php foreach ($errors as $error) :?>
+                                    <div><?php echo $error ?></div>
+                                    <?php endforeach; ?>
+                                </div>
+                                <?php endif ?>
+
+                    <form action="area_add.php" method="post" enctype="multipart/form-data">
+                    <div class="add-area-form">
+                            <div class="firstname">
+                                <input type="text" name="A_Name" class="text-box" placeholder="Enter Area Name" value="<?php echo $A_Name ?>">
+                                <h3 class="text-muted">Area Name</h3><br>
+                            </div>
+    
+                            <div class="middlename">
+                            <input type="text" name="Center_ID" class="text-box" placeholder="Enter Center_ID" value="EC-0001" readonly>
+                                <h3 class="text-muted">Center_ID</h3><br>
+                            </div>
+                        
+                        <div class="add-evacuees-row-3">
+                            <!-- Buttons -->
+                            <button type="submit" id="sub" class="btn btn-primary">Submit</button>
+                            <a href="evacuees.php">Clear</a>
+                        <!-- close add-evacuees-row-3 -->
+                        </div>
                     </div>
+                    </form>
+                <!-- Close Announcements -->
                 </div>
-                <! ---------------- End of Announcements ---------------- !>
-                    <div class="room-details-section">
-                    <h2>Volunteers</h2>
-                    <div class="room-details">
-                        <h3>Information</h3>
-                        <table>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Age</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>123456</td>
-                                <td>Carlos Santiago</td>
-                                <td>18</td>
-                                <td>See more</td>
-                            </tr>
-                            <tr>
-                                <td>123457</td>
-                                <td>Jane Dela Cruz</td>
-                                <td>25</td>
-                                <td>See more</td>
-                            </tr>
-                            <tr>
-                                <td>123458</td>
-                                <td>Cristof Lee</td>
-                                <td>34</td>
-                                <td>See more</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    </div>
-                </div>
+            <!-- Close recent Announcements -->
             </div>
             <!===================== END OF RIGHT =======================!>
         </div>

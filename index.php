@@ -17,12 +17,86 @@ if ($result2 = mysqli_query($conn2, $sql2)) {
     $rowcount = mysqli_num_rows( $result2 );
  }
 
+// Relief Packs
+$sql2 = "SELECT * from relief_good";
+if ($result2 = mysqli_query($conn2, $sql2)) {
+    // Return the number of rows in result set
+    $rowcount = mysqli_num_rows( $result2 );
+ }
+
 // Recent
 // $statement = $pdo->prepare('SELECT * FROM recent ORDER BY Recent_ID DESC LIMIT 5');
 $statement = $pdo->prepare('CALL viewRecentWithoutNull');
 $statement->execute();
 $recently = $statement->fetchAll(PDO::FETCH_ASSOC);
+$statement->closeCursor();
 
+
+// Create analyticsEvacuee
+// $percentEVAC = '';
+// $countEVAC = '';
+
+// $sql2 = "CALL analyticsEvacuee(@percentEVAC, @countEVAC);";
+// $result2 = mysqli_query($conn3, $sql);
+// $row2 = mysqli_fetch_assoc($result2);
+// $percentEVAC = @percentEVAC;
+
+// $statement2 = $pdo->prepare('CALL analyticsEvacuee($percentEVAC, $countEVAC); SELECT @percentEVAC, @countEVAC;');
+// $statement2 = $pdo->prepare('CALL analyticsEvacuee(@percentEVAC, @countEVAC);');
+    // $statement->bindValue(':percentEVAC', $percentEVAC);
+    // $statement->bindValue(':countEVAC', $countEVAC);
+
+    // almost
+// $statement2 = $pdo->prepare('CALL analyticsEvacuee(@percentEVAC, @countEVAC);');
+// $statement2->execute();
+// $evacanal = $statement2->fetchAll(PDO::FETCH_ASSOC);
+// $statement2->closeCursor();
+
+
+// $sql3 = 'CALL analyticsEvacuee(?, ?)';
+// $stmt = $conn3->prepare($sql3);
+
+// $second_name = "Rickety Ride";
+// $weight = 0;
+
+// $stmt->bindParam(1, $second_name, PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 32);
+// $stmt->bindParam(2, $weight, PDO::PARAM_INT, 10);
+
+// print "Values of bound parameters _before_ CALL:\n";
+// print "  1: {$second_name} 2: {$weight}\n";
+
+// $stmt->execute();
+
+
+// $stmt = $pdo->prepare("CALL sp_takes_string_returns_string(?)");
+// $stmt = $pdo->prepare("CALL analyticsEvacuee(?, ?)");
+// $value = '@percentEVAC';
+// $stmt->bindParam(1, $value, PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 4000); 
+
+// $stmt = $pdo->prepare("CALL analyticsEvacuee(?, ?)");
+// $stmt->bindParam(1, $percentEVAC, PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 15); 
+// $stmt->bindParam(2, $countEVAC, PDO::PARAM_INT|PDO::PARAM_INPUT_OUTPUT); 
+
+// DI LUMABAS
+// $stmt = $pdo->prepare("CALL analyticsEvacuee(?, ?); SELECT @percentEVAC, @countEVAC;");
+// $stmt->bindParam(1, $percentEVAC, PDO::PARAM_STR, 15); 
+// $stmt->bindParam(2, $countEVAC, PDO::PARAM_INT); 
+// echo $percentEVAC;
+
+$statement2 = $pdo->prepare('CALL analyticsEvacuee;');
+$statement2->execute();
+$evacanal = $statement2->fetchAll(PDO::FETCH_ASSOC);
+$statement2->closeCursor();
+
+$statement3 = $pdo->prepare('CALL analyticsReliefGoods;');
+$statement3->execute();
+$rganal = $statement3->fetchAll(PDO::FETCH_ASSOC);
+$statement3->closeCursor();
+
+$statement4 = $pdo->prepare('CALL analyticsVolunteers;');
+$statement4->execute();
+$vltranal = $statement4->fetchAll(PDO::FETCH_ASSOC);
+$statement4->closeCursor();
 
 
 ?>
@@ -106,7 +180,7 @@ $recently = $statement->fetchAll(PDO::FETCH_ASSOC);
                                  </div>
                             </div>
                         </div>
-                        <small class="text-muted">Last 24 Hours</small>
+                        
                     </div>
                     <!====================== EVACUEES ====================!>
 
@@ -126,7 +200,7 @@ $recently = $statement->fetchAll(PDO::FETCH_ASSOC);
                                  </div>
                             </div>
                         </div>
-                        <small class="text-muted">Last 24 Hours</small>
+                        
                     </div>
                     <!====================== RELIEF ====================!>
                     <div class="inventory">
@@ -145,7 +219,7 @@ $recently = $statement->fetchAll(PDO::FETCH_ASSOC);
                                  </div>
                             </div>
                         </div>
-                        <small class="text-muted">Last 24 Hours</small>
+                        
                     </div>
                     <!====================== CAPACITY ====================!>
                 </div>
@@ -249,8 +323,15 @@ $recently = $statement->fetchAll(PDO::FETCH_ASSOC);
                                     <h3>EVACUEES</h3>
                                     <small class="text-muted">Last 24 Hours</small>
                                 </div>
-                                <h5 class="success">+26%</h5>
-                                <h3>854</h3>
+                                <?php foreach ($evacanal as $i => $vv) : ?>
+                                <h5 class="success">+
+                                    <?php echo $vv['@percentage'] ?> 
+                                    <?php //echo $row2['@percentEVAC'];?>
+                                    <?php //echo $percentEVAC.$countEVAC;?>
+                                    <?php //echo $percentEVAC;?>
+                                 </h5>
+                                <h3><?php echo $vv['@currentCount'] ?> </h3>
+                                <?php endforeach;?>
                             </div>
                         </div>
 
@@ -261,10 +342,13 @@ $recently = $statement->fetchAll(PDO::FETCH_ASSOC);
                             <div class="right">
                                 <div class="info">
                                     <h3>VOLUNTEERS</h3>
+                                    
                                     <small class="text-muted">Last 24 Hours</small>
                                 </div>
-                                <h5 class="danger">-15%</h5>
-                                <h3>23</h3>
+                                <?php foreach ($rganal as $i => $vv) : ?>
+                                    <h5 class="success">+<?php echo $vv['@percentage'] ?> </h5>
+                                    <h3><?php echo $vv['@currentCount'] ?></h3>
+                                <?php endforeach;?>
                             </div>
                         </div>
 
@@ -277,8 +361,10 @@ $recently = $statement->fetchAll(PDO::FETCH_ASSOC);
                                     <h3>RELIEF GOODS</h3>
                                     <small class="text-muted">Last 24 Hours</small>
                                 </div>
-                                <h5 class="warning">+0.7%</h5>
-                                <h3>1,523</h3>
+                                <?php foreach ($vltranal as $i => $vv) : ?>
+                                    <h5 class="success">+<?php echo $vv['@percentage'] ?></h5>
+                                    <h3><?php echo $vv['@currentCount'] ?></h3>
+                                <?php endforeach;?>
                             </div>
                         </div>
 
