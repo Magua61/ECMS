@@ -18,4 +18,8 @@ $conn3 = mysqli_connect($servername, $username, $password, $dbname);
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
+
+$connect = mysqli_connect("localhost", "root", "", "20230216");
+$output = '';
 ?>
+

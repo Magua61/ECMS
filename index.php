@@ -98,6 +98,16 @@ $statement4->execute();
 $vltranal = $statement4->fetchAll(PDO::FETCH_ASSOC);
 $statement4->closeCursor();
 
+$statement5 = $pdo->prepare('CALL countHousehold;');
+$statement5->execute();
+$counthh = $statement5->fetchAll(PDO::FETCH_ASSOC);
+$statement5->closeCursor();
+
+$statement6 = $pdo->prepare('CALL countReliefGoods;');
+$statement6->execute();
+$countrg = $statement6->fetchAll(PDO::FETCH_ASSOC);
+$statement6->closeCursor();
+
 
 ?>
 <!DOCTYPE html>
@@ -137,9 +147,21 @@ $statement4->closeCursor();
                         <span class="material-icons-sharp">group</span>
                         <h3>Evacuees</h3>
                     </a>
+                    <a href="volunteers.php" class="btn-volunteers">
+                        <span class="material-icons-sharp">volunteer_activism</span>
+                        <h3>Volunteers</h3>
+                    </a>
                     <a href="inventory.php" class="btn-inventory">
                         <span class="material-icons-sharp">inventory</span>
                         <h3>Inventory</h3>
+                    </a>
+                    <a href="distribution.php" class="btn-distribution">
+                        <span class="material-icons-sharp">local_shipping</span>
+                        <h3>Distribution</h3>
+                    </a>
+                    <a href="analytics.php" class="btn-inventory">
+                        <span class="material-icons-sharp">analytics</span>
+                        <h3>Analytics</h3>
                     </a>
                     <a href="#" class="btn-settings">
                         <span class="material-icons-sharp">settings</span>
@@ -189,7 +211,10 @@ $statement4->closeCursor();
                         <div class="middle">
                             <div class="left">
                                  <h3>Number of Families</h3>
-                                <h1><?php echo $rowcount; ?></h1>
+                                 <?php foreach ($counthh as $j => $hh) :?>
+                                <!-- <h1><?php //echo $rowcount; ?></h1> -->
+                                <h1><?php echo $hh['COUNT(Household_ID)'];?></h1>
+                                <?php endforeach;?>
                             </div>
                              <div class="progress">
                                  <svg>
@@ -208,7 +233,11 @@ $statement4->closeCursor();
                         <div class="middle">
                             <div class="left">
                                  <h3>Relief Packs</h3>
-                                <h1>1,523</h1>
+                                 <?php foreach ($countrg as $j => $rg) :?>
+                                    <!-- <h1>1,523</h1> -->
+                                <h1><?php echo $rg['COUNT(DISTINCT Relief_ID)'];?></h1>
+                                <?php endforeach;?>
+                                
                             </div>
                              <div class="progress">
                                  <svg>
@@ -313,7 +342,7 @@ $statement4->closeCursor();
                 </div>
                 <! ---------------- End of Announcements ---------------- !>
                     <div class="evac-analytics">
-                        <h2>Analytics</h2>
+                        <a href="Analytics.php"><h2>Analytics</h2></a>
                         <div class="evacuee analysis">
                             <div class="icon">
                                 <span class= "material-icons-sharp">groups</span>

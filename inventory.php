@@ -122,6 +122,10 @@ $good = $statement2->fetchAll(PDO::FETCH_ASSOC);
                     <span class="material-icons-sharp">local_shipping</span>
                     <h3>Distribution</h3>
                 </a>
+                <a href="analytics.php" class="btn-inventory">
+                        <span class="material-icons-sharp">analytics</span>
+                        <h3>Analytics</h3>
+                </a>
                 <a href="#" class="btn-settings">
                     <span class="material-icons-sharp">settings</span>
                     <h3>Settings</h3>

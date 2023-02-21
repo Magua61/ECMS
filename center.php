@@ -136,9 +136,21 @@ $area = $statement3->fetchAll(PDO::FETCH_ASSOC);
                         <span class="material-icons-sharp">group</span>
                         <h3>Evacuees</h3>
                     </a>
+                    <a href="volunteers.php" class="btn-volunteers">
+                        <span class="material-icons-sharp">volunteer_activism</span>
+                        <h3>Volunteers</h3>
+                    </a>
                     <a href="inventory.php" class="btn-inventory">
                         <span class="material-icons-sharp">inventory</span>
                         <h3>Inventory</h3>
+                    </a>
+                    <a href="distribution.php" class="btn-distribution">
+                        <span class="material-icons-sharp">local_shipping</span>
+                        <h3>Distribution</h3>
+                    </a>
+                    <a href="analytics.php" class="btn-inventory">
+                        <span class="material-icons-sharp">analytics</span>
+                        <h3>Analytics</h3>
                     </a>
                     <a href="#" class="btn-settings">
                         <span class="material-icons-sharp">settings</span>
@@ -237,8 +249,14 @@ $area = $statement3->fetchAll(PDO::FETCH_ASSOC);
                             <h3 id="room-name" ><?php echo $croom['R_Name'] ?></h3>
                             <h4 id="room-id" class="text-muted"><?php echo $croom['Room_ID'] ?></h4>
                             </div>
-                            <button data-modal-target="#modal-room-info" class="edit-btn edit-123456">
-                            <span class= "material-icons-sharp">edit</span>
+                            <!-- Delete button -->
+                            <form style="display:inline-block" method="post" action="room_delete.php" class="danger">
+                                <input type="hidden" name="Room_ID" value="<?php echo $croom['Room_ID'] ?>">
+                                <button type="submit" class="color-danger">Delete</button>
+                                <!-- <button data-modal-target="#modal-room-info" class="edit-btn edit-123456"> -->
+                            </form>
+                            
+                            <!-- <span class= "material-icons-sharp">edit</span> -->
                             </button>
                         </div>
                         <div class="room-body">
@@ -248,7 +266,7 @@ $area = $statement3->fetchAll(PDO::FETCH_ASSOC);
                             <h4 class="text-muted">/</h4>
                             <h4 class="text-muted"><?php echo $croom['R_Total_Capacity'] ?></h4>
                             </div><br>
-                            <h4 class="room-detail"><a href="room_update.php?Room_ID=<?php echo $croom['Room_ID'] ?>" id="sub" class="btn btn-primary">Details</a></h4>
+                            <h4 class="room-detail"><a href="room_update.php?Room_ID=<?php echo $croom['Room_ID'] ?>" id="sub" class="btn btn-primary">Update</a></h4>
                             </div>
                             <!-- Delete button -->
                             <!-- <form style="display:inline-block" method="post" action="room_delete.php" id="myform">

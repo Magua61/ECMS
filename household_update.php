@@ -15,21 +15,28 @@ $statement = $pdo->prepare('SELECT * FROM household WHERE Household_ID = :Househ
 $statement->bindValue(':Household_ID', $Household_ID);
 $statement->execute();
 $household2 = $statement->fetch(PDO::FETCH_ASSOC);
+$statement->closeCursor();
 
 $statement2 = $pdo->prepare('CALL viewEvacueeJoinHousehold');
-$statement2->closeCursor();
 $statement2->execute();
 $evacuee = $statement2->fetchAll(PDO::FETCH_ASSOC);
+$statement2->closeCursor();
+
+$statement3 = $pdo->prepare('CALL viewRoom');
+$statement3->execute();
+$rooms = $statement3->fetchAll(PDO::FETCH_ASSOC);
+$statement3->closeCursor();
 
 // if Name is empty, throw error because it is required
 $errors = [];
-
+$isDeparted = '';
 // solution when Name etch is empty
 $Household_ID = $household2['Household_ID'];
 $Address = $household2['Address'];
 $Family_Head = $household2['Family_Head'];
 $Room_ID = $household2['Room_ID'];
 $Date_Evacuated = $household2['Date_Evacuated'];
+// $isDeparted = $household2['isDeparted'];
 
 // show request method
 // echo $_SERVER['REQUEST_METHOD']. '<br>';
@@ -39,6 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $Family_Head = $_POST['Family_Head'];
   $Room_ID = $_POST['Room_ID'];
   $Date_Evacuated = $_POST['Date_Evacuated'];
+  $isDeparted = $_POST['isDeparted'];
 
   // if Name is empty, throw error because it is required
   if (!$Family_Head) {
@@ -53,13 +61,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   // Only Submit to sql when it is not empty
   if (empty($errors)) {
-            $statement = $pdo->prepare("CALL updateHousehold(:Household_ID, :Address, :Family_Head, :Room_ID, :Date_Evacuated)");
+            $statement = $pdo->prepare("CALL updateHousehold(:Household_ID, :Address, :Family_Head, :Room_ID, :Date_Evacuated, :isDeparted)");
 
     $statement->bindValue(':Household_ID', $Household_ID);
     $statement->bindValue(':Address', $Address);
     $statement->bindValue(':Family_Head', $Family_Head);
     $statement->bindValue(':Room_ID', $Room_ID);
     $statement->bindValue(':Date_Evacuated', $Date_Evacuated);
+    $statement->bindValue(':isDeparted', $isDeparted);
     $statement->execute();
 
     // redirect user after creating
@@ -155,15 +164,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="Room_ID">
                             <select name="Room_ID" value="<?php echo $Room_ID ?>"><br>
                                 <option value="<?php echo $Room_ID ?>" selected="<?php echo $Room_ID ?>"><?php echo $Room_ID ?></option>
-                                <option value="RM-001">RM-001</option>
-                                <option value="RM-002">RM-002</option>
-                                <option value="RM-003">RM-003</option>
-                                <option value="RM-004">RM-004</option>
-                                <option value="RM-005">RM-005</option>
-                                <option value="RM-006">RM-006</option>
-                                <option value="RM-007">RM-007</option>
-                                <option value="RM-008">RM-008</option>
-                                <option value="RM-009">RM-009</option>
+                                <?php foreach ($rooms as $i => $rr) :?>
+                                    <option value="<?php echo $rr['Room_ID'];?>"><?php echo $rr['Room_ID'] ?></option>
+                                    <?php endforeach;?>
                             </select>
                             <h3 class="text-muted">Room ID</h3>
                         </div>
@@ -173,8 +176,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <input type="date" name="Date_Evacuated" class="text-box" value="<?php echo $Date_Evacuated ?>">
                             <h3 class="text-muted">Date_Evacuated</h3>
                         </div>
+
+                        
                     </div>
+                    <br>
                     <div class="add-evacuees-row-3">
+                    
+                    <div class="Family_Head">
+                        <!-- <input type="text" name="Family_Head" class="text-box" placeholder="Enter Family_Head" value="<?php //echo $Family_Head ?>"> -->
+                        <select class="custom-select" id="inputGroupSelect02" name="isDeparted" value="<?php echo $isDeparted ?>">
+                            <option value="0" selected>Default(No)</option>
+                            <option value="1">Yes</option>
+
+                                </select>
+                        <h3 class="text-muted">Depart All?</h3>
+                        </div>
                     </div>
                     <br>
                         <button type="submit" id="sub" class="btn btn-primary">Submit</button>
