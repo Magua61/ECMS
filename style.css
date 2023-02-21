@@ -1298,9 +1298,7 @@ input[type="checkbox"] {
 	margin-top: 1rem;
 	box-shadow: var(--box-shadow);
 	transition: all 300ms ease;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
+
 }
 
 .analytics-reports .evacuation-report:hover{
@@ -1308,10 +1306,16 @@ input[type="checkbox"] {
 }
 
 .analytics-reports .evacuation-report .report-header{
+    justify-content: center;
+    text-align: center;
+    align-items: center;
     margin-bottom: 2rem;
 }
 
 .analytics-reports .report-table{
+    justify-content: center;
+    text-align: center;
+    align-items: center;
     overflow:auto;
     height:15rem;
     border: 2px solid var(--color-dark);
@@ -1340,4 +1344,12 @@ input[type="checkbox"] {
 }
 .analytics-reports table tbody tr:last-child td{
     border:none;
+}
+
+.analytics-reports .report-footer{
+    margin-top: 1rem;
+    margin-right:1rem;
+    justify-content: right;
+    text-align: right;
+    align-items: right;
 }
