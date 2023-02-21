@@ -18,7 +18,7 @@ if ($result2 = mysqli_query($conn2, $sql2)) {
  }
 
 // Relief Packs
-$sql2 = "SELECT * from relief_good";
+$sql2 = "SELECT * from relief_goods";
 if ($result2 = mysqli_query($conn2, $sql2)) {
     // Return the number of rows in result set
     $rowcount = mysqli_num_rows( $result2 );
