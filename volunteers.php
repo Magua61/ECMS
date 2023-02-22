@@ -122,15 +122,16 @@ $Area_ID = '';
 
             <div class="recent-updates">
                 <h2>Volunteers</h2>
-
+                <div class="recent-update">
+                
                 <div class="input-group mb-3">
 
                         <form>
-                            <input type="text" class="form-control" 
-                                    placeholder="Search Volunteer(name, birthday, v_id)" 
-                                    name="search" value="<?php echo $search ?>">
+                            <input type="text" class="form-control text-box" 
+                                    placeholder="Search Volunteer" 
+                                    name="search" value="<?php echo $search ?>" style="float: left;">
                             <!-- <div class="input-group-append"> -->
-                            <button class="btn btn-outline-secondary" type="submit">Search</button>
+                            <button class="btn btn-outline-secondary" type="submit" style="float: left;">Search</button>
                         </form>
 
                         <!-- search evacuee -->
@@ -148,7 +149,7 @@ $Area_ID = '';
                         <!-- </div> -->
                         <!-- End search evacuee -->
                     </div>
-
+                    <div class="main-table">
                 <table class="table">
                     <thead>
                     <tr>
@@ -193,6 +194,8 @@ $Area_ID = '';
 
                     </tbody>
                 </table>
+                </div>
+                </div>
             </div>
 
             <!-- End of volunteers -->
@@ -200,6 +203,8 @@ $Area_ID = '';
             <!-- Start of Volunteer Group -->
             <div class="recent-updates">
                 <h2>Volunteer Groups</h2>
+                <div class="recent-update">
+                <div class="main-table">
                 <table class="table">
                     <thead>
                     <tr>
@@ -238,6 +243,8 @@ $Area_ID = '';
 
                     </tbody>
                 </table>
+                </div>
+                </div>
             </div>
 
             <!-- End of Volunteer Group -->

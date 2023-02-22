@@ -252,7 +252,9 @@ $area = $statement3->fetchAll(PDO::FETCH_ASSOC);
                             <!-- Delete button -->
                             <form style="display:inline-block" method="post" action="room_delete.php" class="danger">
                                 <input type="hidden" name="Room_ID" value="<?php echo $croom['Room_ID'] ?>">
-                                <button type="submit" class="color-danger">Delete</button>
+                                <button type="submit" class="delete-btn">
+                                <span class="material-icons-sharp">delete</span>
+                                </button>
                                 <!-- <button data-modal-target="#modal-room-info" class="edit-btn edit-123456"> -->
                             </form>
                             
@@ -261,7 +263,7 @@ $area = $statement3->fetchAll(PDO::FETCH_ASSOC);
                         </div>
                         <div class="room-body">
                             <div class="room-capacity">
-                            <span class= "material-icons-sharp">group</span>
+                            <span class= "material-icons-sharp">speed</span>
                             <h3><?php echo $croom['R_Current_Capacity'] ?></h3>
                             <h4 class="text-muted">/</h4>
                             <h4 class="text-muted"><?php echo $croom['R_Total_Capacity'] ?></h4>
@@ -385,55 +387,7 @@ $area = $statement3->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                     <!-- modal -->
                 <?php endforeach;?>
-                </div>
-                <!-- Areas -->
-                
-                <div class="recent-updates">
-                <h2>Room Manager</h2>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">Room_ID</th>
-                        <th scope="col">R_Name</th>
-                        <th scope="col">Area_ID</th>
-                        <th scope="col">R_Total_Capacity</th>
-                        <!-- <th scope="col">R_Current_Capacity</th> -->
-                        <th scope="col">Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php
-                    foreach ($center2 as $i => $evacuee2) :
-                    ?>
-                        <tr>
-                        <td scope="row"><?php echo $evacuee2['Room_ID'] ?></td>
-                        <td><?php echo $evacuee2['R_Name'] ?></td>
-                        <td><?php echo $evacuee2['Area_ID'] ?></td>
-                        <td><?php echo $evacuee2['R_Total_Capacity'] ?></td>
-                        <!-- <td><?php //echo $evacuee2['R_Current_Capacity'] ?></td> -->
 
-                        <td>
-                            <!-- Edit button -->
-                            <a href="room_update.php?Room_ID=<?php echo $evacuee2['Room_ID'] ?>" id="sub" class="btn btn-primary">Edit</a>
-
-                            
-                            <!-- Delete button -->
-                            <form style="display:inline-block" method="post" action="room_delete.php" class="danger">
-                            <input type="hidden" name="Room_ID" value="<?php echo $evacuee2['Room_ID'] ?>">
-                            <button type="submit" class="color-danger">Delete</button>
-                            </form>
-                        </td>
-
-                        </tr>
-                    <?php
-                    endforeach;
-                    ?>
-
-                    </tbody>
-                </table>
-                <a href="#">Show All</a>
-            </div>           
-            </div>
 
             <!-- Delete -->
 
@@ -486,14 +440,14 @@ $area = $statement3->fetchAll(PDO::FETCH_ASSOC);
                             </div>
     
                             <div class="middlename">
-                            <input type="text" name="Center_ID" class="text-box" placeholder="Enter Center_ID" value="EC-0001" readonly>
+                            <input type="text" name="Center_ID" class="text-box" value="EC-0001" readonly>
                                 <h3 class="text-muted">Center_ID</h3><br>
                             </div>
                         
                         <div class="add-evacuees-row-3">
                             <!-- Buttons -->
                             <button type="submit" id="sub" class="btn btn-primary">Submit</button>
-                            <a href="evacuees.php">Clear</a>
+                            <a href="center.php">Clear</a>
                         <!-- close add-evacuees-row-3 -->
                         </div>
                     </div>

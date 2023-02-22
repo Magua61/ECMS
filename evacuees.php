@@ -135,7 +135,8 @@ $statement5->closeCursor();
             <!-- Start of household -->
             <div class="recent-updates">
                 <h2>Household Information</h2>
-
+                <div class="recent-update">
+                <div class="main-table">
                 <table class="table">
                     <thead>
                     <tr>
@@ -181,24 +182,30 @@ $statement5->closeCursor();
 
                     </tbody>
                 </table>
+                </div>
+                </div>
                 <a href="#">Show All</a>
             <!-- End of Household -->
             </div>
 
             <div class="recent-updates">
                 <h2 id="anchor">Evacuees' Information</h2>
-                    
+
+                <div class="recent-update">
+                
                     <div class="input-group mb-3">
                         <!-- search evacuee -->
+                        <div>
                         <form>
-                            <input type="text" class="form-control" placeholder="Search for Evacuee Full Name" 
-                                    name="search" value="<?php echo $search ?>" >
+                            <input type="text" class="form-control text-box" placeholder="Search Name" 
+                                    name="search" value="<?php echo $search ?>" style="float: left;">
                             <!-- <div class="input-group-append"> -->
                             <!-- <a href="#anchor"> -->
-                                <button class="btn btn-outline-secondary" type="submit" onclick="window.location.href ='#anchor';">Search</button>
+                                <button class="btn btn-outline-secondary" type="submit" onclick="window.location.href ='#anchor';" style="float: left;">Search</button>
                         <!-- </a> -->
                         </form>
-
+                        </div>
+                        <div>
                         <form>
                         <button class="btn btn-outline-secondary" type="submit" style="float: right;" onclick="window.location.href ='#anchor';">Sort</button>
                         <select name="sort" value="<?php echo $sort ?>"  style="float: right;">
@@ -212,10 +219,11 @@ $statement5->closeCursor();
                                     
                                 </select>
                         </form>
+                        </div>
                         <!-- </div> -->
                         <!-- End search evacuee -->
                     </div>
-                    
+                    <div class="main-table">
                 <table class="table">
                     <thead>
                     <tr>
@@ -264,6 +272,8 @@ $statement5->closeCursor();
 
                     </tbody>
                 </table>
+                </div>
+                </div>
                 <a href="#">Show All</a>
             </div>
         </main>
@@ -319,7 +329,7 @@ $statement5->closeCursor();
                                 <h3 class="text-muted">Last Name</h3>
                             </div>
 
-                        <div class="add-evacuees-row">
+                        
                             
                             <div>
                                 <select name="Sex" value="<?php echo $Sex ?>">
@@ -329,7 +339,7 @@ $statement5->closeCursor();
                                 <h3 class="text-muted">Sex</h3>
                             </div>
                         <!-- Close row -->
-                        </div>
+                        
                             <div>
                                 <input type="date" name="Birthday" class="text-box" value="<?php echo $Birthday ?>">
                                 <h3 class="text-muted">Birthday</h3>

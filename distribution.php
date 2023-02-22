@@ -73,7 +73,7 @@ $Date_Given = '';
     <title>ECMS</title>
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Sharp"
       rel="stylesheet">
-   <link rel="stylesheet" href="styles.css">
+   <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
@@ -137,7 +137,7 @@ $Date_Given = '';
             <div class="recent-updates">
             <h2>Rooms</h2>
                 
-                <div class="room-household-header">
+                <div class="recent-update">
                     <!-- <br> -->
                     <form>
                     <!-- <div class="input-group mb-3"> -->
@@ -145,27 +145,23 @@ $Date_Given = '';
                                 placeholder="" 
                                 name="search" value="<?php //echo $search ?>" readonly><br> -->
 
-                                <select name="search" value="<?php echo $search ?>" size="5">
-                                    <option value="volvo" disabled selected value>Choose Room Name</option>
-                                    <option value="<?php echo $search ?>" selected="<?php echo $search ?>"><?php echo $search ?></option>
-
-                                
+                                <select name="search" value="<?php echo $search ?>" style="float:left;">
                                     <?php foreach ($room as $i => $rr) :?>
                                     <option value="<?php echo $rr['Room_ID'];?>"><?php echo $rr['R_Name'] ?></option>
                                     <?php endforeach;?>
-                                </select><br>
+                                </select>
 
                         <!-- <div class="input-group-append"> -->
-                        <button class="btn btn-outline-secondary" type="submit">Search</button>
+                        <button class="btn btn-outline-secondary" type="submit" style="float:left;">Search</button>
                         <!-- <button class="btn btn-outline-secondary" type="submit" style="float: right;">View By Household</button> -->
                         <!-- </div> -->
                     <!-- </div> -->
                     </form>
-                </div>
+                
 
                 <!-- Form distribution add -->
                 <form action="distribution_adds.php" method="post" enctype="multipart/form-data">
-
+                <div class="main-table">
                 <table class="table">
                     <thead>
                     <tr>
@@ -207,6 +203,8 @@ $Date_Given = '';
 
                     </tbody>
                 </table>
+                </div>
+                </div>
                 <!-- Delete  -->
                 <!-- <button type="submit" id="sub" class="btn btn-primary">Submit</button> -->
                 </form>
@@ -217,6 +215,8 @@ $Date_Given = '';
 
             <div class="recent-updates">
                 <h2 id="anchor">Distribution History</h2>
+                <div class="recent-update">
+                <div class="main-table">
                 <table class="table">
                     <thead>
                     <tr>
@@ -246,11 +246,13 @@ $Date_Given = '';
 
                     </tbody>
                 </table>
+                </div>
+                </div>
                 <a href="#">Show All</a>
             </div>
         </main>
         <!  ------------------- END OF MAIN -----------------------  !>
-
+        
         <div class="right">
             <div class="top">
                 <button id="menu-btn">
@@ -277,6 +279,7 @@ $Date_Given = '';
                 <form action="distribution_add1.php" method="post" enctype="multipart/form-data">
 
                 <div class="announcements">
+                    <div class="add-items-form">
                     <select name="Household_ID" value="<?php echo $Household_ID ?>" >
                                     <?php foreach ($household2 as $i => $rr) :?>
                                     <option value="<?php echo $rr['Household_ID'];?>"><?php echo $rr['Household_ID'] ?></option>
@@ -322,6 +325,7 @@ $Date_Given = '';
                             </div>
     
                         </div>
+                    </div>
                     <!-- iterateform -->
                     </form>
                 </div>

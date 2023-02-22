@@ -144,15 +144,16 @@ $good = $statement2->fetchAll(PDO::FETCH_ASSOC);
 
             <div class="recent-updates">
                 <h2>Item Inventory</h2>
-
+                <div class="recent-update">
+                
                 <div class="input-group mb-3">
                         <!-- search item -->
                         <form>
-                            <input type="text" class="form-control" 
+                            <input type="text" class="form-control text-box" 
                                     placeholder="Search for Item Name" 
-                                    name="search" value="<?php echo $search ?>">
+                                    name="search" value="<?php echo $search ?>" style="float: left;">
                             <!-- <div class="input-group-append"> -->
-                            <button class="btn btn-outline-secondary" type="submit">Search</button>
+                            <button class="btn btn-outline-secondary" type="submit" style="float: left;">Search</button>
                         </form>
 
                         <form>
@@ -168,19 +169,7 @@ $good = $statement2->fetchAll(PDO::FETCH_ASSOC);
                         <!-- </div> -->
                         <!-- End search item -->
                     </div>
-
-                    <form>
-                    <div class="input-group mb-3">
-                        <!-- Search household -->
-                        <!-- <input type="text" class="form-control" 
-                                placeholder="Search for Household" 
-                                name="search2" value="<?php //echo $search2 ?>"> -->
-                        <div class="input-group-append">
-                        <!-- <button class="btn btn-outline-secondary" type="submit">Search</button> -->
-                        <!-- <button class="btn btn-outline-secondary" type="submit" style="float: right;">View By Household</button> -->
-                        </div>
-                    </div>
-                    </form>
+                    <div class="main-table">
                 <table class="table">
                     <thead>
                     <tr>
@@ -222,6 +211,8 @@ $good = $statement2->fetchAll(PDO::FETCH_ASSOC);
 
                     </tbody>
                 </table>
+                </div>
+                </div>
                 <a href="#">Show All</a>
             <!-- End of Item Inventory -->
             </div>
@@ -229,6 +220,7 @@ $good = $statement2->fetchAll(PDO::FETCH_ASSOC);
             <div class="recent-updates">
                 <h2>Relief Packs</h2>
                     <form>
+                    <div class="recent-update">
                     <div class="input-group mb-3">
                         <!-- Search household -->
                         <!-- <input type="text" class="form-control" 
@@ -240,6 +232,7 @@ $good = $statement2->fetchAll(PDO::FETCH_ASSOC);
                         </div>
                     </div>
                     </form>
+                <div class="main-table">
                 <table class="table">
                     <thead>
                     <tr>
@@ -276,6 +269,8 @@ $good = $statement2->fetchAll(PDO::FETCH_ASSOC);
 
                     </tbody>
                 </table>
+                </div>
+                </div>
                 <a href="#">Show All</a>
             <!-- End of Relief Pack -->
             </div>

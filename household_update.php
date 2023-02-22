@@ -91,56 +91,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div class="container">
         <aside>
-            <div class="top">
-                <div class ="logo">
-                    <img src="assets/logo.png">
-                    <h2>ECMS</h2>
-                </div>
-                <div class="close" id="close-btn">
-                    <span class="material-icons-sharp">close</span>
-                </div>
-            </div>
+            
 
-            <div class ="sidebar">
-                <a href="index.php" class="btn-dashboard">
-                    <span class="material-icons-sharp">grid_view</span>
-                    <h3>Dashboard</h3>
-                </a>
-                <a href="center.php" class = "btn-center">
-                    <span class="material-icons-sharp">apartment</span>
-                    <h3>Center</h3>
-                </a>
-                <a href="#" class="btn-evacuees active">
-                    <span class="material-icons-sharp">group</span>
-                    <h3>Evacuees</h3>
-                </a>
-                <a href="inventory.php" class="btn-inventory">
-                    <span class="material-icons-sharp">inventory</span>
-                    <h3>Inventory</h3>
-                </a>
-                <a href="#" class="btn-settings">
-                    <span class="material-icons-sharp">settings</span>
-                    <h3>Settings</h3>
-                </a>
-
-                <a href = "session_logout.php" class="btn-logout">
-                    <span class="material-icons-sharp">logout</span>
-                    <h3>Logout</h3>
-                </a>
-            </div>
+            
         </aside>
         <!===================== END OF ASIDE =======================!>
 
         <main>
 
-            <h1>Evacuee Manager -> Update</h1>
+
             <div class="add-evacuees">
                                 <!-- // $Address = '';
                                 // $Family_Head = '';
                                 // $Room_ID = '';
                                 // $Date_Evacuated = '';
                                 // Household_ID -->
-                <h2>---Update Household <?php echo $Household_ID?></h2>
+                <h1>Update Household <?php echo $Household_ID?></h1>
                 <form action="" method="post" enctype="multipart/form-data">
                 <div class="add-evacuees-form">
                     <div class="add-evacuees-row-1">

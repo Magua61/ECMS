@@ -26,7 +26,7 @@ $vltranal = $statement4->fetchAll(PDO::FETCH_ASSOC);
 $statement4->closeCursor();
 
 // export
-$connect = mysqli_connect("localhost", "root", "", "20230216");
+$connect = mysqli_connect("localhost", "root", "", "evac_management_system");
 $sql = "CALL viewEvacuee";  
 $result = mysqli_query($connect, $sql);
 ?>
@@ -39,7 +39,7 @@ $result = mysqli_query($connect, $sql);
     <title>ECMS</title>
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Sharp"
       rel="stylesheet">
-   <link rel="stylesheet" href="stylex.css">
+   <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">

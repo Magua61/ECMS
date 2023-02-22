@@ -373,7 +373,20 @@ main .evaccenter-top .edit-btn span{
     transition: all 300ms ease;
 }
 
-main .evaccenter-top .edit-btn span:hover{
+main .delete-btn span:hover{
+    color: var(--color-primary);
+}
+
+main .delete-btn{
+    background:none;
+}
+main .delete-btn span{
+    color: var(--color-dark-variant);
+    cursor: pointer;
+    transition: all 300ms ease;
+}
+
+main .delete-btn span:hover{
     color: var(--color-primary);
 }
 main .evaccenter-body .evac-address{
@@ -398,7 +411,7 @@ main .evaccenter-body .evac-capacity span{
     color: var(--color-dark);
     font-size: 1.5rem;
 }
-main .text-box {
+ .text-box {
     min-width: 6rem;
     height: 3rem;
     font-family: poppins, sans-serif;
@@ -406,9 +419,18 @@ main .text-box {
     display: inline-block;
     background: var(--color-light);
     border-radius: var(--border-radius-1);
-    margin-top: 1rem;
+    
     padding: 0.5rem 1.6rem;
     color: var(--color-dark);
+ }
+ .add-evacuees-row-3 a{
+    margin-left: 1rem;
+    font-size: 1rem;
+ }
+ .add-area-form{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
  }
 /* ===================Recent Updates========================= */
 main .recent-updates {
@@ -419,7 +441,7 @@ main .recent-updates h2 {
     margin-bottom: 0.8rem;
 }
 
-main .recent-updates table{
+main .recent-update{
     background: var(--color-white);
     width: 100%;
     border-radius: var(--card-border-radius);
@@ -429,7 +451,7 @@ main .recent-updates table{
     transition: all 300ms ease;
 }
 
-main .recent-updates table:hover {
+main .recent-update:hover {
     box-shadow: none;
 }
 
@@ -1037,28 +1059,51 @@ main .rooms .room-manager .room-card .room-body .room-capacity{
   opacity: 1;
   pointer-events: all;
 }
-
-main .add-evacuees .add-evacuees-form{
-    background-color: var(--color-white);
+.add-household-form{
     padding: var(--padding-1);
     margin: 1rem auto;
-    border-radius: var(--card-border-radius);
-    box-shadow: var(--box-shadow);
-
+    justify-content: center;
     align-items: center;
     text-align: center;
 }
-main .add-evacuees .add-evacuees-form .add-evacuees-row-1{
+.right select{
+    width:15rem;
+}
+.add-items-form{
+    padding: var(--padding-1);
+    margin: 1rem auto;
+
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.volunteergroup_add-form{
+    padding: var(--padding-1);
+    margin: 1rem auto;
+
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.add-evacuees-form{
+    padding: var(--padding-1);
+    margin: 1rem auto;
+
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.add-evacuees-form .add-evacuees-row-1{
     display:flex;
     justify-content: center;
     align-items: center;
     gap:4rem;
     text-align: center;
 }
-main .add-evacuees .add-evacuees-form .add-evacuees-row-1 .text-box{
+.add-evacuees-form .add-evacuees-row-1 .text-box{
     width:25rem;
 }
-main .add-evacuees .add-evacuees-form .add-evacuees-row-2{
+.add-evacuees-form .add-evacuees-row-2{
     display:flex;
     justify-content: center;
     align-items: center;
@@ -1067,18 +1112,12 @@ main .add-evacuees .add-evacuees-form .add-evacuees-row-2{
 }
 
 
-main .add-evacuees .add-evacuees-form .add-evacuees-row-3{
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    gap:4rem;
-    text-align: center;
-}
-main .add-evacuees .add-evacuees-form .add-evacuees-row-3 .txt-address .text-box {
+
+ .add-evacuees-form .add-evacuees-row-3 .txt-address .text-box {
     width:30rem;
 }
 
-main .add-evacuees .add-evacuees-form .add-evacuees-row-3 .household-field .txt-household {
+.add-evacuees-form .add-evacuees-row-3 .household-field .txt-household {
     width:20rem;
     height: 3rem;
     font-family: poppins, sans-serif;
@@ -1088,4 +1127,186 @@ main .add-evacuees .add-evacuees-form .add-evacuees-row-3 .household-field .txt-
     margin-top: 1rem;
     padding: 0.5rem 1.6rem;
     color: var(--color-dark);
+}
+main select{
+    margin-right:1rem;
+    margin-bottom:1rem;
+
+}
+select {
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    min-width: 5rem;
+    height: 3rem;
+    font-family: poppins, sans-serif;
+    font-size: 1rem;
+    display: inline-block;
+    background: var(--color-light);
+    border-radius: var(--border-radius-1);
+    padding: 0.5rem 1.6rem;
+    color: var(--color-dark);
+  }
+  
+  select:focus, select:hover {
+    border-color: var(--color-dark);
+    box-shadow: 0 0 5px var(--color-dark);
+  }
+  
+  select::before {
+    content: 'v';
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    font-size: 14px;
+    color: var(--color-dark);
+    pointer-events: none;
+  }
+  
+  select::after {
+    content: '';
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 8px solid var(--color-dark);
+    pointer-events: none;
+  }
+
+  .main-table{
+    overflow:auto;
+    height:28rem;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    background: var(--color-white);
+    width: 100%;
+    border-radius: var(--card-border-radius);
+    padding-left:0.5rem;
+    text-align: center;
+    box-shadow: none;
+    transition: all 300ms ease;
+    border: 2px solid var(--color-dark);
+  }
+.main-table:hover{
+    
+    box-shadow: var(--box-shadow);
+}
+.main-table table{
+    width:100%;
+    margin: auto;
+}
+.main-table table thead{
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-white);
+}
+.main-table table thead tr{
+    position: sticky;
+    top:0;
+    margin:0;
+    background-color: var(--color-white);
+}
+.main-table table tbody td{
+    height: 2.8rem;
+    border-bottom: 1px solid var(--color-light);
+    padding:.5rem;
+    color: var(--color-dark-variant);
+}
+.main-table table tbody tr:last-child td{
+    border:none;
+}
+
+
+  .analytics-reports .evacuation-report {
+    background: var(--color-white);
+	padding: var(--card-padding);
+	border-radius: var(--card-border-radius);
+	margin-top: 1rem;
+	box-shadow: var(--box-shadow);
+	transition: all 300ms ease;
+
+}
+
+.analytics-reports .evacuation-report:hover{
+    box-shadow: none;
+}
+
+.analytics-reports .evacuation-report .report-header{
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.analytics-reports .report-table{
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    overflow:auto;
+    height:15rem;
+    border: 2px solid var(--color-dark);
+    border-radius: var(--border-radius-2);
+}
+.analytics-reports table{
+    width:100%;
+    margin: auto;
+}
+.analytics-reports table thead{
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-white);
+}
+.analytics-reports table thead tr{
+    position: sticky;
+    top:0;
+    margin:0;
+    background-color: var(--color-white);
+}
+.analytics-reports table tbody td{
+    height: 2.8rem;
+    border-bottom: 1px solid var(--color-light);
+    padding:.5rem;
+    color: var(--color-dark-variant);
+}
+.analytics-reports table tbody tr:last-child td{
+    border:none;
+}
+
+.analytics-reports .report-footer{
+    margin-top: 1rem;
+    margin-right:1rem;
+    justify-content: right;
+    text-align: right;
+    align-items: right;
+}
+
+.input-group .text-box{
+    justify-content: center;
+    align-items: center;
+    margin-right:1rem;
+}
+
+.add-evacuees{
+    min-width:50rem;
+    background: var(--color-white);
+	padding: var(--card-padding);
+	border-radius: var(--card-border-radius);
+	justify-content: center;
+    align-items: center;
+    text-align: center;
+	box-shadow: var(--box-shadow);
+	transition: all 300ms ease;
+    margin: 0;
+  top: 10rem;
+  left: 50%;
+  transform: translateX(-50%);
+  position: absolute;
+  
+}
+.add-evacuees:hover{
+    box-shadow: none;
 }

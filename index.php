@@ -193,14 +193,7 @@ $statement6->closeCursor();
                                  <h3>Total Capacity</h3>
                                 <h1><?php echo $row['C_Current_Capacity'];?></h1>
                             </div>
-                             <div class="progress">
-                                 <svg>
-                                     <circle cx='40' cy="50" r="36"/>
-                                </svg>
-                                 <div class="number">
-                                    <p>81%</p>
-                                 </div>
-                            </div>
+                             
                         </div>
                         
                     </div>
@@ -216,14 +209,7 @@ $statement6->closeCursor();
                                 <h1><?php echo $hh['COUNT(Household_ID)'];?></h1>
                                 <?php endforeach;?>
                             </div>
-                             <div class="progress">
-                                 <svg>
-                                     <circle cx='40' cy="50" r="36"/>
-                                </svg>
-                                 <div class="number">
-                                    <p>81%</p>
-                                 </div>
-                            </div>
+                             
                         </div>
                         
                     </div>
@@ -239,14 +225,7 @@ $statement6->closeCursor();
                                 <?php endforeach;?>
                                 
                             </div>
-                             <div class="progress">
-                                 <svg>
-                                     <circle cx='40' cy="50" r="36"/>
-                                </svg>
-                                 <div class="number">
-                                    <p>65%</p>
-                                 </div>
-                            </div>
+                             
                         </div>
                         
                     </div>
@@ -255,6 +234,8 @@ $statement6->closeCursor();
 
                 <div class="recent-updates">
                     <h2>Recent Updates</h2>
+                    <div class="recent-update">
+                    <div class="main-table">
                     <table class="table">
                         <thead>
                         <tr>
@@ -280,6 +261,8 @@ $statement6->closeCursor();
 
                         </tbody>
                     </table>
+                    </div>
+                    </div>
                     <a href="#">Show All</a>
                 </div>
             </main>
