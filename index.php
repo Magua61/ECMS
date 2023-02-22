@@ -1,3 +1,115 @@
+<?php 
+
+// <!-- create connection to database -->
+/** @var $pdo \PDO */
+require_once "database.php";
+include('session.php');
+
+// Evacuation center
+$sql = "CALL viewEvacuationCenter";
+$result = mysqli_query($conn, $sql);
+$row = mysqli_fetch_assoc($result);
+
+// Household Count
+$sql2 = "SELECT * from household";
+if ($result2 = mysqli_query($conn2, $sql2)) {
+    // Return the number of rows in result set
+    $rowcount = mysqli_num_rows( $result2 );
+ }
+
+// Relief Packs
+$sql2 = "SELECT * from relief_goods";
+if ($result2 = mysqli_query($conn2, $sql2)) {
+    // Return the number of rows in result set
+    $rowcount = mysqli_num_rows( $result2 );
+ }
+
+// Recent
+// $statement = $pdo->prepare('SELECT * FROM recent ORDER BY Recent_ID DESC LIMIT 5');
+$statement = $pdo->prepare('CALL viewRecentWithoutNull');
+$statement->execute();
+$recently = $statement->fetchAll(PDO::FETCH_ASSOC);
+$statement->closeCursor();
+
+
+// Create analyticsEvacuee
+// $percentEVAC = '';
+// $countEVAC = '';
+
+// $sql2 = "CALL analyticsEvacuee(@percentEVAC, @countEVAC);";
+// $result2 = mysqli_query($conn3, $sql);
+// $row2 = mysqli_fetch_assoc($result2);
+// $percentEVAC = @percentEVAC;
+
+// $statement2 = $pdo->prepare('CALL analyticsEvacuee($percentEVAC, $countEVAC); SELECT @percentEVAC, @countEVAC;');
+// $statement2 = $pdo->prepare('CALL analyticsEvacuee(@percentEVAC, @countEVAC);');
+    // $statement->bindValue(':percentEVAC', $percentEVAC);
+    // $statement->bindValue(':countEVAC', $countEVAC);
+
+    // almost
+// $statement2 = $pdo->prepare('CALL analyticsEvacuee(@percentEVAC, @countEVAC);');
+// $statement2->execute();
+// $evacanal = $statement2->fetchAll(PDO::FETCH_ASSOC);
+// $statement2->closeCursor();
+
+
+// $sql3 = 'CALL analyticsEvacuee(?, ?)';
+// $stmt = $conn3->prepare($sql3);
+
+// $second_name = "Rickety Ride";
+// $weight = 0;
+
+// $stmt->bindParam(1, $second_name, PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 32);
+// $stmt->bindParam(2, $weight, PDO::PARAM_INT, 10);
+
+// print "Values of bound parameters _before_ CALL:\n";
+// print "  1: {$second_name} 2: {$weight}\n";
+
+// $stmt->execute();
+
+
+// $stmt = $pdo->prepare("CALL sp_takes_string_returns_string(?)");
+// $stmt = $pdo->prepare("CALL analyticsEvacuee(?, ?)");
+// $value = '@percentEVAC';
+// $stmt->bindParam(1, $value, PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 4000); 
+
+// $stmt = $pdo->prepare("CALL analyticsEvacuee(?, ?)");
+// $stmt->bindParam(1, $percentEVAC, PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 15); 
+// $stmt->bindParam(2, $countEVAC, PDO::PARAM_INT|PDO::PARAM_INPUT_OUTPUT); 
+
+// DI LUMABAS
+// $stmt = $pdo->prepare("CALL analyticsEvacuee(?, ?); SELECT @percentEVAC, @countEVAC;");
+// $stmt->bindParam(1, $percentEVAC, PDO::PARAM_STR, 15); 
+// $stmt->bindParam(2, $countEVAC, PDO::PARAM_INT); 
+// echo $percentEVAC;
+
+$statement2 = $pdo->prepare('CALL analyticsEvacuee;');
+$statement2->execute();
+$evacanal = $statement2->fetchAll(PDO::FETCH_ASSOC);
+$statement2->closeCursor();
+
+$statement3 = $pdo->prepare('CALL analyticsReliefGoods;');
+$statement3->execute();
+$rganal = $statement3->fetchAll(PDO::FETCH_ASSOC);
+$statement3->closeCursor();
+
+$statement4 = $pdo->prepare('CALL analyticsVolunteers;');
+$statement4->execute();
+$vltranal = $statement4->fetchAll(PDO::FETCH_ASSOC);
+$statement4->closeCursor();
+
+$statement5 = $pdo->prepare('CALL countHousehold;');
+$statement5->execute();
+$counthh = $statement5->fetchAll(PDO::FETCH_ASSOC);
+$statement5->closeCursor();
+
+$statement6 = $pdo->prepare('CALL countReliefGoods;');
+$statement6->execute();
+$countrg = $statement6->fetchAll(PDO::FETCH_ASSOC);
+$statement6->closeCursor();
+
+
+?>
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
@@ -35,26 +147,31 @@
                         <span class="material-icons-sharp">group</span>
                         <h3>Evacuees</h3>
                     </a>
-<<<<<<< HEAD
-                    <a href="volunteers.html" class="btn-volunteers">
+                    <a href="volunteers.php" class="btn-volunteers">
                         <span class="material-icons-sharp">volunteer_activism</span>
                         <h3>Volunteers</h3>
                     </a>
-                    <a href="inventory.html" class="btn-inventory">
-=======
                     <a href="inventory.php" class="btn-inventory">
->>>>>>> PHPFiles
                         <span class="material-icons-sharp">inventory</span>
                         <h3>Inventory</h3>
                     </a>
-                    <a href="distribution.html" class="btn-distribution">
+                    <a href="distribution.php" class="btn-distribution">
                         <span class="material-icons-sharp">local_shipping</span>
                         <h3>Distribution</h3>
                     </a>
-                    <a href="#" class="btn-logout">
+                    <a href="analytics.php" class="btn-inventory">
+                        <span class="material-icons-sharp">analytics</span>
+                        <h3>Analytics</h3>
+                    </a>
+                    <a href="#" class="btn-settings">
+                        <span class="material-icons-sharp">settings</span>
+                        <h3>Settings</h3>
+                    </a>
+
+                    <a href = "session_logout.php" class="btn-logout">
                         <span class="material-icons-sharp">logout</span>
                         <h3>Logout</h3>
-                        </a>
+                    </a>
                 </div>
             </aside>
             <!===================== END OF ASIDE =======================!>
@@ -74,7 +191,7 @@
                         <div class="middle">
                             <div class="left">
                                  <h3>Total Capacity</h3>
-                                <h1>854</h1>
+                                <h1><?php echo $row['C_Current_Capacity'];?></h1>
                             </div>
                              <div class="progress">
                                  <svg>
@@ -85,7 +202,7 @@
                                  </div>
                             </div>
                         </div>
-                        <small class="text-muted">Last 24 Hours</small>
+                        
                     </div>
                     <!====================== EVACUEES ====================!>
 
@@ -94,7 +211,10 @@
                         <div class="middle">
                             <div class="left">
                                  <h3>Number of Families</h3>
-                                <h1>32</h1>
+                                 <?php foreach ($counthh as $j => $hh) :?>
+                                <!-- <h1><?php //echo $rowcount; ?></h1> -->
+                                <h1><?php echo $hh['COUNT(Household_ID)'];?></h1>
+                                <?php endforeach;?>
                             </div>
                              <div class="progress">
                                  <svg>
@@ -105,7 +225,7 @@
                                  </div>
                             </div>
                         </div>
-                        <small class="text-muted">Last 24 Hours</small>
+                        
                     </div>
                     <!====================== RELIEF ====================!>
                     <div class="inventory">
@@ -113,7 +233,11 @@
                         <div class="middle">
                             <div class="left">
                                  <h3>Relief Packs</h3>
-                                <h1>1,523</h1>
+                                 <?php foreach ($countrg as $j => $rg) :?>
+                                    <!-- <h1>1,523</h1> -->
+                                <h1><?php echo $rg['COUNT(DISTINCT Relief_ID)'];?></h1>
+                                <?php endforeach;?>
+                                
                             </div>
                              <div class="progress">
                                  <svg>
@@ -124,65 +248,36 @@
                                  </div>
                             </div>
                         </div>
-                        <small class="text-muted">Last 24 Hours</small>
+                        
                     </div>
                     <!====================== CAPACITY ====================!>
                 </div>
 
                 <div class="recent-updates">
                     <h2>Recent Updates</h2>
-                    <table>
+                    <table class="table">
                         <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Address</th>
-                                <th>Age</th>
-                                <th>Sex</th>
-                                <th>Room</th>
-                                <th>Status</th>
-                            </tr>
+                        <tr>
+                            <th scope="col">Recent ID</th>
+                            <th scope="col">Transact ID</th>
+                            <th scope="col">Transact Type</th>
+                            <th scope="col">Transaction_DateTime</th>
+                        </tr>
                         </thead>
                         <tbody>
+                        <?php
+                        foreach ($recently as $i => $r2) :
+                        ?>
                             <tr>
-                                <td>Samson, Anne Marie</td>
-                                <td>San Roque</td>
-                                <td>23</td>
-                                <td>Female</td>
-                                <td>Room 16</td>
-                                <td>Evacuated</td>
+                            <td><?php echo $r2['Recent_ID'] ?></td>
+                            <td><?php echo $r2['Transact_ID'] ?></td>
+                            <td><?php echo $r2['Transact_Type'] ?></td>
+                            <td><?php echo $r2['Transaction_DateTime'] ?></td>
                             </tr>
-                            <tr>
-                                <td>Lee, John Mike</td>
-                                <td>Village East</td>
-                                <td>27</td>
-                                <td>Male</td>
-                                <td>Room 10</td>
-                                <td>Evacuated</td>
-                            </tr>
-                            <tr>
-                                <td>Collins, Adon</td>
-                                <td>San Fidel</td>
-                                <td>17</td>
-                                <td>Male</td>
-                                <td>Room 7</td>
-                                <td>Departed</td>
-                            </tr>
-                            <tr>
-                                <td>Santos, Desirie</td>
-                                <td>Santolan</td>
-                                <td>37</td>
-                                <td>Female</td>
-                                <td>Room 21</td>
-                                <td>Evacuated</td>
-                            </tr>
-                            <tr>
-                                <td>Santiago, Janna</td>
-                                <td>Pinagbuhatan</td>
-                                <td>25</td>
-                                <td>Female</td>
-                                <td>Room 15</td>
-                                <td>Evacuated</td>
-                            </tr>
+                        <?php
+                        endforeach;
+                        ?>
+
                         </tbody>
                     </table>
                     <a href="#">Show All</a>
@@ -247,7 +342,7 @@
                 </div>
                 <! ---------------- End of Announcements ---------------- !>
                     <div class="evac-analytics">
-                        <h2>Analytics</h2>
+                        <a href="Analytics.php"><h2>Analytics</h2></a>
                         <div class="evacuee analysis">
                             <div class="icon">
                                 <span class= "material-icons-sharp">groups</span>
@@ -257,8 +352,15 @@
                                     <h3>EVACUEES</h3>
                                     <small class="text-muted">Last 24 Hours</small>
                                 </div>
-                                <h5 class="success">+26%</h5>
-                                <h3>854</h3>
+                                <?php foreach ($evacanal as $i => $vv) : ?>
+                                <h5 class="success">+
+                                    <?php echo $vv['@percentage'] ?> 
+                                    <?php //echo $row2['@percentEVAC'];?>
+                                    <?php //echo $percentEVAC.$countEVAC;?>
+                                    <?php //echo $percentEVAC;?>
+                                 </h5>
+                                <h3><?php echo $vv['@currentCount'] ?> </h3>
+                                <?php endforeach;?>
                             </div>
                         </div>
 
@@ -269,10 +371,13 @@
                             <div class="right">
                                 <div class="info">
                                     <h3>VOLUNTEERS</h3>
+                                    
                                     <small class="text-muted">Last 24 Hours</small>
                                 </div>
-                                <h5 class="danger">-15%</h5>
-                                <h3>23</h3>
+                                <?php foreach ($rganal as $i => $vv) : ?>
+                                    <h5 class="success">+<?php echo $vv['@percentage'] ?> </h5>
+                                    <h3><?php echo $vv['@currentCount'] ?></h3>
+                                <?php endforeach;?>
                             </div>
                         </div>
 
@@ -285,8 +390,10 @@
                                     <h3>RELIEF GOODS</h3>
                                     <small class="text-muted">Last 24 Hours</small>
                                 </div>
-                                <h5 class="warning">+0.7%</h5>
-                                <h3>1,523</h3>
+                                <?php foreach ($vltranal as $i => $vv) : ?>
+                                    <h5 class="success">+<?php echo $vv['@percentage'] ?></h5>
+                                    <h3><?php echo $vv['@currentCount'] ?></h3>
+                                <?php endforeach;?>
                             </div>
                         </div>
 
