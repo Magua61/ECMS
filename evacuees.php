@@ -309,7 +309,7 @@ $statement5->closeCursor();
                                 <h3 class="text-muted">First Name</h3><br>
                             </div>
     
-                            <div class="middlename">
+                            <div class="middle_name">
                             <input type="text" name="Middle_Name" class="text-box" placeholder="Enter Middle Name" value="<?php echo $Middle_Name ?>">
                                 <h3 class="text-muted">Middle Name</h3><br>
                             </div>
