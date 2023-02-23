@@ -25,10 +25,38 @@ $statement4->execute();
 $vltranal = $statement4->fetchAll(PDO::FETCH_ASSOC);
 $statement4->closeCursor();
 
+$statement5 = $pdo->prepare('SELECT * FROM evacuee_analytics;');
+$statement5->execute();
+$totanal = $statement5->fetchAll(PDO::FETCH_ASSOC);
+$statement5->closeCursor();
+
+$statement6 = $pdo->prepare('CALL viewEvacueeJoinHousehold;');
+$statement6->execute();
+$evacuee = $statement6->fetchAll(PDO::FETCH_ASSOC);
+$statement6->closeCursor();
+
+$statement7 = $pdo->prepare('SELECT * FROM item_inventory_analytics;');
+$statement7->execute();
+$itemanal = $statement7->fetchAll(PDO::FETCH_ASSOC);
+$statement7->closeCursor();
+
 // export
 $connect = mysqli_connect("localhost", "root", "", "evac_management_system");
 $sql = "CALL viewEvacuee";  
 $result = mysqli_query($connect, $sql);
+
+$connect = mysqli_connect("localhost", "root", "", "evac_management_system");
+$sql = "SELECT * FROM evacuee_analytics";  
+$result = mysqli_query($connect, $sql);
+
+$connect = mysqli_connect("localhost", "root", "", "evac_management_system");
+$sql = "SELECT * FROM evacuee_analytics";  
+$result = mysqli_query($connect, $sql);
+
+$connect = mysqli_connect("localhost", "root", "", "evac_management_system");
+$sql = "SELECT * FROM item_inventory_analytics";  
+$result = mysqli_query($connect, $sql);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -101,13 +129,14 @@ $result = mysqli_query($connect, $sql);
             <h1>Analytics and Reports</h1>
             
         <! ----------------- EVAC CENTER INFO ------------!>
+        <! ----------------- Analytics ------------!>
             <div class="analytics-reports">
                 <div class="evacuation-report">
                     <div class="report-header">
                         <?php foreach ($center as $c => $cc) : ?>
                             <h3><?php echo $cc['C_Name'] ?></h3>
                             <h3><?php echo $cc['C_Address'] ?></h3>
-                            <h3>Daily Relief Operation Status Report</h3>
+                            <h3>Daily Evacuation Report</h3>
                         <?php endforeach; ?>
                     </div>
                     <div class="report-table">
@@ -115,73 +144,87 @@ $result = mysqli_query($connect, $sql);
                         <thead>
                             <tr>
                                 <th>Date</th>
-                                <th>No of Families Evacuated</th>
-                                <th>No of People Evacuated</th>
-                                <th>Total No of Families</th>
-                                <th>Total No of Evacuees</th>
+                                <th>Household_Evacuated_Today</th>
+                                <th>People_Evacuated_Today</th>
+                                <th>Household_Evacuated_Total</th>
+                                <th>People_Evacuated_Total</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>01/02/2022</td>
-                                <td>12</td>
-                                <td>79</td>
-                                <td>46</td>
-                                <td>243</td>
-                            </tr>
-                            <tr>
-                                <td>01/03/2022</td>
-                                <td>6</td>
-                                <td>38</td>
-                                <td>52</td>
-                                <td>274</td>
-                            </tr>
-                            <tr>
-                                <td>01/04/2022</td>
-                                <td>5</td>
-                                <td>25</td>
-                                <td>56</td>
-                                <td>316</td>
-                            </tr>
-                            <tr>
-                                <td>01/05/2022</td>
-                                <td>9</td>
-                                <td>51</td>
-                                <td>64</td>
-                                <td>353</td>
-                            </tr>
-                            <tr>
-                                <td>01/05/2022</td>
-                                <td>9</td>
-                                <td>51</td>
-                                <td>64</td>
-                                <td>353</td>
-                            </tr>
-                            <tr>
-                                <td>01/05/2022</td>
-                                <td>9</td>
-                                <td>51</td>
-                                <td>64</td>
-                                <td>353</td>
-                            </tr>
-                            <tr>
-                                <td>01/05/2022</td>
-                                <td>9</td>
-                                <td>51</td>
-                                <td>64</td>
-                                <td>353</td>
-                            </tr>                    
+                            <?php foreach ($totanal as $i => $tt) : ?>
+                                <tr>
+                                    <td scope="row"><?php echo $tt['Date'] ?></td>
+                                    <td><?php echo $tt['Household_Evacuated_Today'];?></td>
+                                    <td><?php echo $tt['People_Evacuated_Today'] ?></td>
+                                    <td><?php echo $tt['Household_Evacuated_Total'] ?></td>
+                                    <td><?php echo $tt['People_Evacuated_Total'] ?></td>
+                                </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                     </div>
                     <div class="report-footer">
-                        <form method="post" action="export.php">
+                        <form method="post" action="export_analytics.php">
+                            <button type="submit" name="export" class="color-danger" value="Export">Export</button>
+                            <!-- <input type="submit" name="export" class="btn btn-success" value="Export" /> -->
+                        </form>
+                    </div>
+                </div>
+                <! ----------------- Evacuees ------------!>
+
+                <div class="analytics-reports">
+                <div class="evacuation-report">
+                    <div class="report-header">
+                        <?php foreach ($center as $c => $cc) : ?>
+                            <h3><?php echo $cc['C_Name'] ?></h3>
+                            <h3><?php echo $cc['C_Address'] ?></h3>
+                            <h3>Evacuees Status Report</h3>
+                        <?php endforeach; ?>
+                    </div>
+                    <div class="report-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Full Name</th>
+                                <th scope="col">Sex</th>
+                                <th scope="col">Age</th>
+                                <th scope="col">Contact_No</th>
+                                <th scope="col">Room ID</th>
+                                <th scope="col">Household_ID</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        foreach ($evacuee as $i => $evacuee2) :
+                        ?>
+                            <tr>
+                            <td scope="row"><?php echo $evacuee2['Evacuee_ID'] ?></td>
+                            <td><?php echo $evacuee2['Full_Name'];?></td>
+                            <td><?php echo $evacuee2['Sex'] ?></td>
+                            <td><?php echo $evacuee2['Age'] ?></td>
+                            <td><?php echo $evacuee2['Contact_No'] ?></td>
+                            <td><?php echo $evacuee2['Room_ID'] ?></td>
+                            <td><?php echo $evacuee2['Household_ID'] ?></td>
+                            <td><?php echo $evacuee2['Evacuation_Status'] ?></td>
+                            </tr>
+                        <?php
+                        endforeach;
+                        ?>                    
+                        </tbody>
+                    </table>
+                    </div>
+                    <div class="report-footer">
+                        <form method="post" action="export_evacuees.php">
                             <button type="submit" name="export" class="color-danger" value="Export">Export</button>
                             <!-- <input type="submit" name="export" class="btn btn-success" value="Export" /> -->
                         </form>
                     </div>
                 </div>
 
+                <! ----------------- Items ------------!>
+                <div class="analytics-reports">
                 <div class="evacuation-report">
                     <div class="report-header">
                         <?php foreach ($center as $c => $cc) : ?>
@@ -194,52 +237,33 @@ $result = mysqli_query($connect, $sql);
                     <table>
                         <thead>
                             <tr>
-                                <th>Date</th>
-                                <th>Donors</th>
-                                <th>Item</th>
-                                <th>Quantity</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Item_Name</th>
+                                <th scope="col">Item_Quantity</th>
                             </tr>
                         </thead>
                         <tbody>
+                        <?php
+                        foreach ($itemanal as $i => $ia) :
+                        ?>
                             <tr>
-                                <td>01/02/2022</td>
-                                <td>Red Cross</td>
-                                <td>Noodles</td>
-                                <td>300</td>
+                            <td scope="row"><?php echo $ia['Date'] ?></td>
+                            <td><?php echo $ia['I_Name'];?></td>
+                            <td><?php echo $ia['I_Quantity'] ?></td>
                             </tr>
-                            <tr>
-                                <td>01/03/2022</td>
-                                <td>DSWD</td>
-                                <td>Rice</td>
-                                <td>200</td>
-                            </tr>
-                            <tr>
-                                <td>01/03/2022</td>
-                                <td>Angat Buhay</td>
-                                <td>Sardines</td>
-                                <td>400</td>
-                            </tr>
-                            <tr>
-                                <td>01/03/2022</td>
-                                <td>Angat Buhay</td>
-                                <td>Alaska</td>
-                                <td>580</td>
-                            </tr>
-                            <tr>
-                                <td>01/03/2022</td>
-                                <td>Angat Buhay</td>
-                                <td>Meat Loaf</td>
-                                <td>320</td>
-                            </tr>
-                                                
+                        <?php
+                        endforeach;
+                        ?>                    
                         </tbody>
                     </table>
                     </div>
                     <div class="report-footer">
-                        <button>Export</button>
+                        <form method="post" action="export_items.php">
+                            <button type="submit" name="export" class="color-danger" value="Export">Export</button>
+                            <!-- <input type="submit" name="export" class="btn btn-success" value="Export" /> -->
+                        </form>
                     </div>
                 </div>
-            </div>
             </main>
         <!===================== END OF MAIN =======================!>
         <!===================== START OF RIGHT =======================!>
